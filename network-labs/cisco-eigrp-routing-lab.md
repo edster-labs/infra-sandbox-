@@ -1,7 +1,7 @@
 <img width="2345" height="1310" alt="EIGRP" src="https://github.com/user-attachments/assets/bb4cadf5-ef1f-4194-aa63-28feb68be50a" />
 
 # Lab: EIGRP Multi-Router Architecture & Path Manipulation
-
+<!-- toc -->
 ## 🎯 Core Concepts to Validate
 * **Autonomous System (AS) Alignment:** EIGRP routers will strictly form neighbor relationships only if their AS numbers match identically (`router eigrp 10`).
 * **The Composite Metric:** EIGRP calculates paths using an advanced algebraic formula based on path **Bandwidth** and **Delay** parameters rather than simple hop counts, guaranteeing selection of the optimal physical circuit route.
@@ -36,4 +36,4 @@ show ip eigrp neighbors      ! Verify neighbor engine discovery states
 show ip eigrp topology       ! Inspect Successor and Feasible Successor backup trees
 show ip route eigrp          ! View active EIGRP injects running in the primary RIB
 ```
-	
+<!-- endtoc -->	
