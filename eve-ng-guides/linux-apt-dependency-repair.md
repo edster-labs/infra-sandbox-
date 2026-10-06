@@ -1,5 +1,5 @@
 # Linux System Administration: Repairing Corrupted APT Package Lists
-
+<!-- toc -->
 ## 🎯 Problem Statement
 System package adjustments drop or freeze with syntax configuration errors due to corrupted localized metadata lists during updates or VM movement processes.
 
@@ -24,3 +24,4 @@ Confirm the system tracking databases are functioning normally without error cod
 ```bash
 apt-cache policy systemd
 ```
+<!-- endtoc -->
