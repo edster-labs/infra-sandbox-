@@ -1,3 +1,5 @@
+<img width="2595" height="1410" alt="RIPv2" src="https://github.com/user-attachments/assets/bd825975-3724-46ab-826e-c4f239727b2b" />
+
 # Lab: RIPv2 Dynamic Routing & Passive Interface Optimization
 
 ## 🎯 Topology Overview & Objective
