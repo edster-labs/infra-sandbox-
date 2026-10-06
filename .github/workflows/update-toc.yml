@@ -1,0 +1,30 @@
+name: Generate Table of Contents
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+      - 'sec-notebook/layer-*/*.md'
+
+jobs:
+  toc:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Calculate and Rebuild Markdown TOC
+        uses: technote-space/toc-generator@v4
+        with:
+          MAX_LEVEL: 3
+          TOC_TITLE: ""
+          TARGET_PATHS: 'README.md'
+
+      - name: Commit Updated Dashboard Layout
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automation: Auto-generate matrix navigation paths [skip ci]"
