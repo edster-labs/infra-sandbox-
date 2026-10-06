@@ -1,5 +1,5 @@
 # DDoS Attack Classifications by OSI Layer
-
+<!-- toc -->
 | OSI Layer | Attack Type | Category | Primary Target / Method | Mitigation & Countermeasures |
 | :--- | :--- | :--- | :--- | :--- |
 | **Layer 7**<br>*(Application)* | **HTTP(S) Flood** | Application | Floods web servers with GET/POST requests to exhaust CPU/RAM/DB. | **WAF** (Web Application Firewall), rate limiting, CAPTCHAs, behavioral analytics. |
@@ -15,3 +15,4 @@
 | | **ARP Spoofing / Poisoning** | Protocol | Associates the attacker's MAC address with the IP address of a legitimate target/gateway. | **DAI (Dynamic ARP Inspection)**, pairing with DHCP Snooping, static ARP entries. |
 | | **Rogue DHCP / Starvation** | Protocol | Spoofs a DHCP server or exhausts the DHCP IP pool to disrupt network operations. | **DHCP Snooping** (trusting only specific uplink ports), Port Security. |
 | | **802.1X Bypass / EAPOL** | Protocol | Attempts to spoof authorized MACs or flood EAPOL packets to degrade network access control. | **802.1X Implementation**, MAC Authentication Bypass (MAB) strings, strict re-authentication timers. |
+<!-- endtoc -->
