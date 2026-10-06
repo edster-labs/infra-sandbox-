@@ -1,4 +1,4 @@
-![OSPFv2 Single Area Topology](ospfv2-single-area.png)
+<img width="2244" height="1498" alt="ospfv2-single-area" src="https://github.com/user-attachments/assets/f4e68a6b-c02d-4156-8f98-d403e51e4a91" />
 
 # Lab: OSPFv2 Single-Area Core Topology Validation
 
