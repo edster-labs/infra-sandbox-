@@ -1,7 +1,7 @@
 <img width="2595" height="1410" alt="RIPv2" src="https://github.com/user-attachments/assets/bd825975-3724-46ab-826e-c4f239727b2b" />
 
 # Lab: RIPv2 Dynamic Routing & Passive Interface Optimization
-
+<!-- toc -->
 ## 🎯 Topology Overview & Objective
 Deploy Routing Information Protocol version 2 (RIPv2) across a 4-router core ring infrastructure to achieve full end-to-end connectivity across all isolated edge LAN segments while securing user access layers.
 
@@ -50,3 +50,4 @@ R4(config-router)# network 172.16.0.0
 ## ⚠️ Operational Gotchas & Best Practices
 * **The `no auto-summary` Requirement:** Classless routing updates in RIPv2 will be broken by default if auto-summary is left enabled, causing the routers to advertise classful boundaries (`/16` and `/24`) instead of precise subnets.
 * **Security Scoping (`passive-interface`):** Always configure user-facing interfaces (LAN subnets leading to endpoints) as passive. This blocks the router from broadcasting multicast updates out onto user ports, saving bandwidth and preventing rogue routing advertisements.
+<!-- endtoc -->
