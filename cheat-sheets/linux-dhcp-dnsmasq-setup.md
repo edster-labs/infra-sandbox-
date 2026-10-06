@@ -1,5 +1,5 @@
 # Linux Network Administration: Building Isolated DHCP Core Nodes
-
+<!-- toc -->
 ## 🎯 Purpose
 Quick reference command sheets for deploying localized lightweight DHCP address engines (`dnsmasq`) inside private network topologies where no cloud interface exits match.
 
@@ -54,3 +54,4 @@ network:
         stp: false      # Netplan equivalent of bridge_stp off
         forward-delay: 0 # Netplan equivalent of bridge_fd 0
 ```
+<!-- endtoc -->
