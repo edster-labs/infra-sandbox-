@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'README.md'
-      - 'sec-notebook/layer-*/*.md'
+      - 'sec-notebook/**'
 
 jobs:
   toc:
