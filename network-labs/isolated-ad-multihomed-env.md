@@ -1,5 +1,5 @@
 # Project: Isolated Active Directory Multi-Homed Lab Environment
-
+<!-- toc -->
 ## 🎯 Project Overview & Objective
 Design and implement a highly secure, isolated "Black Site" Active Directory lab environment. The sandbox architecture ensures target virtual machines (VMs) are mathematically isolated from the physical host network layer while retaining controlled, outbound internet access via a secondary multi-homed NAT interface for updates and testing tools.
 
@@ -93,3 +93,4 @@ dig @192.168.1.2 lab.local     # Deep Linux dig query
 
 ## ⚠️ Known Gotchas & Troubleshooting Realities
 * **The Kali DNS Overwrite Issue:** If the Kali Linux machine suddenly loses standard internet access or fails to look up external domains, the local system system tools have likely allowed the NAT DHCP server to overwrite name lookups. Always execute `cat /etc/resolv.conf` first to confirm your internal Windows Server (`192.168.1.2`) remains active at the top of the file mapping list.
+<!-- endtoc -->
