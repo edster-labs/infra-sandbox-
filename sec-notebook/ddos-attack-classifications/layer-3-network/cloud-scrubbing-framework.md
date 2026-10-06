@@ -1,5 +1,9 @@
-# Layer 3: Cloud Scrubbing Mechanics & Deployment Models
+# Layer 3: Cloud Scrubbing Mechanics & Deployment Models (Routing Specific)
 <!-- toc -->
+Important note: 
+The ingress entry point uses Layer 3 BGP routing to pull the traffic into the datacenter, but once that traffic crosses the threshold of the scrubbing center, the engineering changes completely. The platform strips away the layers of the packet, using deep packet inspection (DPI), SSL decryption, and behavior metrics to inspect the raw HTTP application data at Layer 7.
+These other methods should be discussed in their respective layers.
+
 ## How Cloud Scrubbing Works
 The process typically follows these four stages:
 
@@ -27,4 +31,5 @@ While some providers offer "emergency" onboarding during an active attack, it is
 * **BGP Flowspec:** A modern BGP extension that allows for more granular traffic filtering (e.g., redirecting only specific protocols or ports) rather than all traffic for an IP.
 * **Latency:** The trade-off—rerouting traffic through scrubbing centers adds some latency, but prevents a total outage.
 * **Volumetric vs. Application Layer:** Scrubbing is excellent for volumetric attacks (flooding your bandwidth), but may require SSL/TLS decryption keys to effectively scrub "application-layer" (Layer 7) attacks.
+
 <!-- endtoc -->
