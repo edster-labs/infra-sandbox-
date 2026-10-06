@@ -1,7 +1,7 @@
 <img width="2244" height="1498" alt="ospfv2-single-area" src="https://github.com/user-attachments/assets/f4e68a6b-c02d-4156-8f98-d403e51e4a91" />
 
 # Case Study: OSPFv2 Single-Area Core Topology & VLSM Design
-
+<!-- toc -->
 ## 🎯 Topology Map
 <!-- DRAG AND DROP YOUR TOPOLOGY IMAGE DIRECTLY RIGHT HERE -->
 
@@ -101,3 +101,4 @@ R1#ping 172.20.15.134  (R3 Interface Link)     -> !!!!! (100% Success Rate)
 R1#ping 172.20.14.11   (Managers Core Network)  -> !!!!! (100% Success Rate)
 R1#ping 172.20.12.11   (Users Endpoint Core)    -> !!!!! (100% Success Rate)
 ```
+<!-- endtoc -->
