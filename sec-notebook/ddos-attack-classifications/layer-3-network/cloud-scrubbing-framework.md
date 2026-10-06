@@ -1,6 +1,7 @@
 # Layer 3: Cloud Scrubbing Mechanics & Deployment Models (Routing Specific)
 <!-- toc -->
-Important note: 
+<a name="important-note"></a>
+**Important note:**  
 The ingress entry point uses Layer 3 BGP routing to pull the traffic into the datacenter, but once that traffic crosses the threshold of the scrubbing center, the engineering changes completely. The platform strips away the layers of the packet, using deep packet inspection (DPI), SSL decryption, and behavior metrics to inspect the raw HTTP application data at Layer 7.
 These other methods should be discussed in their respective layers.
 
