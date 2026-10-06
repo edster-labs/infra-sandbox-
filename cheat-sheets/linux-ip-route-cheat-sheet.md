@@ -1,5 +1,5 @@
 # Linux Network Administration: Interface IP & Route Management
-
+<!-- toc -->
 ## 🎯 Purpose
 Quick reference command guide sheet for manually inspecting, appending, stack-building, and tearing down IP addresses and gateway configurations inside Linux systems.
 
@@ -55,3 +55,4 @@ ip a
 # View active system kernel routing table structures
 ip route show
 ```
+<!-- endtoc -->
