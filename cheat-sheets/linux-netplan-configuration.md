@@ -1,5 +1,5 @@
 # Linux Netplan Interface Configuration
-
+<!-- toc -->
 ## 🎯 Objective & Environment
 *   **Goal:** Add multiple network interfaces (`ens3`, `ens4`, `ens5`) to a Linux system, setting up a mix of DHCP and a static IP with default routing.
 *   **Target File:** `/etc/netplan/01-network-manager-all.yaml` (Filename may vary depending on the distribution).
@@ -43,3 +43,4 @@ After saving the changes, apply and test the configuration:
 ## ⚠️ Known Issues & Operational Best Practices
 *   **The Boot Delay Gotcha:** Always append `optional: true` to any interface that is not strictly mandatory for core system functionality. If omitted, Ubuntu will flag the interface as critical and force a **2-minute boot delay** while waiting for a link status that might never come online.
 *   **YAML Indentation Warning:** YAML is strictly sensitive to spacing. Never use the `Tab` key; always use regular spaces for indentation, otherwise Netplan will throw a parsing error during application.
+<!-- endtoc -->
