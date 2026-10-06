@@ -1,5 +1,5 @@
 # Cisco IOSvL2 (QEMU Image) Appliance Deployment Setup
-
+<!-- toc -->
 ## 🎯 Purpose
 Import official Cisco IOSv / IOSvL2 `.qcow2` virtual switch images into the QEMU layer of EVE-NG, resolving boot loop issues through image naming constraints.
 
@@ -33,3 +33,4 @@ Return to your active EVE-NG terminal SSH session window and execute the securit
 
 ## 🔍 Validation & Verification
 Power on your virtual switches within the EVE-NG browser graphics interface canvas. Open a console session to verify the node boots directly past the basic hardware initialization checks into the Cisco IOS command line terminal without getting caught in a perpetual boot loop.
+<!-- endtoc -->
