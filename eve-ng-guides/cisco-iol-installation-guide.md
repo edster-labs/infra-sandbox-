@@ -1,5 +1,5 @@
 # Cisco IOS-on-Linux (IOL/IOU) Images & Licensing Integration
-
+<!-- toc -->
 ## 🎯 Objective
 Install Cisco IOL Layer 3 binaries into the EVE-NG filesystem and generate a mathematically valid license validation key bound to the local host footprint.
 
@@ -64,3 +64,4 @@ cat /opt/unetlab/addons/iol/bin/iourc
 [license]
 eve-ng = 0000000000052215;
 ```
+<!-- endtoc -->
