@@ -1,5 +1,5 @@
 # Resolving Linux Networking Service Deadlocks & Phantom Bridges
-
+<!-- toc -->
 ## 🎯 Symptoms & Diagnostics
 When editing `/etc/network/interfaces` or modifying live vNIC layouts, restarting the network service fails:
 ```bash
@@ -42,3 +42,4 @@ During the initialization phase, the subsystem hooks will parse the layout clean
 ```bash
 brctl show pnet2
 ```
+<!-- endtoc -->
