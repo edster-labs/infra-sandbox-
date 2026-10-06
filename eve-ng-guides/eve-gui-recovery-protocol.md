@@ -1,5 +1,5 @@
 # Diagnostic & Recovery Protocol for EVE-NG GUI Login Failures
-
+<!-- toc -->
 ## 🎯 Problem Statement
 The EVE-NG web browser dashboard rejects administrative authentication attempts or freezes on the login splash screen, frequently caused by disk exhaustion or database corruption following an ungraceful shutdown.
 
@@ -38,3 +38,4 @@ echo "INSERT INTO users VALUES ('admin',NULL,'root@localhost',-1,'Eve-NGAdminist
 
 ### Step 4: Browser Session Purge
 Always use an **Incognito / Private Window** or clear your browser's history and active cookies after completing these database steps to prevent expired local session state tokens from causing false authentication failures.
+<!-- endtoc -->
