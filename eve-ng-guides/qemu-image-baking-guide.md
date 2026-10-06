@@ -1,5 +1,5 @@
 # QEMU Master Image Building & Snapshot Commit Process
-
+<!-- toc -->
 ## 🎯 Purpose
 Build clean master operating system templates (Lubuntu, pfSense, Cisco IOSvL2) within the QEMU environment, and commit active disk changes back to base configurations.
 
@@ -66,3 +66,4 @@ Commit the temporary database data structures backward directly into the master 
    ```bash
    /opt/unetlab/wrappers/unl_wrapper -a fixpermissions
    ```
+<!-- endtoc -->
