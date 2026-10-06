@@ -1,9 +1,8 @@
 # Layer 3: Cloud Scrubbing Mechanics & Deployment Models (Routing Specific)
 <!-- toc -->
 <a name="important-note"></a>
-**Important note:**  
-The ingress entry point uses Layer 3 BGP routing to pull the traffic into the datacenter, but once that traffic crosses the threshold of the scrubbing center, the engineering changes completely. The platform strips away the layers of the packet, using deep packet inspection (DPI), SSL decryption, and behavior metrics to inspect the raw HTTP application data at Layer 7.
-These other methods should be discussed in their respective layers.
+**Important note:** The ingress entry point uses Layer 3 BGP routing to pull the traffic into the datacenter, but once that traffic crosses the threshold of the scrubbing center, the engineering changes completely. High-capacity Layer 4 firewalls instantly drop the bulk protocol floods (like massive SYN/UDP spikes) to protect state tables. Only the clean-looking TCP traffic is passed up to Layer 7 proxy nodes, where deep packet inspection (DPI), SSL decryption, and behavioral WAF tests parse the raw HTTP data. These methods are detailed in their respective layer profiles.
+
 
 ## How Cloud Scrubbing Works
 The process typically follows these four stages:
