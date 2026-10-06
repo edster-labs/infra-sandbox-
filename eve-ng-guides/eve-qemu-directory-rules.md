@@ -1,5 +1,5 @@
 # EVE-NG QEMU Appliance Directory Strategy & Image Provisioning
-
+<!-- toc -->
 ## 🎯 Purpose
 Document the mandatory directory structures and file-naming rules required by the EVE-NG QEMU engine to systematically recognize Cisco switches, routers, and pfSense appliances.
 
@@ -53,3 +53,4 @@ Every time an image is modified, added, or renamed, you must trigger the native 
 ```
 
 *💡 **The Architecture Golden Rule:** Ensure that `Intel VT-x/EPT` or `AMD-V/RVI` nested hardware virtualization toggles are explicitly enabled inside your parent VMware Workstation system processor properties screen. If disabled, QEMU engine nodes will lock up or fail to process commands.*
+<!-- endtoc -->
