@@ -1,3 +1,5 @@
+<img width="2345" height="1310" alt="EIGRP" src="https://github.com/user-attachments/assets/bb4cadf5-ef1f-4194-aa63-28feb68be50a" />
+
 # Lab: EIGRP Multi-Router Architecture & Path Manipulation
 
 ## 🎯 Core Concepts to Validate
