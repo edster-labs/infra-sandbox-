@@ -1,5 +1,5 @@
 # EVE-NG to VMware Interface Matrix & Topology Bridging
-
+<!-- toc -->
 ## 🎯 Objective & Environment
 * **Purpose:** Document the exact mapping between EVE-NG virtual clouds, physical VMware adapters, Linux interfaces, and network subnets.
 * **Environment:** EVE-NG Community VM deployed on VMware Workstation.
@@ -76,3 +76,4 @@ ed@Lubuntu-PC:~\$ ip a
 5: ens6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     inet 192.168.88.131/24 metric 100 brd 192.168.88.255 scope global dynamic ens6
 ```
+<!-- endtoc -->
