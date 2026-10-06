@@ -1,3 +1,5 @@
+![OSPFv2 Single Area Topology](ospfv2-single-area.png)
+
 # Lab: OSPFv2 Single-Area Core Topology Validation
 
 ## 🎯 Architecture Overview & Verification Blueprint
