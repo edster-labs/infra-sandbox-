@@ -1,5 +1,5 @@
 # Project: Analyzing Cryptographic TLS Handshake Failures & Cipher Selection
-
+<!-- toc -->
 ## 🎯 Lab Scenario & Project Overview
 * **Objective:** Diagnose why an active network communication link between a Kali Linux client probe and a Windows 10 IIS FTP/Web target server defaulted to an archaic cipher profile, despite both nodes supporting modern secure encryption standards.
 * **Target Node IP:** `192.168.1.10` (Windows 10 Pro Environment)
@@ -70,3 +70,4 @@ The Kali client offered the ultimate cryptographic profile (`TLS_AES_256_GCM_SHA
 1. **Self-Signed RSA Certificate Constraints:** The target IIS server was configured using a basic, self-signed RSA signature key. 
 2. **Elliptic Curve Ephemeral (ECDHE) Blockages:** Modern forward-secrecy cipher options (like the top 16 Elliptic Curve options) require highly specific digital signature handshakes to safely compute parameters. 
 3. **The Fail-Safe Fallback:** Because the server's certificate was structurally missing key extensions or lacked perfect geometric compatibility with the client's elliptic curve parameters, the server played it safe. It bypassed the superior ciphers and dropped down to the highest available **Static RSA Cipher** guaranteed to establish data exchange using a basic certificate structure.
+<!-- endtoc -->
