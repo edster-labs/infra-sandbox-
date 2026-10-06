@@ -1,5 +1,5 @@
 # Modifying Default EVE-NG Node Templates & Hostnames
-
+<!-- toc -->
 ## 🎯 Objective & Directory Context
 * **Purpose:** Access and modify the native EVE-NG hardware configuration templates to change default settings, interface counts, or base names for virtual nodes.
 * **Directory Root:** `/opt/unetlab/html/templates/`
@@ -36,3 +36,4 @@ To change the default settings (like RAM allocations, naming prefixes, or interf
 sudo nano viosl2.yml
 ```
 *⚠️ **Operational Warning:** Ensure you maintain strict YAML syntax indentation spacing when saving changes to these system templates to avoid breaking the node instantiation engine inside the EVE web browser console.*
+<!-- endtoc -->
