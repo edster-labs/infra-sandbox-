@@ -1,5 +1,5 @@
 # Cryptographic Reference: Parsing TLS 1.2 vs. TLS 1.3 Ciphers
-
+<!-- toc -->
 ## 🎯 Architectural Variations
 When reading packet capture sessions or auditing network assets, you can instantly distinguish a **TLS 1.2** architecture from a modern **TLS 1.3** engine layout simply by looking at the composition of their cipher suite naming strings.
 
@@ -29,3 +29,4 @@ Because TLS 1.3 drops legacy, insecure key-exchange mechanisms, it completely re
 | :--- | :--- | :--- | :--- |
 | **TLS 1.2** | High (Includes Exchange & Signatures) | Configured manually during initial negotiation setup | `TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384` |
 | **TLS 1.3** | Low (Streamlined & Hardened) | Handled automatically via built-in system hooks | `TLS_AES_256_GCM_SHA384` |
+<!-- endtoc -->
