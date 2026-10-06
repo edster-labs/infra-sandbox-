@@ -1,5 +1,5 @@
 # Technical Analysis: WPA3 SAE (Dragonfly) & The 4-Way Handshake
-
+<!-- toc -->
 ## 🎯 Conceptual Architecture
 In modern WPA3-Personal Wi-Fi environments, client authentication and packet data protection are split into two sequential steps: **SAE (Key Negotiation)** followed by the **4-Way Handshake (Session Deployment)**.
 
@@ -61,3 +61,4 @@ Step 2: [AP] <────────── SNonce + MIC (Signed via KCK) ─�
 Step 3: [AP] ────────── MIC + GTK (Encrypted via KEK) ──────────> [Phone]
         * AP passes the group wireless keys. Phone checks the MIC to verify the AP is real.
 ```
+<!-- endtoc -->
