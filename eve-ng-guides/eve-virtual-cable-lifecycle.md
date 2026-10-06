@@ -1,5 +1,5 @@
 # Technical Analysis: The Lifecycle of a Virtual Cable Interface
-
+<!-- toc -->
 ## 🎯 Conceptual Overview
 When you link two nodes inside the EVE-NG graphical interface canvas, you are not simply drawing a picture—you are writing explicit instructions that tell the underlying Linux kernel to build physical and logical software interfaces on the fly.
 
@@ -48,3 +48,4 @@ To tweak the baseline resource configurations (like changing default RAM size, a
 ```bash
 sudo nano /opt/unetlab/html/templates/amd/linux.yml
 ```
+<!-- endtoc -->
