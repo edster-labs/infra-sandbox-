@@ -1,5 +1,5 @@
 # Reference: Wireless Security Frameworks & Encryption Engines
-
+<!-- toc -->
 ## 🎯 The Holy Trinity of Network Security Architecture
 Modern, high-security infrastructure design relies on a precise three-part cryptographic blueprint to defend data over the air:
 *   🔒 **RSA (Asymmetric) provides the TRUST:** Confirms the identity of the server/gateway (e.g., verifying a RADIUS server's certificate within an EAP-TLS handshake to prevent rogue access points).
@@ -36,3 +36,4 @@ You can read the underlying architectural mechanics of an encrypted session simp
 ### 3. WPA3 (Ultra-Lean Protocol Target)
 * **Example Name:** `AES-GCMP-256`
 * **Nomenclature Logic:** Lists *only* the data muscle encryption format. The control layer handles authentication via Simultaneous Authentication of Equals (SAE/Dragonfly) behind the scenes.
+<!-- endtoc -->
