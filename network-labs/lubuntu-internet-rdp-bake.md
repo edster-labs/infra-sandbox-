@@ -1,5 +1,5 @@
 # Deploying High-Performance RDP Access on Isolated Linux Lab Nodes
-
+<!-- toc -->
 ## 🎯 Lab Scenario & Objectives
 * **Goal:** Bridge an isolated Lubuntu workstation node to the outside Internet to download tools, install a high-performance Remote Desktop Protocol (xRDP) server workspace, and resolve system crashes during the QEMU hard disk baking phase.
 * **Result:** Enables a lag-free, high-resolution remote window connection from a physical Windows host desktop down into a virtual lab workstation node.
@@ -55,3 +55,4 @@ Aborted (core dumped)
 1. Right-click the workstation icon inside the web canvas display window and click **Wipe** to clear out the temporary tracking cache directory folders.
 2. On your host physical Windows PC, open the native Remote Desktop Connection dashboard utility (shortcut: press `Win + R` -> type **`mstsc`** -> press Enter).
 3. Input the destination address parameters (`192.168.100.222`) and establish a secure, full-resolution session window into the node.
+<!-- endtoc -->
