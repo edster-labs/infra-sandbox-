@@ -1,5 +1,5 @@
 # Windows PowerShell Advanced NetFirewall Configurations
-
+<!-- toc -->
 ## 🎯 Purpose
 Quick reference command directory for provision, auditing, and deleting custom security boundary rules inside Windows 10/11 Pro lab endpoints.
 
@@ -63,3 +63,4 @@ Clear the space instantly by dropping the entire custom group asset tree:
 ```powershell
 Remove-NetFirewallRule -Group "LAB_INFRASTRUCTURE"
 ```
+<!-- endtoc -->
