@@ -21,3 +21,5 @@ In a large scale attack, these high-overhead HTTP inspections are never done on 
 *   **Layer 4:** High-throughput firewalls immediately drop the volumetric SYN/UDP floods.
 *   **Layer 7:** Only the clean-looking TCP traffic is passed to the WAF proxy nodes for deep packet inspection, protecting the origin web app server from collapsing.
 
+
+
