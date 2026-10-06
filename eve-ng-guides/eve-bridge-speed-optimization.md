@@ -1,5 +1,5 @@
 # Tuning EVE-NG Kernel Bridges & Fixing DHCP Blackouts
-
+<!-- toc -->
 ## 🎯 Operational Symptoms & Root Cause
 By default, standard Linux bridge structures implement a **15-second Spanning Tree Protocol (STP) listening/learning timeout delay** whenever an interface state transitions to "up". During system boot, this latency creates a race condition that blocks virtual nodes from acquiring DHCP leases from external network infrastructure on time.
 
@@ -74,3 +74,4 @@ cat /var/lib/dhcp/dhclient.pnet0.leases
 If your parent physical Windows laptop is connected via **Wi-Fi**, standard wireless network cards will block or drop data packets carrying nested MAC addresses generated inside the virtual machines. 
 
 **The Fix:** If connectivity fails after a virtual network adapter adjustment, open your home router administrative portal (`http://192.168.100.1`), renew the virtual MAC address inside the `.vmx` configuration file, and restart the host router to flush out stuck Address Resolution Protocol (ARP) tables.
+<!-- endtoc -->
