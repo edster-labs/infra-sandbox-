@@ -1,5 +1,5 @@
 # Project: The Inception Bridge & Isolated Routing Matrix
-
+<!-- toc -->
 ## 🎯 Project Overview & Objective
 Demonstrate proper multi-tier enterprise routing architecture by creating an isolated lab environment ("Hidden Subnet Island") inside EVE-NG, and proving hypervisor network translation by establishing end-to-end communication from the local physical host workstation down to a hidden Linux endpoint node.
 
@@ -79,3 +79,4 @@ Perform an **Inception Ping** from your real Windows command prompt window out t
 C:\Windows\system32> ping 10.10.10.50
 ```
 *Verification Result: ICMP replies confirm packets are actively traversing the hypervisor VMnet layer, bridging through the Linux kernel interfaces, hopping the virtual Cisco switch engine, and hitting the targeted endpoint successfully.*
+<!-- endtoc -->
