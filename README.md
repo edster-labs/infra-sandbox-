@@ -1,10 +1,10 @@
-# 🛡️ DDoS & Network Security Lab Sandbox
+# 🏗️ Infra Sandbox
 
-Welcome to the infrastructure security notebook. This dashboard aggregates live deep dives, configuration files, and verification logs across the OSI model layers.
+Welcome to the master infrastructure lab and sandbox repository. This environment serves as a centralized, living engineering notebook tracking configurations, network deployments, and security validations.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## 📁 Repository Directory
 
-
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+* 📑 **Cheat Sheets:** [Go to Reference Guides](./cheat-sheets/)
+* 📡 **EVE-NG Guides:** [Go to Deployment Documentation](./eve-ng-guides/)
+* 💻 **Network Labs:** [Go to Lab Topologies](./network-labs/)
+* 🛡️ **Security Notebook:** [Go to Security Matrix](./sec-notebook/README.md)
