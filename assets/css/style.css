@@ -1,16 +1,34 @@
-/* Force all images to maintain their proper dimensions without stretching */
 /* Custom Image Patch: Fixes stretching while preserving the default theme centering */
 img {
-    max-width: 80%;
+    max-width: 100%;
     height: auto !important;
     object-fit: contain;
     display: block;
-    margin: 20px auto; /* Centers the images themselves within the layout area */
+    margin: 20px auto;
 }
 
 /* Ensure the layout container remains cleanly aligned with your default Jekyll theme settings */
 .container, .wrapper, #main_content, main {
     margin-left: auto !important;
     margin-right: auto !important;
-    text-align: left; /* Keeps text layout natural to read while the container itself stays centered on the display screen */
+    text-align: left;
+}
+
+/* MOBILE TOUCH OPTIMIZATION PATCH */
+
+/* 1. Add general paragraph and text line-height breathing room */
+p, body, td, th {
+    line-height: 1.6 !important;
+}
+
+/* 2. Increase spacing explicitly for all bulleted list items (your menus) */
+li {
+    margin-bottom: 12px !important; /* Pushes the next item down horizontally */
+    line-height: 1.5 !important;
+}
+
+/* 3. Make the actual text links inside lists slightly larger target containers */
+li a {
+    display: inline-block; /* Allows the link area to scale outward */
+    padding: 6px 0;        /* Creates an invisible extra top and bottom tap boundary */
 }
