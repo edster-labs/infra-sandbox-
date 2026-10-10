@@ -71,5 +71,5 @@ def extract_markdown_title(file_path):
 ## 💡 Architectural Benefits
 
 1. **Zero Administrative Overhead:** Adding new documentation, lab parameters, or system writeups requires no index alterations. The pipeline automatically manages the links.
-2. **Unified Presentation Profile:** The file links work interchangeably inside the native GitHub code review browser interface and across your live public internet portfolio domain.
+2. **Unified Presentation Profile:** The file links work interchangeably inside the native GitHub code review browser interface and across the live public internet portfolio domain.
 3. **No External Dependencies:** The system utilizes native workflows and pure Python standard library packages, ensuring security compliance and fast container build execution speeds.
