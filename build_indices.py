@@ -2,7 +2,7 @@ import os
 import re
 
 # Directories to index automatically
-TARGET_DIRS = ["cheat-sheets", "eve-ng-guides", "network-labs", "sec-notebook"]
+TARGET_DIRS = ["cheat-sheets", "eve-ng-guides", "network-labs", "sec-notebook", "system-architecture"]
 
 def extract_markdown_title(file_path):
     """Extracts the first H1 header found in a markdown file to use as anchor text."""
