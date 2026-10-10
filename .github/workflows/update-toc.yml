@@ -23,6 +23,7 @@ jobs:
           MAX_LEVEL: 3
           TOC_TITLE: ""
           TARGET_PATHS: 'README.md'
+          MODE: github
 
       - name: Commit Updated Dashboard Layout
         uses: stefanzweifel/git-auto-commit-action@v5
