@@ -127,17 +127,30 @@ table th:nth-child(3), table td:nth-child(3) {
     white-space: nowrap !important;
 }
 /* ==========================================
-   🧹 HEADER NAVIGATION CLEANUP PATCH
+   🧹 COMPLETE HEADER NAVIGATION CLEANUP PATCH
    ========================================== */
 
-/* Hide the generic auto-generated Jekyll repository name link at the top of the page */
-header h1, header a, .site-header, #project_title {
+/* Target every possible layout element name used by Jekyll themes for the top title link */
+header h1, 
+header a, 
+.site-header, 
+#project_title, 
+.project-name, 
+#site-header,
+.title,
+body > header h1 a {
     display: none !important;
-}
-
-/* Ensure the header container area drops its extra blank height padding entirely */
-header {
+    visibility: hidden !important;
+    height: 0 !important;
     padding: 0 !important;
-    margin-bottom: 0 !important;
+    margin: 0 !important;
 }
 
+/* Collapse the top banner area entirely so it doesn't leave an empty blank space */
+header, .header-inner {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    border: none !important;
+}
