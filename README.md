@@ -1,4 +1,3 @@
-# [🏗️ Infra Sandbox](/)
 
 Welcome to the master infrastructure lab and sandbox repository. This environment serves as a centralized, living engineering notebook tracking configurations, network deployments, and security validations.
 
