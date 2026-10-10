@@ -89,3 +89,25 @@ tr:hover {
         overflow-x: auto !important; /* Permits seamless sideways swiping on compact mobile screen viewports */
     }
 }
+/* ==========================================
+   🔗 HIGH-CONTRAST TABLE LINK VISIBILITY PATCH
+   ========================================== */
+
+/* Target only links that reside explicitly within your data table cells */
+td a {
+    color: #38bdf8 !important;         /* Changes the text to a bright, radiant neon sky blue */
+    text-decoration: none !important;  /* Removes the default thin dark underline */
+    font-weight: 600 !important;       /* Makes the font slightly thicker for easier mobile reading */
+    padding: 4px 8px !important;       /* Expands the touch zone container for fat fingers */
+    background-color: rgba(56, 189, 248, 0.1) !important; /* Injects a subtle, glowing background pill shape behind the link text */
+    border-radius: 4px !important;     /* Rounds the corners of the glowing link pill container */
+    transition: all 0.15s ease-in-out !important;
+}
+
+/* Define how the touch/click state behaves when interactive or hovered */
+td a:hover, td a:active {
+    color: #ffffff !important;         /* Flips the text to pure white when tapped or hovered */
+    background-color: #2563eb !important; /* Illuminates the container button background to vibrant royal blue */
+    text-decoration: underline !important;
+}
+
