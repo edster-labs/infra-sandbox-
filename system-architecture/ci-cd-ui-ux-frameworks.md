@@ -11,7 +11,7 @@ This document is a quick reference showing exactly what **CI/CD** and **UI/UX** 
 | Phase | Technical Name | What it Means | How it is Used Here 🛠️ |
 | :---: | :--- | :--- | :--- |
 | **CI** | **Continuous Integration** | The practice of automatically merging and checking new code or files into a shared repository frequently. | When a new lab file is pushed here, the GitHub Actions workflow instantly wakes up, provisions a clean Linux container, and boots up Python to verify the files. |
-| **CD** | **Continuous Deployment** | The practice of automatically releasing and publishing those checked updates directly to the live server. | The second the Python script (`build_indices.py`) finishes indexing the new file, it automatically commits the changes and pushes them live to the public `github.io` web server. |
+| **CD** | **Continuous Deployment** | The practice of automatically releasing and publishing those checked updates directly to the live server. | The second the Python script (`build_indices.py`) finishes indexing the new file, it automatically commits the changes and pushes them live to the public `https://edster-labs.github.io/infra-sandbox-` web server. |
 
 * 🎯 **The Goal:** I only have to focus on writing my labs and documentations. The automation engine handles all the integration and deployment tasks hands-free.
 
