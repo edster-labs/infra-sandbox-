@@ -126,4 +126,18 @@ table th:nth-child(1), table td:nth-child(1),
 table th:nth-child(3), table td:nth-child(3) {
     white-space: nowrap !important;
 }
+/* ==========================================
+   🧹 HEADER NAVIGATION CLEANUP PATCH
+   ========================================== */
+
+/* Hide the generic auto-generated Jekyll repository name link at the top of the page */
+header h1, header a, .site-header, #project_title {
+    display: none !important;
+}
+
+/* Ensure the header container area drops its extra blank height padding entirely */
+header {
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+}
 
