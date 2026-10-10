@@ -3,4 +3,6 @@
 Welcome to the systems architecture handbook. This directory documents the automation configurations, hosting environments, and integration tools powering this lab sandbox.
 
 <!-- toc -->
+## 📁 Automatically Indexed Modules
+* 📄 **[🛠️ Autonomous Documentation Engine & CI/CD Pipeline Architecture](./pipeline-architecture.md)**
 <!-- endtoc -->
