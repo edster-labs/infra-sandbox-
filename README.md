@@ -12,7 +12,7 @@ Welcome to the master infrastructure lab and sandbox repository. This environmen
 
 ## 📁 Repository Directory
 
-* * ⚙️ **System Architecture:** [Go to Infrastructure Blueprints](./system-architecture/)
+* ⚙️ **System Architecture:** [Go to Infrastructure Blueprints](./system-architecture/)
 * 📑 **Cheat Sheets:** [Go to Reference Guides](./cheat-sheets/)
 * 📡 **EVE-NG Guides:** [Go to Deployment Documentation](./eve-ng-guides/)
 * 💻 **Network Labs:** [Go to Lab Topologies](./network-labs/)
