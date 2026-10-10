@@ -4,118 +4,232 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Ethernet Frame & VLAN Tag Visualizer</title>
-    <!-- Tailwind CSS for modern, clean styling -->
-    <script src="https://tailwindcss.com"></script>
-    <!-- React and Babel for component architecture -->
-    <script src="https://unpkg.com" crossorigin></script>
-    <script src="https://unpkg.com" crossorigin></script>
-    <script src="https://unpkg.com"></script>
     <style>
-        @import url('https://googleapis.com');
-        body { font-family: 'Inter', sans-serif; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 960px;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 768px) {
+            .header { flex-direction: row; align-items: center; }
+        }
+        h1 { font-size: 24px; margin: 0; font-weight: 700; color: #ffffff; }
+        p.subtitle { color: #94a3b8; margin: 4px 0 0 0; font-size: 14px; }
+        .toggle-container {
+            display: flex;
+            background-color: #0f172a;
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            margin-top: 12px;
+        }
+        @media (min-width: 768px) { .toggle-container { margin-top: 0; } }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .toggle-btn.active {
+            background-color: #334155;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .toggle-btn.active.tagged { background-color: #2563eb; }
+        .top-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .frame-strip {
+            display: flex;
+            background-color: #020617;
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid #0f172a;
+            gap: 6px;
+            min-height: 80px;
+            margin-bottom: 24px;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.6);
+        }
+        .field {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            min-width: 65px;
+        }
+        .field:hover { transform: scale(1.02); filter: brightness(1.1); }
+        .field.active-hover { border-color: #ffffff; box-shadow: 0 0 0 2px rgba(255,255,255,0.2); }
+        .field-name { font-size: 11px; font-weight: 700; color: #ffffff; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .field-meta { margin-top: 8px; }
+        .field-size { display: block; font-size: 11px; font-weight: 700; background-color: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        .field-bits { display: block; font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 2px; font-family: monospace; }
+        .flex-grow { flex-grow: 1; }
+        .bg-preamble { background-color: #d97706; }
+        .bg-dmac { background-color: #ca8a04; }
+        .bg-smac { background-color: #059669; }
+        .bg-type { background-color: #7c3aed; }
+        .bg-payload { background-color: #475569; }
+        .bg-fcs { background-color: #0891b2; }
+        .bg-tag { background-color: #2563eb; border: 2px solid #60a5fa !important; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4); } 50% { box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.2); } }
+        .details-box {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .details-title { font-size: 18px; font-weight: 700; margin: 0 0 8px 0; display: flex; align-items: center; gap: 12px; }
+        .details-tag-size { font-size: 12px; font-weight: 700; background-color: #334155; padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #cbd5e1; border: 1px solid #475569; }
+        .details-desc { font-size: 14px; color: #cbd5e1; margin: 0; line-height: 1.6; }
+        .footer-note { margin-top: 24px; border-top: 1px solid rgba(51, 65, 85, 0.4); padding-top: 16px; display: flex; gap: 12px; font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        .footer-note strong { color: #f1f5f9; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div id="root" class="w-full max-w-5xl"></div>
+<div class="container">
+    <div class="header">
+        <div>
+            <h1>🌐 Ethernet Frame Layer-2 Shift Visualizer</h1>
+            <p class="subtitle">Compare a standard Ethernet frame with an 802.1Q tagged frame to see how fields shift safely on the wire.</p>
+        </div>
+        <div class="toggle-container">
+            <button id="btn-standard" class="toggle-btn active" onclick="setTaggedMode(false)">Standard Frame</button>
+            <button id="btn-tagged" class="toggle-btn" onclick="setTaggedMode(true)">802.1Q Tagged Frame</button>
+        </div>
+    </div>
 
-    <script type="text/babel">
-        const { useState } = React;
+    <div>
+        <div class="top-label">
+            <span>Transmission Direction (Wire Entry) ➔</span>
+            <span id="max-frame-label" style="font-family: monospace; background: #0f172a; padding: 2px 8px; border-radius: 4px; border: 1px solid #334155;">Max Frame size: 1,518 Bytes</span>
+        </div>
+        <div id="frame-strip-container" class="frame-strip"></div>
+    </div>
 
-        function FrameVisualizer() {
-            const [isTagged, setIsTagged] = useState(false);
-            const [hoveredField, setHoveredField] = useState(null);
+    <div id="details-panel" class="details-box">
+        <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Hover over or tap any section of the Ethernet frame structure above to inspect its real size measurements and protocol behaviors.</p>
+    </div>
 
-            // Data models for the fields
-            const standardFields = [
-                { id: 'preamble', name: 'Preamble & SFD', size: '8 Bytes', bits: '64 bits', color: 'bg-amber-600 border-amber-500', desc: 'Synchronization bytes telling the receiving network card that a new frame is arriving.' },
-                { id: 'dmac', name: 'Dest MAC', size: '6 Bytes', bits: '48 bits', color: 'bg-yellow-600 border-yellow-500', desc: 'Hardware address of the destination device or next-hop router interface.' },
-                { id: 'smac', name: 'Source MAC', size: '6 Bytes', bits: '48 bits', color: 'bg-emerald-600 border-emerald-500', desc: 'Hardware address of the transmitting network interface controller (NIC).' },
-                { id: 'type', name: 'EtherType / Length', size: '2 Bytes', bits: '16 bits', color: 'bg-purple-600 border-purple-500', desc: 'Identifies the upper-layer protocol (e.g., 0x0800 for IPv4, 0x86DD for IPv6).' },
-                { id: 'payload', name: 'Payload (Data)', size: '46-1500 B', bits: 'Variable', color: 'bg-slate-600 border-slate-500', flex: true, desc: 'The actual data being carried, containing L3 packets, L4 segments, and application layers.' },
-                { id: 'fcs', name: 'FCS (CRC)', size: '4 Bytes', bits: '32 bits', color: 'bg-cyan-600 border-cyan-500', desc: 'Frame Check Sequence. A 32-bit cyclic redundancy check value used to detect transmission corruption.' }
-            ];
+    <div class="footer-note">
+        <span style="font-size: 16px;">🛠️</span>
+        <p><strong>Verification Insight:</strong> Notice how switching modes handles the <strong>EtherType/Length</strong> field. It stays exactly <strong>2 Bytes (16 bits)</strong>. The hardware does not expand or modify it; instead, the switch slips a completely distinct <strong>4-Byte (32-bit) 802.1Q header tag block</strong> directly in front of it, resolving the common errors found in network text diagrams.</p>
+    </div>
+</div>
 
-            const taggedFields = [
-                { id: 'preamble', name: 'Preamble & SFD', size: '8 Bytes', bits: '64 bits', color: 'bg-amber-600 border-amber-500', desc: 'Synchronization bytes telling the receiving network card that a new frame is arriving.' },
-                { id: 'dmac', name: 'Dest MAC', size: '6 Bytes', bits: '48 bits', color: 'bg-yellow-600 border-yellow-500', desc: 'Hardware address of the destination device or next-hop router interface.' },
-                { id: 'smac', name: 'Source MAC', size: '6 Bytes', bits: '48 bits', color: 'bg-emerald-600 border-emerald-500', desc: 'Hardware address of the transmitting network interface controller (NIC).' },
-                { id: 'tpid', name: '802.1Q: TPID', size: '2 Bytes', bits: '16 bits', color: 'bg-blue-600 border-blue-400 font-bold ring-2 ring-blue-300 ring-offset-2 ring-offset-slate-900', desc: 'Tag Protocol Identifier. Hardcoded to 0x8100 to signal that this frame contains an 802.1Q VLAN tag.' },
-                { id: 'tci', name: '802.1Q: TCI', size: '2 Bytes', bits: '16 bits', color: 'bg-blue-600 border-blue-400 font-bold ring-2 ring-blue-300 ring-offset-2 ring-offset-slate-900', desc: 'Tag Control Information. Contains subfields for Class of Service Priority (3 bits), Drop Eligibility (1 bit), and the active VLAN ID (12 bits).' },
-                { id: 'type', name: 'EtherType / Length', size: '2 Bytes', bits: '16 bits', color: 'bg-purple-600 border-purple-500', desc: 'SHIFTED FIELD: The original 2-Byte EtherType field, pushed down the transmission line by the injected VLAN header.' },
-                { id: 'payload', name: 'Payload (Data)', size: '42-1500 B', bits: 'Variable', color: 'bg-slate-600 border-slate-500', flex: true, desc: 'SHIFTED FIELD: The encapsulated data layer, shifted forward in time by 4 bytes.' },
-                { id: 'fcs', name: 'FCS (CRC)', size: '4 Bytes', bits: '32 bits', color: 'bg-cyan-600 border-cyan-500', desc: 'RECALCULATED FIELD: Shifted and completely recomputed by the switch to factor in the new 4-byte header data.' }
-            ];
+<script>
+    let isTaggedMode = false;
+    let hoveredFieldId = null;
 
-            const currentFields = isTagged ? taggedFields : standardFields;
-            const totalBytes = isTagged ? '1,522 Bytes max' : '1,518 Bytes max';
-
-            return (
-                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-2xl">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b border-slate-700 pb-6">
-                        <div>
-                            <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                                🌐 Ethernet Frame Layer-2 Shift Visualizer
-                            </h1>
-                            <p class="text-slate-400 mt-1 text-sm">
-                                Toggle modes to see how a switch injects a 4-Byte VLAN tag without altering standard field sizes.
-                            </p>
-                        </div>
-                        
-                        <div class="flex items-center gap-3 bg-slate-900 p-1.5 rounded-xl border border-slate-700">
-                            <button 
-                                onClick={() => setIsTagged(false)}
-                                class={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${!isTagged ? 'bg-slate-700 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
-                            >
-                                Standard Frame
-                            </button>
-                            <button 
-                                onClick={() => setIsTagged(true)}
-                                class={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${isTagged ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
-                            >
-                                802.1Q Tagged Frame
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Interactive Tape Display */}
-                    <div class="mb-10">
-                        <div class="flex justify-between items-center mb-2 px-1 text-xs text-slate-400 font-medium tracking-wider uppercase">
-                            <span>Transmission Start (Wire Entry)</span>
-                            <span class="mono text-slate-300 bg-slate-900 px-2 py-0.5 rounded border border-slate-700">Max Frame size: {totalBytes}</span>
-                        </div>
-                        
-                        <div class="flex w-full items-stretch rounded-xl overflow-hidden border border-slate-900 shadow-inner bg-slate-950 p-2 min-h-[90px] gap-1.5">
-                            {currentFields.map((field) => (
-                                <div
-                                    key={field.id}
-                                    onMouseEnter={() => setHoveredField(field)}
-                                    onMouseLeave={() => setHoveredField(null)}
-                                    class={`cursor-pointer transition-all duration-200 border-2 rounded-lg p-2 flex flex-col justify-between items-center text-center select-none group min-w-[70px] ${field.color} ${field.flex ? 'flex-1' : ''} ${hoveredField?.id === field.id ? 'scale-[1.02] ring-2 ring-white z-10' : 'opacity-90 hover:opacity-100'}`}
-                                >
-                                    <span class="text-xs font-bold tracking-wide truncate max-w-full block drop-shadow-md text-white">{field.name}</span>
-                                    <div class="mt-2">
-                                        <span class="block text-xs font-bold bg-slate-900/40 px-1.5 py-0.5 rounded-md text-white/95 mono">{field.size}</span>
-                                        <span class="block text-[10px] text-white/70 mono mt-0.5">{field.bits}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Metadata Context Box */}
-                    <div class="bg-slate-900/60 rounded-xl border border-slate-700/60 p-5 min-h-[140px] flex flex-col justify-center">
-                        {hoveredField ? (
-                            <div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="text-lg font-bold text-white">{hoveredField.name}</h3>
-                                    <span class="mono text-xs font-bold bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700 text-slate-300">
-                                        Size: {hoveredField.size} ({hoveredField.bits})
-                                    </span>
-                                </div>
-                                <p class="text-slate-300 text-sm leading-relaxed">{hoveredField.desc}</p>
-                            </div>
-                        ) : (
-                            <div class="text-center py-4">
-                                <p class="text-slate-400 text-sm flex items-center justify-center gap-2">
+    const dataStore = {
+        standard: [
+            { id: 'preamble', name: 'Preamble & SFD', size: '8 Bytes', bits: '64 bits', bgClass: 'bg-preamble', desc: 'Synchronization bytes telling the receiving network card interface hardware that a brand new frame is arriving on the wire.' },
+            { id: 'dmac', name: 'Dest MAC', size: '6 Bytes', bits: '48 bits', bgClass: 'bg-dmac', desc: 'Hardware address of the target destination device or the next-hop router interface processing the segment.' },
+            { id: 'smac', name: 'Source MAC', size: '6 Bytes', bits: '48 bits', bgClass: 'bg-smac', desc: 'Hardware address of the transmitting local network interface controller (NIC) that originated this frame.' },
+            { id: 'type', name: 'EtherType / Length', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-type', desc: 'Identifies the upper-layer network protocol (e.g., 0x0800 for IPv4, 0x86DD for IPv6).' },
+            { id: 'payload', name: 'Payload (Data)', size: '46-1500 B', bits: 'Variable', bgClass: 'bg-payload', isGrow: true, desc: 'The core data payload segment carrying your Layer-3 packets, transport protocols, and application layer payload text.' },
+            { id: 'fcs', name: 'FCS (CRC)', size: '4 Bytes', bits: '32 bits', bgClass: 'bg-fcs', desc: 'Frame Check Sequence. A 32-bit cyclic redundancy check value generated by the sender to verify that the packet arrived completely free of bit corruption.' }
+        ],
+        tagged: [
+            { id: 'preamble', name: 'Preamble & SFD', size: '8 Bytes', bits: '64 bits', bgClass: 'bg-preamble', desc: 'Synchronization bytes telling the receiving network card interface hardware that a brand new frame is arriving on the wire.' },
+            { id: 'dmac', name: 'Dest MAC', size: '6 Bytes', bits: '48 bits', bgClass: 'bg-dmac', desc: 'Hardware address of the target destination device or the next-hop router interface processing the segment.' },
+            { id: 'smac', name: 'Source MAC', size: '6 Bytes', bits: '48 bits', bgClass: 'bg-smac', desc: 'Hardware address of the transmitting local network interface controller (NIC) that originated this frame.' },
+            { id: 'tpid', name: '802.1Q: TPID', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-tag', desc: 'Tag Protocol Identifier. Hardcoded to 0x8100 to alert intermediate switches that this frame carries an active 802.1Q VLAN header tracking payload.' },
+{ id: 'tci', name: '802.1Q: TCI', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-tag', desc: 'Tag Control Information. Contains Class of Service Priority ranking (3 bits), Drop Eligibility indicator flags (1 bit), and the actual active internal VLAN ID number (12 bits).' },
+{ id: 'type', name: 'EtherType / Length', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-type', desc: 'SHIFTED FIELD: The original 2-Byte EtherType field, pushed down the wire transmission timeline by the injected 4-byte VLAN tag.' },
+{ id: 'payload', name: 'Payload (Data)', size: '42-1500 B', bits: 'Variable', bgClass: 'bg-payload', isGrow: true, desc: 'SHIFTED FIELD: The encapsulated data layer payload, shifted downstream in delivery order by exactly 4 bytes.' },
+{ id: 'fcs', name: 'FCS (CRC)', size: '4 Bytes', bits: '32 bits', bgClass: 'bg-fcs', desc: 'RECALCULATED FIELD: Shifted down the wire sequence and completely recomputed by the switch logic to account for the new bits introduced by the VLAN tag.' }
+]
+};
+function renderFrame() {
+const container = document.getElementById('frame-strip-container');
+const fields = isTaggedMode ? dataStore.tagged : dataStore.standard;
+container.innerHTML = '';
+fields.forEach(field => {
+const div = document.createElement('div');
+div.className = field ${field.bgClass} ${field.isGrow ? 'flex-grow' : ''};
+if (hoveredFieldId === field.id) {
+div.classList.add('active-hover');
+}
+div.onmouseenter = () => handleHover(field, true);
+div.onmouseleave = () => handleHover(field, false);
+div.innerHTML = <span class="field-name">${field.name}</span> <div class="field-meta"> <span class="field-size">${field.size}</span> <span class="field-bits">${field.bits}</span> </div>;
+container.appendChild(div);
+});
+document.getElementById('max-frame-label').innerText = isTaggedMode ? 'Max Frame size: 1,522 Bytes' : 'Max Frame size: 1,518 Bytes';
+}
+function handleHover(field, isEntering) {
+const panel = document.getElementById('details-panel');
+if (isEntering) {
+hoveredFieldId = field.id;
+panel.innerHTML = <div class="details-title"> <span style="color: #ffffff;">${field.name}</span> <span class="details-tag-size">Size: ${field.size} (${field.bits})</span> </div> <p class="details-desc">${field.desc}</p>;
+renderFrame();
+} else {
+hoveredFieldId = null;
+panel.innerHTML = <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Hover over or tap any section of the Ethernet frame structure above to inspect its real size measurements and protocol behaviors.</p>;
+renderFrame();
+}
+}
+function setTaggedMode(tagged) {
+isTaggedMode = tagged;
+const btnStd = document.getElementById('btn-standard');
+const btnTag = document.getElementById('btn-tagged');
+if (isTaggedMode) {
+btnStd.classList.remove('active');
+btnTag.classList.add('active', 'tagged');
+} else {
+btnTag.classList.remove('active', 'tagged');
+btnStd.classList.add('active');
+}
+// Reset details box on mode swap
+document.getElementById('details-panel').innerHTML = <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Hover over or tap any section of the Ethernet frame structure above to inspect its real size measurements and protocol behaviors.</p>;
+hoveredFieldId = null;
+renderFrame();
+}
+// Initial load
+renderFrame();
