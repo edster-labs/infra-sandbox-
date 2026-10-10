@@ -7,7 +7,6 @@
 * 📄 **[Lab: EIGRP Multi-Router Architecture & Path Manipulation](./cisco-eigrp-routing-lab.md)**
 * 📄 **[Case Study: OSPFv2 Single-Area Core Topology & VLSM Design](./cisco-ospfv2-single-area.md)**
 * 📄 **[Lab: RIPv2 Dynamic Routing & Passive Interface Optimization](./cisco-ripv2-routing-lab.md)**
-* 📄 **[Cryptographic Reference: Parsing TLS 1.2 vs. TLS 1.3 Ciphers](./cryptography-cipher-theory.md)**
 * 📄 **[Project: The Inception Bridge & Isolated Routing Matrix](./inception-bridge-routing-project.md)**
 * 📄 **[Project: Isolated Active Directory Multi-Homed Lab Environment](./isolated-ad-multihomed-env.md)**
 * 📄 **[Deploying High-Performance RDP Access on Isolated Linux Lab Nodes](./lubuntu-internet-rdp-bake.md)**
