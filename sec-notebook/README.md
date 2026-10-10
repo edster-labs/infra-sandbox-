@@ -1,12 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [🛡️ Security Engineering Notebook](#-security-engineering-notebook)
-  - [📁 Security Subject Directory](#-security-subject-directory)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
 # 🛡️ Security Engineering Notebook
 
 ## 📁 Security Subject Directory
