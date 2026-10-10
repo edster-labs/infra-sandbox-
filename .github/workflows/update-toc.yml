@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
+    # 1. Trigger the automation whenever ANY file changes anywhere in the repo
     paths:
-      - 'README.md'
-      - 'sec-notebook/**'
+      - '**/*.md'
 
 jobs:
   toc:
@@ -20,9 +20,15 @@ jobs:
       - name: Calculate and Rebuild Markdown TOC
         uses: technote-space/toc-generator@v4
         with:
-          MAX_LEVEL: 3
+          MAX_HEADER_LEVEL: 3
           TOC_TITLE: ""
-          TARGET_PATHS: 'README.md'
+          # 2. Tell the engine to update the README files inside EVERY subfolder automatically
+          TARGET_PATHS: |
+            README.md
+            cheat-sheets/README.md
+            eve-ng-guides/README.md
+            network-labs/README.md
+            sec-notebook/README.md
           MODE: github
 
       - name: Commit Updated Dashboard Layout
