@@ -1,6 +1,11 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [📡 EVE-NG Deployment & Optimization Guides](#-eve-ng-deployment--optimization-guides)
+  - [⚙️ Cisco Platform Images & Node Installation](#-cisco-platform-images--node-installation)
+  - [🏎️ Network Bridge Tweaks & Speed Optimization](#-network-bridge-tweaks--speed-optimization)
+  - [🛠️ Environment Recovery & Core Systems Tuning](#-environment-recovery--core-systems-tuning)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # 📡 EVE-NG Deployment & Optimization Guides
