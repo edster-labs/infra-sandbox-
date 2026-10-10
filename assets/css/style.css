@@ -110,4 +110,20 @@ td a:hover, td a:active {
     background-color: #2563eb !important; /* Illuminates the container button background to vibrant royal blue */
     text-decoration: underline !important;
 }
+/* ==========================================
+   📊 COLUMN WIDTH WEIGHT DISTRIBUTION PATCH
+   ========================================== */
+
+/* 1. Set explicit, balanced constraints for each column header */
+table th:nth-child(1) { width: 15% !important; } /* OSI Layer */
+table th:nth-child(2) { width: 22% !important; } /* Attack Type / Defensive Measure */
+table th:nth-child(3) { width: 12% !important; } /* Category */
+table th:nth-child(4) { width: 33% !important; } /* Primary Target / Method (Balanced down from default) */
+table th:nth-child(5) { width: 18% !important; } /* Live Notebook Link */
+
+/* 2. Prevent cells from word-breaking awkwardly in the narrow columns */
+table th:nth-child(1), table td:nth-child(1),
+table th:nth-child(3), table td:nth-child(3) {
+    white-space: nowrap !important;
+}
 
