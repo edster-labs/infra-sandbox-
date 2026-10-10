@@ -1,8 +1,16 @@
 /* Force all images to maintain their proper dimensions without stretching */
+/* Custom Image Patch: Fixes stretching while preserving the default theme centering */
 img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto !important;
     object-fit: contain;
     display: block;
-    margin: 20px auto;
+    margin: 20px auto; /* Centers the images themselves within the layout area */
+}
+
+/* Ensure the layout container remains cleanly aligned with your default Jekyll theme settings */
+.container, .wrapper, #main_content, main {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left; /* Keeps text layout natural to read while the container itself stays centered on the display screen */
 }
