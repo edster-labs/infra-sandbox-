@@ -1,6 +1,7 @@
 name: Generate Table of Contents
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
