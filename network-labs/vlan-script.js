@@ -15,8 +15,21 @@
             { id: 'preamble', name: 'Preamble & SFD', size: '8 Bytes', bits: '64 bits', bgClass: 'bg-preamble', desc: 'Synchronization bytes telling the receiving network card interface hardware that a brand new frame is arriving on the wire.' },
             { id: 'dmac', name: 'Dest MAC', size: '6 Bytes', bits: '48 bits', bgClass: 'bg-dmac', desc: 'Hardware address of the target destination device or the next-hop router interface processing the segment.' },
             { id: 'smac', name: 'Source MAC', size: '6 Bytes', bits: '48 bits', bgClass: 'bg-smac', desc: 'Hardware address of the transmitting local network interface controller (NIC) that originated this frame.' },
-            { id: 'tpid', name: '802.1Q: TPID', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-tag', desc: 'Tag Protocol Identifier. Hardcoded to 0x8100 to alert intermediate switches that this frame carries an active 802.1Q VLAN header tracking payload.' },
-            { id: 'tci', name: '802.1Q: TCI', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-tag', desc: 'Tag Control Information. Contains Class of Service Priority ranking (3 bits), Drop Eligibility indicator flags (1 bit), and the actual active internal VLAN ID number (12 bits).' },
+            
+            // UNIFIED 4-BYTE 802.1Q OBJECT CONTAINING NESTED SUB-PROPERTIES
+            { 
+                id: 'vlan', 
+                isVlanTag: true, 
+                name: '802.1Q Tag Block', 
+                size: '4 Bytes', 
+                bits: '32 bits', 
+                desc: 'CRITICAL INJECTION BLOCK: A unified 4-Byte (32-bit) tag inserted directly behind the Source MAC address. This acts as a parent block containing both the TPID and TCI fields, proving that the existing EtherType field is shifted down the line rather than transformed.',
+                subFields: {
+                    tpid: { name: 'TPID', size: '2B', desc: 'Tag Protocol Identifier. Hardcoded to 0x8100 to alert intermediate switches that this frame carries an active 802.1Q VLAN header tracking payload.' },
+                    tci: { name: 'TCI', size: '2B', desc: 'Tag Control Information. Contains Class of Service Priority ranking (3 bits), Drop Eligibility indicator flags (1 bit), and the actual active internal VLAN ID number (12 bits).' }
+                }
+            },
+            
             { id: 'type', name: 'EtherType / Length', size: '2 Bytes', bits: '16 bits', bgClass: 'bg-type', desc: 'SHIFTED FIELD: The original 2-Byte EtherType field, pushed down the wire transmission timeline by the injected 4-byte VLAN tag.' },
             { id: 'payload', name: 'Payload (Data)', size: '42-1500 B', bits: 'Variable', bgClass: 'bg-payload', isGrow: true, desc: 'SHIFTED FIELD: The encapsulated data layer payload, shifted downstream in delivery order by exactly 4 bytes.' },
             { id: 'fcs', name: 'FCS (CRC)', size: '4 Bytes', bits: '32 bits', bgClass: 'bg-fcs', desc: 'RECALCULATED FIELD: Shifted down the wire sequence and completely recomputed by the switch logic to account for the new bits introduced by the VLAN tag.' }
@@ -31,23 +44,66 @@
         container.innerHTML = '';
         
         fields.forEach(field => {
-            const div = document.createElement('div');
-            div.className = `field ${field.bgClass} ${field.isGrow ? 'flex-grow' : ''}`;
-            if (hoveredFieldId === field.id) {
-                div.classList.add('active-hover');
+            // Check if this is our unified 802.1Q tag element block
+            if (field.isVlanTag) {
+                const parentDiv = document.createElement('div');
+                parentDiv.className = 'vlan-parent-block';
+                if (hoveredFieldId === field.id) {
+                    parentDiv.classList.add('active-hover');
+                }
+                
+                // Track mouse movement over the parent tag structure
+                parentDiv.addEventListener('mouseenter', () => handleHover(field, true));
+                parentDiv.addEventListener('mouseleave', () => handleHover(field, false));
+                
+                parentDiv.innerHTML = `
+                    <span class="vlan-parent-title">${field.name} (${field.size})</span>
+                    <div class="vlan-sub-compartments">
+                        <div id="sub-tpid" class="vlan-sub-field">
+                            <span class="vlan-sub-name">${field.subFields.tpid.name}</span>
+                            <span class="vlan-sub-size">${field.subFields.tpid.size}</span>
+                        </div>
+                        <div id="sub-tci" class="vlan-sub-field">
+                            <span class="vlan-sub-name">${field.subFields.tci.name}</span>
+                            <span class="vlan-sub-size">${field.subFields.tci.size}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Extract inner nodes to route deep-dive details cleanly
+                const tpidSub = parentDiv.querySelector('#sub-tpid');
+                const tciSub = parentDiv.querySelector('#sub-tci');
+                
+                tpidSub.addEventListener('mouseenter', (e) => {
+                    e.stopPropagation();
+                    handleHover({ name: '802.1Q: TPID', size: '2 Bytes', bits: '16 bits', desc: field.subFields.tpid.desc }, true);
+                });
+                tciSub.addEventListener('mouseenter', (e) => {
+                    e.stopPropagation();
+                    handleHover({ name: '802.1Q: TCI', size: '2 Bytes', bits: '16 bits', desc: field.subFields.tci.desc }, true);
+                });
+                
+                container.appendChild(parentDiv);
+            } else {
+                // Render standard sequential frames
+                const div = document.createElement('div');
+                div.className = `field ${field.bgClass} ${field.isGrow ? 'flex-grow' : ''}`;
+                if (hoveredFieldId === field.id) {
+                    div.classList.add('active-hover');
+                }
+                
+                div.addEventListener('mouseenter', () => handleHover(field, true));
+                div.addEventListener('mouseleave', () => handleHover(field, false));
+                
+                div.innerHTML = `
+                    <span class="field-name">${field.name}</span>
+                    <div class="field-meta">
+                        <span class="field-size">${field.size}</span>
+                        <span class="field-bits">${field.bits}</span>
+                    </div>
+                `;
+                container.appendChild(div);
             }
-            
-            div.addEventListener('mouseenter', () => handleHover(field, true));
-            div.addEventListener('mouseleave', () => handleHover(field, false));
-            
-            div.innerHTML = `
-                <span class="field-name">${field.name}</span>
-                <div class="field-meta">
-                    <span class="field-size">${field.size}</span>
-                    <span class="field-bits">${field.bits}</span>
-                </div>
-            `;
-            container.appendChild(div);
         });
 
         document.getElementById('max-frame-label').innerText = isTaggedMode ? 'Max Frame size: 1,522 Bytes' : 'Max Frame size: 1,518 Bytes';
@@ -58,15 +114,16 @@
         if (!panel) return;
         
         if (isEntering) {
-            hoveredFieldId = field.id;
+            hoveredFieldId = field.id || null;
             panel.innerHTML = `
                 <div class="details-title">
                     <span style="color: #ffffff;">${field.name}</span>
-                    <span class="details-tag-size">Size: ${field.size} (${field.bits})</span>
+                    <span class="details-tag-size">Size: ${field.size} (${field.bits || '16 bits'})</span>
                 </div>
                 <p class="details-desc">${field.desc}</p>
             `;
-            renderFrame();
+            // Only force layout rerender if we are highlighting a direct top-level tracking ID
+            if (field.id) renderFrame();
         } else {
             hoveredFieldId = null;
             panel.innerHTML = `<p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Hover over or tap any section of the Ethernet frame structure above to inspect its real size measurements and protocol behaviors.</p>`;
@@ -98,6 +155,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btn-standard').addEventListener('click', () => setTaggedMode(false));
         document.getElementById('btn-tagged').addEventListener('click', () => setTaggedMode(true));
-        renderFrame();
-    });
+renderFrame();
+});
 })();
