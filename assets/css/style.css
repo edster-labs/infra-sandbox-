@@ -1,57 +1,83 @@
-/* Custom Image Patch: Fixes stretching while preserving the default theme centering */
-img {
-    max-width: 100%;
-    height: auto !important;
-    object-fit: contain;
-    display: block;
-    margin: 20px auto;
+/* ==========================================================================
+   🌌 GLOBAL DARK THEME & ACCESSIBILITY ARCHITECTURE OVRERIDES
+   ========================================================================== */
+
+/* 1. Global Document Root Styles: Flip the primary background and body text */
+body {
+    background-color: #0f172a !important; /* Premium Midnight Dark Slate */
+    color: #cbd5e1 !important;            /* Balanced off-white text to reduce glare */
+    line-height: 1.6 !important;
 }
 
-/* Ensure the layout container remains cleanly aligned with your default Jekyll theme settings */
+/* 2. Standard Typography Color Balancing */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+strong, b {
+    color: #f1f5f9 !important;
+}
+
+/* 3. Outer Frame Layout Container Alignments */
 .container, .wrapper, #main_content, main {
+    background-color: #0f172a !important; 
     margin-left: auto !important;
     margin-right: auto !important;
     text-align: left;
 }
 
-/* MOBILE TOUCH OPTIMIZATION PATCH */
-
-/* 1. Add general paragraph and text line-height breathing room */
-p, body, td, th {
-    line-height: 1.6 !important;
+/* 4. Global Text Hyperlink Target Adjustments */
+a {
+    color: #38bdf8 !important; /* Radiating sky blue links */
+    text-decoration: none !important;
 }
 
-/* 2. Increase spacing explicitly for all bulleted list items (your menus) */
-li {
-    margin-bottom: 12px !important; /* Pushes the next item down horizontally */
-    line-height: 1.5 !important;
+a:hover, a:active {
+    color: #60a5fa !important; /* Transitions to lighter blue on click/hover */
+    text-decoration: underline !important;
 }
 
-/* 3. Make the actual text links inside lists slightly larger target containers */
-li a {
-    display: inline-block; /* Allows the link area to scale outward */
-    padding: 6px 0;        /* Creates an invisible extra top and bottom tap boundary */
-}
-/* ==========================================
-   🌐 PREMIUM TABLE & RESPONSIVE GRID OVERRIDES
-   ========================================== */
+/* ==========================================================================
+   📱 MOBILE REFRESH: GLOBAL TOP THEME NAVBAR BUTTON CONTROLS
+   ========================================================================== */
 
-/* 1. Add background structure, clean borders, and uniform text alignment */
+/* Target the theme's native auto-generated top link banner */
+header, .site-header, #project_title, .project-name {
+    background-color: #1e293b !important; /* Subtle lighter slate header card wrapper */
+    border-bottom: 1px solid #334155 !important;
+    padding: 16px 20px !important;
+    margin-bottom: 24px !important;
+}
+
+header a, .site-header a, .project-name a, body > header h1 a {
+    color: #ffffff !important; /* Crisp pure white home text link */
+    font-weight: 700 !important;
+    font-size: 18px !important;
+}
+
+header a:hover {
+    color: #38bdf8 !important;
+}
+
+/* ==========================================================================
+   📊 TECHNICAL DATA MATRIX: PREMIUM ZEBRA-STRIPED TABLE STYLES
+   ========================================================================== */
+
 table {
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 25px 0 !important;
     font-size: 14px !important;
-    background-color: #1e293b !important; /* Soft slate dark layer background */
+    background-color: #1e293b !important;
     border-radius: 8px !important;
     overflow: hidden !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* 2. Format the Header Row to stand out boldly */
 th {
-    background-color: #0f172a !important; /* Deep dark background for table header */
-    color: #38bdf8 !important;            /* Sky blue accent for category text headings */
+    background-color: #020617 !important; /* Deepest black-slate for headers */
+    color: #38bdf8 !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
@@ -60,111 +86,64 @@ th {
     text-align: left !important;
 }
 
-/* 3. Inject spacious breathing padding for row cells */
 td {
     padding: 14px 16px !important;
     border-bottom: 1px solid #334155 !important;
     color: #cbd5e1 !important;
-    vertical-align: top !important; /* Align long paragraphs cleanly to the top of the row cell */
+    vertical-align: top !important;
     line-height: 1.6 !important;
 }
 
-/* 4. Implement Zebra-Striping for fast horizontal eye tracking */
-tr:nth-child(even) {
-    background-color: #1e293b !important;
-}
-tr:nth-child(odd) {
-    background-color: #172554 !important; /* Subtle deep blue tint alternate row background */
-}
+tr:nth-child(even) { background-color: #1e293b !important; }
+tr:nth-child(odd) { background-color: #172554 !important; }
 
-/* 5. Highlight rows dynamically when hovered on desktop displays */
 tr:hover {
     background-color: #334155 !important;
     transition: background-color 0.15s ease-in-out !important;
 }
 
-/* 6. Enforce mobile responsive scroll containment box */
-@media screen and (max-width: 768px) {
-    main, #main_content, .wrapper {
-        overflow-x: auto !important; /* Permits seamless sideways swiping on compact mobile screen viewports */
-    }
-}
-/* ==========================================
-   🔗 HIGH-CONTRAST TABLE LINK VISIBILITY PATCH
-   ========================================== */
-
-/* Target only links that reside explicitly within your data table cells */
+/* Target internal link pill containers within tables */
 td a {
-    color: #38bdf8 !important;         /* Changes the text to a bright, radiant neon sky blue */
-    text-decoration: none !important;  /* Removes the default thin dark underline */
-    font-weight: 600 !important;       /* Makes the font slightly thicker for easier mobile reading */
-    padding: 4px 8px !important;       /* Expands the touch zone container for fat fingers */
-    background-color: rgba(56, 189, 248, 0.1) !important; /* Injects a subtle, glowing background pill shape behind the link text */
-    border-radius: 4px !important;     /* Rounds the corners of the glowing link pill container */
-    transition: all 0.15s ease-in-out !important;
+    color: #38bdf8 !important;
+    font-weight: 600 !important;
+    padding: 4px 8px !important;
+    background-color: rgba(56, 189, 248, 0.1) !important;
+    border-radius: 4px !important;
 }
 
-/* Define how the touch/click state behaves when interactive or hovered */
-td a:hover, td a:active {
-    color: #ffffff !important;         /* Flips the text to pure white when tapped or hovered */
-    background-color: #2563eb !important; /* Illuminates the container button background to vibrant royal blue */
-    text-decoration: underline !important;
+td a:hover {
+    color: #ffffff !important;
+    background-color: #2563eb !important;
 }
-/* ==========================================
-   📊 COLUMN WIDTH WEIGHT DISTRIBUTION PATCH
-   ========================================== */
 
-/* 1. Set explicit, balanced constraints for each column header */
-table th:nth-child(1) { width: 15% !important; } /* OSI Layer */
-table th:nth-child(2) { width: 22% !important; } /* Attack Type / Defensive Measure */
-table th:nth-child(3) { width: 12% !important; } /* Category */
-table th:nth-child(4) { width: 33% !important; } /* Primary Target / Method (Balanced down from default) */
-table th:nth-child(5) { width: 18% !important; } /* Live Notebook Link */
+/* Column Width Percentages */
+table th:nth-child(1) { width: 15% !important; } 
+table th:nth-child(2) { width: 22% !important; } 
+table th:nth-child(3) { width: 12% !important; } 
+table th:nth-child(4) { width: 33% !important; } 
+table th:nth-child(5) { width: 18% !important; } 
 
-/* 2. Prevent cells from word-breaking awkwardly in the narrow columns */
 table th:nth-child(1), table td:nth-child(1),
 table th:nth-child(3), table td:nth-child(3) {
     white-space: nowrap !important;
 }
-/* ==========================================
-   🧹 SURGICAL NAVIGATION CLEANUP PATCH
-   ========================================== */
 
-/* Hides only the theme's default unstyled text repository link */
-.project-name, 
-#project_title,
-header h1:first-of-type:not([id]) {
-    display: none !important;
+/* ==========================================================================
+   📱 UX BREATHING ROOM: MOBILE LIST & SCROLL TARGET TUNING
+   ========================================================================== */
+
+li {
+    margin-bottom: 12px !important;
+    line-height: 1.5 !important;
 }
 
-/* Ensure our custom Markdown header link stays clean and readable */
-h1 a {
-    color: #ffffff !important;
-    text-decoration: none !important;
+li a {
+    display: inline-block;
+    padding: 6px 0;
 }
 
-h1 a:hover {
-    color: #38bdf8 !important;
+@media screen and (max-width: 768px) {
+    main, #main_content, .wrapper {
+        overflow-x: auto !important;
+    }
 }
-/* ==========================================
-   📱 MOBILE SITE TITLE VISIBILITY OVERRIDE
-   ========================================= */
-
-/* Ensure the top theme navigation header link stands out boldly on light backgrounds */
-header a, 
-.site-header a, 
-#project_title a,
-.project-name a,
-body > header h1 a {
-    color: #1d4ed8 !important; /* Forces the invisible mobile link to a crisp, readable dark royal blue */
-    text-decoration: none !important;
-}
-
-/* Maintain high-contrast hover feedback states when tapped or hovered */
-header a:hover, 
-.site-header a:hover,
-body > header h1 a:hover {
-    color: #2563eb !important; /* Brightens up to vibrant blue when actively tapped */
-    text-decoration: underline !important;
-}
-
