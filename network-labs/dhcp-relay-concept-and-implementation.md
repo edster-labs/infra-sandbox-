@@ -59,10 +59,13 @@ interface Vlan30
  ip address 192.168.30.1 255.255.255.0
  ip helper-address 192.168.1.1
 ```
-# The Blueprint Flow:
-```text
-	1. The Virtual PC (VPC) shoots out a blind broadcast with a GIADDR of 0.0.0.0.
-	2. The Switch intercepts it on interface Vlan30, changes the broadcast to a routed unicast packet, and writes 192.168.30.1 into the GIADDR slot.
-	3. The Central Router receives the packet, ignores the physical wire it arrived on, reads the GIADDR value (192.168.30.1),
-       and instantly knows to hand out a lease from ip dhcp pool SVI_30.
-```
+---
+
+## ⚡ Quick Protocol Summary: The Blueprint Flow
+
+When an end-host requests an IP address across an enterprise relay architecture, the handshake executes through these three precise sequence steps:
+
+1. **The Client Broadcast:** The Virtual PC (VPC) shoots out a blind `DHCPDISCOVER` broadcast frame. Because it does not possess an IP identity yet, the packet's internal **`GIADDR`** field is populated as **`0.0.0.0`**.
+2. **The Switch Interception:** The Layer 3 Switch catches the local broadcast on its access port. It activates the relay agent, converts the broadcast into a targeted Layer 3 routed unicast packet, and explicitly writes its own local SVI IP address (**`192.168.30.1`**) straight into the **`GIADDR`** field slot before routing it upstream.
+3. **The Router Scope Selection:** The Central Router receives the unicast packet. It completely ignores the physical wire interface the packet arrived on and scans the **`GIADDR`** value (**`192.168.30.1`**). By reading this label, the database instantly knows to select a lease scope out of **`ip dhcp pool SVI_30`** and routes the contract back to the switch gateway.
+
