@@ -63,5 +63,6 @@ interface Vlan30
 ```text
 	1. The Virtual PC (VPC) shoots out a blind broadcast with a GIADDR of 0.0.0.0.
 	2. The Switch intercepts it on interface Vlan30, changes the broadcast to a routed unicast packet, and writes 192.168.30.1 into the GIADDR slot.
-	3. The Central Router receives the packet, ignores the physical wire it arrived on, reads the GIADDR value (192.168.30.1), and instantly knows to hand out a lease from ip dhcp pool SVI_30.
+	3. The Central Router receives the packet, ignores the physical wire it arrived on, reads the GIADDR value (192.168.30.1),
+       and instantly knows to hand out a lease from ip dhcp pool SVI_30.
 ```
