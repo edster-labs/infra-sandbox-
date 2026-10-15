@@ -1,3 +1,6 @@
+## Topology & Data Flow Map
+
+<img width="2358" height="1252" alt="dhcp-relay-lab" src="https://github.com/user-attachments/assets/98b2d5af-b1f2-4495-b9b8-9ddfa4fdcd93" />
 
 # Comprehensive Layer 3 DHCP Relay Reference Architecture
 
