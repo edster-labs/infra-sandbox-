@@ -129,6 +129,28 @@ table th:nth-child(3), table td:nth-child(3) {
 }
 
 /* ==========================================================================
+   🖼 RESPONSIVE IMAGE ARCHITECTURE: TOPOLOGY DRAWING CONSTRAINTS
+   ========================================================================== */
+
+/* Keep images responsive on desktop while maintaining native aspect ratio */
+img {
+    max-width: 80% !important;  /* Prevents the diagram from swallowing the desktop screen */
+    height: auto !important;     /* Ensures aspect ratio doesn't distort or skew pixels */
+    display: block !important;
+    margin: 24px auto !important; /* Centers the drawing and provides professional spacing */
+    border-radius: 8px !important; /* Softens corners to look like integrated blueprint cards */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important; /* Matches your premium matrix look */
+}
+
+/* Force drawings to expand cleanly to take full screen width only on narrow mobile screens */
+@media screen and (max-width: 768px) {
+    img {
+        max-width: 100% !important; /* Expands to full screen utility bounds for phone legibility */
+        margin: 16px 0 !important;
+    }
+}
+
+/* ==========================================================================
    📱 UX BREATHING ROOM: MOBILE LIST & SCROLL TARGET TUNING
    ========================================================================== */
 
