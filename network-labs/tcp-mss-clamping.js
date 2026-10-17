@@ -5,7 +5,7 @@
     
     let isPaused = true;
     let currentPosition = 10; // Start offset mapped cleanly to Host A position
-    let playbackSpeedMs = 30; // Default clock cycle speed rate (30ms per tick)
+    let playbackSpeedMs = 30; // Default millisecond interval per animation step
 
     const nodeDatabase = {
         'node-a': {
@@ -35,13 +35,13 @@
             return;
         }
 
-        // Incremental movement step
+        // Advance packet across the wire track line
         currentPosition += 0.5; 
         packet.style.left = `${currentPosition}%`;
         packet.style.opacity = '1';
         wire.classList.add('active-pulse');
 
-        // Middlebox Gateway Checkpoint (Router sits around 50% width marker)
+        // Middlebox Checkpoint: Gateway Router sits at the 50% width marker
         if (currentPosition >= 50) {
             if (isClampingMode) {
                 packet.classList.add('clamped-state');
@@ -55,7 +55,7 @@
             packet.innerText = 'SYN: MSS 1460';
         }
 
-        // Endpoint Delivery Boundary (Host B sits at 90% space)
+        // Endpoint Boundary: Host B destination sits at the 90% marker
         if (currentPosition >= 90) {
             clearInterval(animationTimer);
             isPaused = true;
@@ -66,18 +66,18 @@
     }
 
     function startPlayback() {
-        // Clear any orphaned intervals running in background memory first
+        // Stop any currently running background timers to prevent loop stacking
         clearInterval(animationTimer);
         
         isPaused = false;
         updatePlaybackButtons();
         
-        // Loop boundary auto-reset: if the user clicks play at the end line, snap back to Host A
+        // Auto-reset frame position if user clicks Play when packet is at the end line
         if (currentPosition >= 90) {
             currentPosition = 10;
         }
 
-        // Initialize clean loop runner tracking our speed configuration
+        // Start fresh interval cycle running at the user-defined speed rate
         animationTimer = setInterval(stepAnimation, playbackSpeedMs);
     }
 
@@ -106,16 +106,16 @@
         }
     }
 
-    // Dynamic speed throttle selector interface rule logic
+    // Dynamic speed configuration interface utility
     function setPlaybackSpeed(newSpeedMs) {
         playbackSpeedMs = newSpeedMs;
         
-        // Update active class indicators on buttons if speed selector handles exist
-        const speeds =;
-        speeds.forEach(sp => {
-            const btn = document.getElementById(`btn-speed-${sp}`);
+        // Handle UI styling updates for your speed controller selections
+        const speedOptions =;
+        speedOptions.forEach(speed => {
+            const btn = document.getElementById(`btn-speed-${speed}`);
             if (btn) {
-                if (sp === newSpeedMs) {
+                if (speed === newSpeedMs) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
@@ -123,7 +123,7 @@
             }
         });
 
-        // If the animation is actively flowing, dynamically adjust pacing on the fly
+        // Apply new timing configuration dynamically if the packet is moving
         if (!isPaused) {
             clearInterval(animationTimer);
             animationTimer = setInterval(stepAnimation, playbackSpeedMs);
@@ -153,12 +153,11 @@
         const routerNode = document.getElementById('node-router');
         if (!routerNode) return;
 
+        const subtitle = routerNode.querySelector('.node-subtitle');
         if (isClampingMode) {
-            const subtitle = routerNode.querySelector('.node-subtitle');
             if (subtitle) subtitle.innerText = 'Clamping Active (1360B)';
             routerNode.style.borderColor = 'var(--accent-orange, #d97706)';
         } else {
-            const subtitle = routerNode.querySelector('.node-subtitle');
             if (subtitle) subtitle.innerText = 'Transit Middlebox';
             routerNode.style.borderColor = 'var(--border, #334155)';
         }
@@ -202,44 +201,44 @@
     function setClampingMode(enableClamp) {
         isClampingMode = enableClamp;
         
-        const btnStd = document.getElementById('btn-standard');
+        const btnStandard = document.getElementById('btn-standard');
         const btnClamp = document.getElementById('btn-clamp');
         
-        if (!btnStd || !btnClamp) return;
+        if (!btnStandard || !btnClamp) return;
 
         if (isClampingMode) {
-            btnStd.classList.remove('active');
+            btnStandard.classList.remove('active');
             btnClamp.classList.add('active', 'clamped');
         } else {
             btnClamp.classList.remove('active', 'clamped');
-            btnStd.classList.add('active');
+            btnStandard.classList.add('active');
         }
 
         renderActiveLayout();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Check for DOM presence safety before anchoring events
-        const btnStd = document.getElementById('btn-standard');
+        // Safe DOM query checks before running click hook bindings
+        const btnStandard = document.getElementById('btn-standard');
         const btnClamp = document.getElementById('btn-clamp');
         const btnPlay = document.getElementById('btn-play');
         const btnPause = document.getElementById('btn-pause');
         const btnReset = document.getElementById('btn-reset');
 
-        if (btnStd) btnStd.addEventListener('click', () => setClampingMode(false));
+        if (btnStandard) btnStandard.addEventListener('click', () => setClampingMode(false));
         if (btnClamp) btnClamp.addEventListener('click', () => setClampingMode(true));
         
         if (btnPlay) btnPlay.addEventListener('click', startPlayback);
         if (btnPause) btnPause.addEventListener('click', pausePlayback);
         if (btnReset) btnReset.addEventListener('click', resetPlayback);
 
-        // Add explicit dynamic hooks for speed control interfaces if implemented in HTML
-        const spFast = document.getElementById('btn-speed-20');
-        const spNorm = document.getElementById('btn-speed-50');
-		const spSlow = document.getElementById('btn-speed-100');
-		if (spFast) spFast.addEventListener('click', () => setPlaybackSpeed(20));
-		if (spNorm) spNorm.addEventListener('click', () => setPlaybackSpeed(50));
-		if (spSlow) spSlow.addEventListener('click', () => setPlaybackSpeed(100));
+        // Map events to your layout interface speed controller nodes if present in HTML
+        const speedFast = document.getElementById('btn-speed-20');
+		const speedNormal = document.getElementById('btn-speed-50');
+		const speedSlow = document.getElementById('btn-speed-100');
+		if (speedFast) speedFast.addEventListener('click', () => setPlaybackSpeed(20));
+		if (speedNormal) speedNormal.addEventListener('click', () => setPlaybackSpeed(50));
+		if (speedSlow) speedSlow.addEventListener('click', () => setPlaybackSpeed(100));
 		const nodes = ['node-a', 'node-router', 'node-b'];
 		nodes.forEach(id => {
 		const el = document.getElementById(id);
