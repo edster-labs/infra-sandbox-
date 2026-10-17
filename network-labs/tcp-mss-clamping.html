@@ -5,64 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TCP MSS Clamping Visualizer</title>
     <style>
+        /* ==========================================================================
+           🌌 GLOBAL DARK THEME & ACCESSIBILITY ARCHITECTURE OVERRIDES
+           ========================================================================== */
+
+        body {
+            background-color: #0f172a !important; /* Premium Midnight Dark Slate */
+            color: #cbd5e1 !important;            /* Balanced off-white text to reduce glare */
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        strong, b {
+            color: #f1f5f9 !important;
+        }
+
+        /* 3. Outer Frame Layout Container Alignments */
+        .container, .wrapper, #main_content, main {
+            background-color: #0f172a !important; 
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: left;
+        }
+
+        a {
+            color: #38bdf8 !important; /* Radiating sky blue links */
+            text-decoration: none !important;
+        }
+
+        a:hover, a:active {
+            color: #60a5fa !important; /* Transitions to lighter blue on click/hover */
+            text-decoration: underline !important;
+        }
+
+        /* ==========================================================================
+           📱 MOBILE REFRESH: GLOBAL TOP THEME NAVBAR BUTTON CONTROLS
+           ========================================================================== */
+
+        header, .site-header, #project_title, .project-name {
+            background-color: #1e293b !important; /* Subtle lighter slate header card wrapper */
+            border-bottom: 1px solid #334155 !important;
+            padding: 16px 24px !important;
+            margin-bottom: 30px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            display: block !important;
+        }
+
+        header a, .site-header a, .project-name a, body > header h1 a {
+            color: #ffffff !important; /* Crisp pure white home text link */
+            font-weight: 700 !important;
+            font-size: 18px !important;
+        }
+
+        header a:hover {
+            color: #38bdf8 !important;
+        }
+
+        /* ==========================================================================
+           🎨 CUSTOM INTERACTIVE VISUALIZER COMPONENTS
+           ========================================================================== */
+
         :root {
-            --bg-main: #0f172a;
-            --bg-card: #1e293b;
             --accent-blue: #38bdf8;
             --accent-green: #34d399;
             --accent-orange: #fb923c;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
             --border: #334155;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-          /* Top Navigation Header Matching Jekyll Theme Dark Mode Aesthetics */
-        .site-nav-header {
-            background-color: #1e293b;
-            border-bottom: 1px solid #334155;
-            padding: 16px 24px;
-            margin-bottom: 30px;
+        /* Centered simulation box wrapper distinct from body layout context */
+        .visualizer-wrapper {
+            max-width: 1000px;
             width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem 2rem 2rem;
             box-sizing: border-box;
         }
 
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            background: var(--bg-card);
+        .dashboard-card {
+            background: #1e293b;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
-        h1 {
-            font-size: 1.75rem;
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
         .subtitle {
-            color: var(--text-muted);
-            text-align: center;
+            color: #94a3b8;
             margin-bottom: 2rem;
         }
 
-        /* Mode Selector Toggle Layout */
         .controls {
             display: flex;
-            justify-content: center;
             gap: 1rem;
             margin-bottom: 2.5rem;
         }
@@ -70,7 +111,7 @@
         .btn {
             background: #273549;
             border: 1px solid var(--border);
-            color: var(--text-main);
+            color: #f8fafc;
             padding: 0.75rem 1.5rem;
             border-radius: 6px;
             cursor: pointer;
@@ -92,7 +133,6 @@
             box-shadow: 0 0 0 2px rgba(251, 146, 60, 0.2);
         }
 
-        /* Animation Wire Canvas Track */
         .network-track {
             position: relative;
             display: flex;
@@ -147,10 +187,9 @@
 
         .node-subtitle {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: #94a3b8;
         }
 
-        /* Animated Flying Packet */
         .packet-transit {
             position: absolute;
             top: 50%;
@@ -174,7 +213,6 @@
             box-shadow: 0 0 12px var(--accent-orange);
         }
 
-        /* Bottom Inspection Context Panel */
         .details-panel {
             background: #111827;
             border: 1px solid var(--border);
@@ -212,45 +250,48 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>TCP MSS Clamping Flow Visualizer</h1>
-        <p class="subtitle">Simulate how intermediate VPN links actively intercept and rewrite transit TCP headers to prevent Layer-3 fragmentation.</p>
+    <!-- 🌐 Dynamic Top Navigation Bar Block Matching Target Scheme -->
+    <header class="site-header">
+        <a href="../../index.html">infra-sandbox-</a>
+    </header>
 
-        <!-- Simulation State Control Toggles -->
-        <div class="controls">
-            <button id="btn-standard" class="btn active">Standard Path (1460 B)</button>
-            <button id="btn-clamp" class="btn">MSS Clamping Path (1360 B)</button>
-        </div>
+    <!-- 🛠 Isolated Layout Core Content Component Wrapper -->
+    <div class="visualizer-wrapper">
+        <div class="dashboard-card">
+            <h1>TCP MSS Clamping Flow Visualizer</h1>
+            <p class="subtitle">Simulate how intermediate VPN links actively intercept and rewrite transit TCP headers to prevent Layer-3 fragmentation.</p>
 
-        <!-- Wire Diagram & Animation Grid Track -->
-        <div class="network-track">
-            <div id="wire-track" class="wire-line"></div>
-            
-            <div id="packet" class="packet-transit">SYN: MSS 1460</div>
-
-            <div id="node-a" class="node">
-                <span class="node-title">Host A</span>
-                <span class="node-subtitle">Source Initiator</span>
+            <div class="controls">
+                <button id="btn-standard" class="btn active">Standard Path (1460 B)</button>
+                <button id="btn-clamp" class="btn">MSS Clamping Path (1360 B)</button>
             </div>
-            
-            <div id="node-router" class="node">
-                <span class="node-title">VPN Router</span>
-                <span class="node-subtitle">Transit Middlebox</span>
-            </div>
-            
-            <div id="node-b" class="node">
-                <span class="node-title">Host B</span>
-                <span class="node-subtitle">Target Server</span>
-            </div>
-        </div>
 
-        <!-- Real-time Deep Dive Description Inspection Box -->
-        <div id="details-panel" class="details-panel">
-            <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Click either calculation pathway above, or hover/tap any network node component to inspect real-time frame mutations and TCP options fields.</p>
+            <div class="network-track">
+                <div id="wire-track" class="wire-line"></div>
+                <div id="packet" class="packet-transit">SYN: MSS 1460</div>
+
+                <div id="node-a" class="node">
+                    <span class="node-title">Host A</span>
+                    <span class="node-subtitle">Source Initiator</span>
+                </div>
+                
+                <div id="node-router" class="node">
+                    <span class="node-title">VPN Router</span>
+                    <span class="node-subtitle">Transit Middlebox</span>
+                </div>
+                
+                <div id="node-b" class="node">
+                    <span class="node-title">Host B</span>
+                    <span class="node-subtitle">Target Server</span>
+                </div>
+            </div>
+
+            <div id="details-panel" class="details-panel">
+                <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Click either calculation pathway above, or hover/tap any network node component to inspect real-time frame mutations and TCP options fields.</p>
+            </div>
         </div>
     </div>
 
-    <!-- Linked script updated to match tech naming scheme -->
     <script src="tcp-mss-clamping.js"></script>
 </body>
 </html>
