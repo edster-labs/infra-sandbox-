@@ -5,6 +5,7 @@
     
     let isPaused = true;
     let currentPosition = 10; // Start offset mapped cleanly to Host A position
+    let playbackSpeedMs = 30; // Default clock cycle speed rate (30ms per tick)
 
     const nodeDatabase = {
         'node-a': {
@@ -29,9 +30,13 @@
         const wire = document.getElementById('wire-track');
         if (!packet || !wire) return;
 
-        if (isPaused) return;
+        if (isPaused) {
+            clearInterval(animationTimer);
+            return;
+        }
 
-        currentPosition += 0.4; 
+        // Incremental movement step
+        currentPosition += 0.5; 
         packet.style.left = `${currentPosition}%`;
         packet.style.opacity = '1';
         wire.classList.add('active-pulse');
@@ -61,32 +66,33 @@
     }
 
     function startPlayback() {
-        if (!isPaused) return;
+        // Clear any orphaned intervals running in background memory first
+        clearInterval(animationTimer);
         
         isPaused = false;
         updatePlaybackButtons();
         
+        // Loop boundary auto-reset: if the user clicks play at the end line, snap back to Host A
         if (currentPosition >= 90) {
-            resetPlayback();
-            isPaused = false;
+            currentPosition = 10;
         }
 
-        clearInterval(animationTimer);
-        animationTimer = setInterval(stepAnimation, 30);
+        // Initialize clean loop runner tracking our speed configuration
+        animationTimer = setInterval(stepAnimation, playbackSpeedMs);
     }
 
     function pausePlayback() {
         isPaused = true;
-        updatePlaybackButtons();
         clearInterval(animationTimer);
+        updatePlaybackButtons();
         const wire = document.getElementById('wire-track');
         if (wire) wire.classList.remove('active-pulse');
     }
 
     function resetPlayback() {
         isPaused = true;
-        currentPosition = 10;
         clearInterval(animationTimer);
+        currentPosition = 10;
         updatePlaybackButtons();
 
         const packet = document.getElementById('packet');
@@ -100,6 +106,30 @@
         }
     }
 
+    // Dynamic speed throttle selector interface rule logic
+    function setPlaybackSpeed(newSpeedMs) {
+        playbackSpeedMs = newSpeedMs;
+        
+        // Update active class indicators on buttons if speed selector handles exist
+        const speeds =;
+        speeds.forEach(sp => {
+            const btn = document.getElementById(`btn-speed-${sp}`);
+            if (btn) {
+                if (sp === newSpeedMs) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            }
+        });
+
+        // If the animation is actively flowing, dynamically adjust pacing on the fly
+        if (!isPaused) {
+            clearInterval(animationTimer);
+            animationTimer = setInterval(stepAnimation, playbackSpeedMs);
+        }
+    }
+
     function updatePlaybackButtons() {
         const btnPlay = document.getElementById('btn-play');
         const btnPause = document.getElementById('btn-pause');
@@ -107,15 +137,15 @@
         if (!btnPlay || !btnPause) return;
 
         if (isPaused) {
-            btnPlay.style.background = 'var(--accent-blue)';
-            btnPlay.style.color = '#000000';
+            btnPlay.style.background = 'var(--accent-blue, #2563eb)';
+            btnPlay.style.color = '#ffffff';
             btnPause.style.background = '#273549';
             btnPause.style.color = '#f8fafc';
         } else {
             btnPlay.style.background = '#273549';
             btnPlay.style.color = '#f8fafc';
-            btnPause.style.background = 'var(--accent-orange)';
-            btnPause.style.color = '#000000';
+            btnPause.style.background = 'var(--accent-orange, #d97706)';
+            btnPause.style.color = '#ffffff';
         }
     }
 
@@ -124,19 +154,13 @@
         if (!routerNode) return;
 
         if (isClampingMode) {
-            routerNode.querySelector('.node-subtitle').innerText = 'Clamping Active (1360B)';
-            routerNode.style.borderColor = 'var(--accent-orange)';
+            const subtitle = routerNode.querySelector('.node-subtitle');
+            if (subtitle) subtitle.innerText = 'Clamping Active (1360B)';
+            routerNode.style.borderColor = 'var(--accent-orange, #d97706)';
         } else {
-            routerNode.querySelector('.node-subtitle').innerText = 'Transit Middlebox';
-            routerNode.style.borderColor = 'var(--border)';
-        }
-        
-        if (currentPosition >= 50 && isClampingMode) {
-            const packet = document.getElementById('packet');
-            if (packet) {
-                packet.classList.add('clamped-state');
-                packet.innerText = 'SYN: MSS 1360';
-            }
+            const subtitle = routerNode.querySelector('.node-subtitle');
+            if (subtitle) subtitle.innerText = 'Transit Middlebox';
+            routerNode.style.borderColor = 'var(--border, #334155)';
         }
     }
 
@@ -147,6 +171,7 @@
         if (isEntering) {
             hoveredNodeId = nodeId;
             const data = nodeDatabase[nodeId];
+            if (!data) return;
             
             let contextDesc = data.desc;
             if (nodeId === 'node-router' && isClampingMode) {
@@ -158,7 +183,7 @@
             panel.innerHTML = `
                 <div class="details-title">
                     <span style="color: #ffffff;">${data.name}</span>
-                    <span class="details-tag-size">${data.state}</span>
+                    <span class="details-tag-size" style="font-size: 12px; font-weight: 700; background-color: #334155; padding: 4px 10px; border-radius: 6px; color: #cbd5e1;">${data.state}</span>
                 </div>
                 <p class="details-desc">${contextDesc}</p>
             `;
@@ -180,6 +205,8 @@
         const btnStd = document.getElementById('btn-standard');
         const btnClamp = document.getElementById('btn-clamp');
         
+        if (!btnStd || !btnClamp) return;
+
         if (isClampingMode) {
             btnStd.classList.remove('active');
             btnClamp.classList.add('active', 'clamped');
@@ -192,26 +219,36 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('btn-standard').addEventListener('click', () => setClampingMode(false));
-        document.getElementById('btn-clamp').addEventListener('click', () => setClampingMode(true));
+        // Check for DOM presence safety before anchoring events
+        const btnStd = document.getElementById('btn-standard');
+        const btnClamp = document.getElementById('btn-clamp');
+        const btnPlay = document.getElementById('btn-play');
+        const btnPause = document.getElementById('btn-pause');
+        const btnReset = document.getElementById('btn-reset');
+
+        if (btnStd) btnStd.addEventListener('click', () => setClampingMode(false));
+        if (btnClamp) btnClamp.addEventListener('click', () => setClampingMode(true));
         
-        document.getElementById('btn-play').addEventListener('click', startPlayback);
-        document.getElementById('btn-pause').addEventListener('click', pausePlayback);
-        document.getElementById('btn-reset').addEventListener('click', resetPlayback);
+        if (btnPlay) btnPlay.addEventListener('click', startPlayback);
+        if (btnPause) btnPause.addEventListener('click', pausePlayback);
+        if (btnReset) btnReset.addEventListener('click', resetPlayback);
 
-        const nodes = ['node-a', 'node-router', 'node-b'];
-        nodes.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('mouseenter', () => handleHover(id, true));
-                el.addEventListener('mouseleave', () => handleHover(id, false));
-                el.addEventListener('click', () => {
-                    startPlayback();
-                });
-            }
-        });
-
-        resetPlayback();
-        renderActiveLayout();
-    });
-})();
+        // Add explicit dynamic hooks for speed control interfaces if implemented in HTML
+        const spFast = document.getElementById('btn-speed-20');
+        const spNorm = document.getElementById('btn-speed-50');
+		const spSlow = document.getElementById('btn-speed-100');
+		if (spFast) spFast.addEventListener('click', () => setPlaybackSpeed(20));
+		if (spNorm) spNorm.addEventListener('click', () => setPlaybackSpeed(50));
+		if (spSlow) spSlow.addEventListener('click', () => setPlaybackSpeed(100));
+		const nodes = ['node-a', 'node-router', 'node-b'];
+		nodes.forEach(id => {
+		const el = document.getElementById(id);
+		if (el) {
+		el.addEventListener('mouseenter', () => handleHover(id, true));
+		el.addEventListener('mouseleave', () => handleHover(id, false));
+		}
+		});
+		resetPlayback();
+		renderActiveLayout();
+		});
+		})();
