@@ -2,8 +2,10 @@
     let isClampingMode = false;
     let hoveredNodeId = null;
     let animationTimer = null;
+    
+    let isPaused = true;
+    let currentPosition = 10; // Start offset mapped cleanly to Host A position
 
-    // Database mapping details panels to interactive physical layout elements
     const nodeDatabase = {
         'node-a': {
             name: 'Host A (Source Node)',
@@ -22,44 +24,99 @@
         }
     };
 
-    // Resets layout and fires a multi-stage transition pipeline
-    function triggerPacketAnimation() {
+    function stepAnimation() {
         const packet = document.getElementById('packet');
         const wire = document.getElementById('wire-track');
         if (!packet || !wire) return;
 
-        // Clear existing running schedules safely
-        clearInterval(animationTimer);
-        packet.removeAttribute('style');
-        packet.className = 'packet-transit';
-        wire.className = 'wire-line';
+        if (isPaused) return;
 
-        // Stage 0: Package Deployment
+        currentPosition += 0.4; 
+        packet.style.left = `${currentPosition}%`;
         packet.style.opacity = '1';
-        packet.innerText = 'SYN: MSS 1460';
         wire.classList.add('active-pulse');
 
-        let position = 15; // Percent offset start from Left boundary
+        // Middlebox Gateway Checkpoint (Router sits around 50% width marker)
+        if (currentPosition >= 50) {
+            if (isClampingMode) {
+                packet.classList.add('clamped-state');
+                packet.innerText = 'SYN: MSS 1360';
+            } else {
+                packet.classList.remove('clamped-state');
+                packet.innerText = 'SYN: MSS 1460';
+            }
+        } else {
+            packet.classList.remove('clamped-state');
+            packet.innerText = 'SYN: MSS 1460';
+        }
+
+        // Endpoint Delivery Boundary (Host B sits at 90% space)
+        if (currentPosition >= 90) {
+            clearInterval(animationTimer);
+            isPaused = true;
+            packet.style.opacity = '0';
+            wire.classList.remove('active-pulse');
+            updatePlaybackButtons();
+        }
+    }
+
+    function startPlayback() {
+        if (!isPaused) return;
         
-        animationTimer = setInterval(() => {
-            position += 1.5;
-            packet.style.left = `${position}%`;
+        isPaused = false;
+        updatePlaybackButtons();
+        
+        if (currentPosition >= 90) {
+            resetPlayback();
+            isPaused = false;
+        }
 
-            // Stage 1: Hit Middlebox Router Checkpoint (At roughly 50% spatial pathing)
-            if (position >= 50 && position < 52) {
-                if (isClampingMode) {
-                    packet.classList.add('clamped-state');
-                    packet.innerText = 'SYN: MSS 1360';
-                }
-            }
+        clearInterval(animationTimer);
+        animationTimer = setInterval(stepAnimation, 30);
+    }
 
-            // Stage 2: Safe Inbound Termination
-            if (position >= 85) {
-                clearInterval(animationTimer);
-                packet.style.opacity = '0';
-                wire.classList.remove('active-pulse');
-            }
-        }, 30);
+    function pausePlayback() {
+        isPaused = true;
+        updatePlaybackButtons();
+        clearInterval(animationTimer);
+        const wire = document.getElementById('wire-track');
+        if (wire) wire.classList.remove('active-pulse');
+    }
+
+    function resetPlayback() {
+        isPaused = true;
+        currentPosition = 10;
+        clearInterval(animationTimer);
+        updatePlaybackButtons();
+
+        const packet = document.getElementById('packet');
+        const wire = document.getElementById('wire-track');
+        if (packet && wire) {
+            packet.style.left = `${currentPosition}%`;
+            packet.style.opacity = '0';
+            packet.classList.remove('clamped-state');
+            packet.innerText = 'SYN: MSS 1460';
+            wire.classList.remove('active-pulse');
+        }
+    }
+
+    function updatePlaybackButtons() {
+        const btnPlay = document.getElementById('btn-play');
+        const btnPause = document.getElementById('btn-pause');
+        
+        if (!btnPlay || !btnPause) return;
+
+        if (isPaused) {
+            btnPlay.style.background = 'var(--accent-blue)';
+            btnPlay.style.color = '#000000';
+            btnPause.style.background = '#273549';
+            btnPause.style.color = '#f8fafc';
+        } else {
+            btnPlay.style.background = '#273549';
+            btnPlay.style.color = '#f8fafc';
+            btnPause.style.background = 'var(--accent-orange)';
+            btnPause.style.color = '#000000';
+        }
     }
 
     function renderActiveLayout() {
@@ -74,7 +131,13 @@
             routerNode.style.borderColor = 'var(--border)';
         }
         
-        triggerPacketAnimation();
+        if (currentPosition >= 50 && isClampingMode) {
+            const packet = document.getElementById('packet');
+            if (packet) {
+                packet.classList.add('clamped-state');
+                packet.innerText = 'SYN: MSS 1360';
+            }
+        }
     }
 
     function handleHover(nodeId, isEntering) {
@@ -85,7 +148,6 @@
             hoveredNodeId = nodeId;
             const data = nodeDatabase[nodeId];
             
-            // Contextual string modifications dependent on selected pathway switch configurations
             let contextDesc = data.desc;
             if (nodeId === 'node-router' && isClampingMode) {
                 contextDesc = '🔥 CLAMPING ACTIVE: The router unzips the TCP Options space on the fly, intercepts the 1460-Byte request, and overwrites the binary field value directly to 1360 Bytes before re-checksumming the outbound packet.';
@@ -126,14 +188,16 @@
             btnStd.classList.add('active');
         }
 
-        resetDefaultPanelText();
         renderActiveLayout();
     }
 
-    // Attach DOM listener dependencies explicitly safely on load
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btn-standard').addEventListener('click', () => setClampingMode(false));
         document.getElementById('btn-clamp').addEventListener('click', () => setClampingMode(true));
+        
+        document.getElementById('btn-play').addEventListener('click', startPlayback);
+        document.getElementById('btn-pause').addEventListener('click', pausePlayback);
+        document.getElementById('btn-reset').addEventListener('click', resetPlayback);
 
         const nodes = ['node-a', 'node-router', 'node-b'];
         nodes.forEach(id => {
@@ -141,10 +205,13 @@
             if (el) {
                 el.addEventListener('mouseenter', () => handleHover(id, true));
                 el.addEventListener('mouseleave', () => handleHover(id, false));
-                el.addEventListener('click', () => triggerPacketAnimation());
+                el.addEventListener('click', () => {
+                    startPlayback();
+                });
             }
         });
 
+        resetPlayback();
         renderActiveLayout();
     });
 })();
