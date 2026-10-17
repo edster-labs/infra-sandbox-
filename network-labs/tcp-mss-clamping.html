@@ -9,8 +9,8 @@
            🌌 GLOBAL DARK THEME & ACCESSIBILITY ARCHITECTURE OVERRIDES
            ========================================================================== */
         body {
-            background-color: #0f172a !important; /* Premium Midnight Dark Slate */
-            color: #cbd5e1 !important;            /* Balanced off-white text to reduce glare */
+            background-color: #0f172a !important;
+            color: #cbd5e1 !important;
             line-height: 1.6 !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -26,28 +26,8 @@
             color: #f1f5f9 !important;
         }
 
-        .container, .wrapper, #main_content, main {
-            background-color: #0f172a !important; 
-            margin-left: auto !important;
-            margin-right: auto !important;
-            text-align: left;
-        }
-
-        a {
-            color: #38bdf8 !important; /* Radiating sky blue links */
-            text-decoration: none !important;
-        }
-
-        a:hover, a:active {
-            color: #60a5fa !important; /* Transitions to lighter blue on click/hover */
-            text-decoration: underline !important;
-        }
-
-        /* ==========================================================================
-           📱 MOBILE REFRESH: GLOBAL TOP THEME NAVBAR BUTTON CONTROLS
-           ========================================================================== */
-        header, .site-header, #project_title, .project-name, .site-nav-header {
-            background-color: #1e293b !important; /* Subtle lighter slate header card wrapper */
+        .site-nav-header {
+            background-color: #1e293b !important;
             border-bottom: 1px solid #334155 !important;
             padding: 16px 24px !important;
             margin-bottom: 30px !important;
@@ -56,13 +36,14 @@
             display: block !important;
         }
 
-        header a, .site-header a, .project-name a, body > header h1 a, .site-nav-header a {
-            color: #ffffff !important; /* Crisp pure white home text link */
+        .site-nav-header a {
+            color: #ffffff !important;
             font-weight: 700 !important;
             font-size: 18px !important;
+            text-decoration: none !important;
         }
 
-        header a:hover, .site-nav-header a:hover {
+        .site-nav-header a:hover {
             color: #38bdf8 !important;
         }
 
@@ -71,7 +52,6 @@
            ========================================================================== */
         :root {
             --accent-blue: #38bdf8;
-            --accent-green: #34d399;
             --accent-orange: #fb923c;
             --border: #334155;
         }
@@ -105,23 +85,10 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .controls {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .playback-cluster {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .playback-controls, .speed-controls {
+        .playback-controls {
             display: flex;
             gap: 0.5rem;
             background: #111827;
@@ -134,11 +101,12 @@
             background: #273549;
             border: 1px solid var(--border);
             color: #f8fafc;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
+            font-size: 0.85rem;
         }
 
         .btn:hover {
@@ -147,22 +115,118 @@
 
         .btn.active {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-            background: #1e293b;
+            background: var(--accent-blue);
+            color: #000000;
         }
 
-        .btn.active.clamped {
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 0 2px rgba(251, 146, 60, 0.2);
+        /* Live Status Text Banner */
+        .status-banner {
+            background: #111827;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
         }
 
-        .btn-playback {
-            background: #1e293b;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            border-radius: 4px;
+        /* Live Parameters Matrix Grid Layout */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            background: #111827;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
+        .matrix-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .matrix-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        /* Interactive Range Sliders Section */
+        .sliders-section {
+            background: #111827;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #f8fafc !important;
+        }
+
+        .slider-header span:last-child {
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #334155;
+            outline: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.1s ease;
+        }
+
+        #slider-host::-webkit-slider-thumb { background: var(--accent-blue); }
+        #slider-host::-moz-range-thumb { background: var(--accent-blue); }
+        #slider-router::-webkit-slider-thumb { background: var(--accent-orange); }
+        #slider-router::-moz-range-thumb { background: var(--accent-orange); }
+
+        .range-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        .range-slider::-moz-range-thumb:hover { transform: scale(1.2); }
+
+        /* Network Animation Track Layout */
         .network-track {
             position: relative;
             display: flex;
@@ -172,7 +236,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 3.5rem 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             overflow: hidden;
             width: 100%;
             box-sizing: border-box;
@@ -190,7 +254,7 @@
         }
 
         .wire-line.active-pulse {
-            background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-orange) 50%, var(--accent-green) 100%);
+            background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-orange) 50%, #10b981 100%);
         }
 
         .node {
@@ -208,7 +272,7 @@
             box-sizing: border-box;
         }
 
-        .node:hover, .node.active-hover {
+        .node:hover {
             border-color: var(--accent-blue);
             transform: translateY(-2px);
         }
@@ -218,6 +282,7 @@
             display: block;
             margin-bottom: 0.25rem;
             font-size: 0.9rem;
+            color: #ffffff !important;
         }
 
         .node-subtitle {
@@ -285,139 +350,206 @@
         }
 
         @media screen and (max-width: 768px) {
-            .controls-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .playback-cluster {
-                width: 100%;
-                justify-content: space-between;
-            }
+            .controls-row { flex-direction: column; align-items: flex-start; }
+            .matrix-grid { grid-template-columns: 1fr; }
             .node-title { font-size: 0.8rem; }
             .node-subtitle { font-size: 0.65rem; }
-            .packet-transit { font-size: 0.65rem; padding: 0.3rem 0.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌐 Absolute Domain Routing Back To Core Repository Index Dashboard -->
     <div class="site-nav-header">
-        <a href="/infra-sandbox-/network-labs/">infra-sandbox-</a>
-        https://edster-labs.github.io/infra-sandbox-/network-labs/
+        <a href="/infra-sandbox-/">infra-sandbox-</a>
     </div>
 
     <div class="visualizer-wrapper">
         <div class="dashboard-card">
             <h1>Header Optimization: TCP MSS Clamping</h1>
-            <p class="subtitle">Simulate how intermediate VPN links actively intercept and rewrite transit TCP headers to prevent Layer-3 fragmentation.</p>
+            <p class="subtitle">Dynamically tune handshake rules to observe how edge routers clear transmission sizing blocks across virtual tunnels.</p>
 
             <div class="controls-row">
-                <div class="controls">
-                    <button id="btn-standard" class="btn active">Standard Path (1460 B)</button>
-                    <button id="btn-clamp" class="btn">MSS Clamping Path (1360 B)</button>
-                </div>
-                
-                <div class="playback-cluster">
-                    <div class="playback-controls">
-                        <button id="btn-play" class="btn btn-playback">▶ Play</button>
-                        <button id="btn-pause" class="btn btn-playback">⏸ Pause</button>
-                        <button id="btn-reset" class="btn btn-playback">🔄 Reset</button>
-                    </div>
-
-                    <div class="speed-controls">
-                        <button id="btn-speed-100" class="btn btn-playback">🐢 Slow</button>
-                        <button id="btn-speed-50" class="btn btn-playback active">⚡ Normal</button>
-                        <button id="btn-speed-20" class="btn btn-playback">🚀 Fast</button>
-                    </div>
+                <h3 style="margin: 0;">Simulation Playback Controls</h3>
+                <div class="playback-controls">
+                    <button id="btn-play" class="btn">▶ Play</button>
+                    <button id="btn-pause" class="btn">⏸ Pause</button>
+                    <button id="btn-reset" class="btn">🔄 Reset</button>
                 </div>
             </div>
 
             <div class="network-track">
                 <div id="wire-track" class="wire-line"></div>
-                <div id="packet" class="packet-transit">SYN: MSS 1460</div>
+                <div id="packet" class="packet-transit">TCP SYN</div>
 
                 <div id="node-a" class="node">
                     <span class="node-title">Host A</span>
-                    <span class="node-subtitle">MTU 1500 (Standard)</span>
+                    <span class="node-subtitle">MTU: 1500</span>
                 </div>
                 
                 <div id="node-router" class="node">
-                    <span class="node-title">VPN Router</span>
-                    <span class="node-subtitle">Transit Middlebox</span>
+                    <span class="node-title">VPN Gateway</span>
+                    <span class="node-subtitle" id="router-trigger-label">Clamping Target</span>
                 </div>
                 
                 <div id="node-b" class="node">
                     <span class="node-title">Host B</span>
-                    <span class="node-subtitle">Remote Destination</span>
+                    <span class="node-subtitle">MTU: 1500</span>
+                </div>
+            </div>
+
+            <div id="status-banner" class="status-banner">Status: Ready to transmit handshake segment...</div>
+
+            <div class="matrix-grid">
+                <div>
+                    <div class="matrix-label">Orig. MSS</div>
+                    <div id="val-orig" class="matrix-value" style="color: var(--accent-blue);">1460 B</div>
+                </div>
+                <div>
+                    <div class="matrix-label">Clamp Target</div>
+                    <div id="val-clamp" class="matrix-value" style="color: var(--accent-orange);">1360 B</div>
+                </div>
+                <div>
+                    <div class="matrix-label">Effective MSS</div>
+                    <div id="val-effective" class="matrix-value" style="color: #10b981;">1360 B</div>
+                </div>
+            </div>
+
+            <div class="sliders-section">
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span style="color: var(--accent-blue);">Host A Outbound MSS</span>
+                        <span id="label-host-mss">1460 B</span>
+                    </div>
+                    <input type="range" id="slider-host" class="range-slider" min="536" max="1460" value="1460">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span style="color: var(--accent-orange);">Router Clamp Limit</span>
+                        <span id="label-router-clamp">1360 B</span>
+                    </div>
+                    <input type="range" id="slider-router" class="range-slider" min="1000" max="1460" value="1360">
                 </div>
             </div>
 
             <div id="details-panel" class="details-panel">
-                <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Click either calculation pathway above, or hover/tap any network node component to inspect real-time frame mutations and TCP options fields.</p>
+                <p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Adjust the tuning handles or tap network components to inspect localized frame modifications.</p>
             </div>
         </div>
     </div>
 
     <script>
     (function() {
-        let isClampingMode = false;
         let animationTimer = null;
         let isPaused = true;
-        let currentPosition = 10; 
-        let playbackSpeedMs = 50; 
+        let currentPosition = 10;
 
         const nodeDatabase = {
             'node-a': {
                 name: 'Host A (Source Node)',
-                state: 'Transmitting Initial SYN',
-                desc: 'Initiates a standard TCP handshake session. Connected locally via a standard 1500-byte MTU Ethernet interface, it naturally requests a Maximum Segment Size (MSS) of 1460 bytes (1500 bytes MTU - 20 bytes IPv4 Header - 20 bytes TCP Header).'
+                state: 'Transmitting Handshake Segment',
+                desc: 'Generates the initial TCP SYN frame. Based on its configured MTU boundary, it offers an outbound segment request size. If it drops its own packet values below the router threshold, the gateway leaves the packet completely untouched.'
             },
             'node-router': {
                 name: 'VPN Gateway Router',
-                state: 'Header Interception Phase',
-                desc: 'A stateful transit path gateway. Because internal cryptographic encapsulation headers (like IPsec or WireGuard) subtract up to 60-100 bytes from the transit tunnel MTU, this node monitors inbound TCP connection rules to squeeze segment sizing down and safeguard data limits.'
+                state: 'Dynamic Header Inspection',
+                desc: 'Compares the incoming packet MSS field against the configured ceiling limit. If the packet asks for more room than the threshold allows, the router forces a line-rate field rewrite to dodge fragmentation.'
             },
             'node-b': {
-                name: 'Host B (Remote Destination Server)',
-                state: 'Receiving Handshake Frame',
-                desc: 'Processes the inbound network handshake request. By accepting the altered TCP MSS properties natively on arrival, it voluntarily caps all corresponding outbound packet structures to avoid catastrophic fragmentation faults down the line.'
+                name: 'Host B (Remote Receiver Destination)',
+                state: 'Handshake Arrival State',
+                desc: 'Accepts the final inbound TCP SYN. It caps its return transmission size based on the absolute lowest value received, safely matching the path limitations without fragmentation errors.'
             }
         };
+
+        function calculateEffectiveMSS() {
+            const hostMSS = parseInt(document.getElementById('slider-host').value);
+            const clampLimit = parseInt(document.getElementById('slider-router').value);
+            
+            // Core networking logic: clamp acts as a ceiling limit only
+            return Math.min(hostMSS, clampLimit);
+        }
+
+        function updateLiveValues() {
+            const hostMSS = document.getElementById('slider-host').value;
+            const clampLimit = document.getElementById('slider-router').value;
+            const effectiveMSS = calculateEffectiveMSS();
+
+            // Sync metrics table
+            document.getElementById('label-host-mss').innerText = hostMSS + " B";
+            document.getElementById('label-router-clamp').innerText = clampLimit + " B";
+            
+            document.getElementById('val-orig').innerText = hostMSS + " B";
+            document.getElementById('val-clamp').innerText = clampLimit + " B";
+            document.getElementById('val-effective').innerText = effectiveMSS + " B";
+
+            // Sync node dynamic status strings
+            const routerSub = document.getElementById('router-trigger-label');
+            if (parseInt(hostMSS) > parseInt(clampLimit)) {
+                routerSub.innerHTML = 'Clamping Active (<span style="color:var(--accent-orange); font-weight:bold;">' + clampLimit + 'B</span>)';
+            } else {
+                routerSub.innerHTML = 'Passing Untouched';
+            }
+
+            // Sync transit display values inside active step loop
+            const packet = document.getElementById('packet');
+            if (packet) {
+                if (currentPosition < 50) {
+                    packet.innerText = 'TCP SYN (' + hostMSS + 'B)';
+                } else {
+                    packet.innerText = 'TCP SYN (' + effectiveMSS + 'B)';
+                }
+            }
+        }
 
         function stepAnimation() {
             const packet = document.getElementById('packet');
             const wire = document.getElementById('wire-track');
-            if (!packet || !wire) return;
+            const statusBanner = document.getElementById('status-banner');
+            if (!packet || !wire || !statusBanner) return;
 
             if (isPaused) {
                 clearInterval(animationTimer);
                 return;
             }
 
-            currentPosition += 0.5; 
+            currentPosition += 0.5;
             packet.style.left = currentPosition + "%";
             packet.style.opacity = '1';
             wire.classList.add('active-pulse');
 
-            if (currentPosition >= 50) {
-                if (isClampingMode) {
-                    packet.classList.add('clamped-state');
-                    packet.innerText = 'SYN: MSS 1360';
-                } else {
-                    packet.classList.remove('clamped-state');
-                    packet.innerText = 'SYN: MSS 1460';
-                }
-            } else {
-                packet.classList.remove('clamped-state');
-                packet.innerText = 'SYN: MSS 1460';
-            }
+            const hostMSS = parseInt(document.getElementById('slider-host').value);
+            const clampLimit = parseInt(document.getElementById('slider-router').value);
+            const effectiveMSS = calculateEffectiveMSS();
 
-            if (currentPosition >= 90) {
+            // Phase 1: Transit from Host A to Gateway
+            if (currentPosition < 50) {
+                statusBanner.innerText = 'Status: Sending SYN packet out into the network link (MSS: ' + hostMSS + 'B)...';
+                packet.classList.remove('clamped-state');
+                packet.innerText = 'TCP SYN (' + hostMSS + 'B)';
+            }
+            // Phase 2: Gateway Intervention Inspection Checkpoint
+            else if (currentPosition >= 50 && currentPosition < 52) {
+                if (hostMSS > clampLimit) {
+                    statusBanner.innerText = 'Status: VPN Gateway intercepts packet. MSS (' + hostMSS + 'B) > Clamp Limit (' + clampLimit + 'B). Overwriting field header...';
+                    packet.classList.add('clamped-state');
+                    packet.innerText = 'TCP SYN (' + effectiveMSS + 'B)';
+                } else {
+                    statusBanner.innerText = 'Status: VPN Gateway checks packet. MSS (' + hostMSS + 'B) <= Clamp Limit (' + clampLimit + 'B). Passing packet untouched...';
+                    packet.classList.remove('clamped-state');
+                    packet.innerText = 'TCP SYN (' + effectiveMSS + 'B)';
+                }
+            }
+            // Phase 3: Post-Gateway Flight to Target Node
+            else if (currentPosition >= 52 && currentPosition < 90) {
+                statusBanner.innerText = 'Status: Routing optimized segment through secure VPN tunnel enclosure...';
+            }
+            // Phase 4: Arrival Execution Complete
+            else if (currentPosition >= 90) {
                 clearInterval(animationTimer);
                 isPaused = true;
                 packet.style.opacity = '0';
                 wire.classList.remove('active-pulse');
+                statusBanner.innerText = 'Status: SYN arrived safely at Host B (Final Effective MSS: ' + effectiveMSS + 'B)';
                 updatePlaybackButtons();
             }
         }
@@ -430,7 +562,7 @@
             if (currentPosition >= 90) {
                 currentPosition = 10;
             }
-            animationTimer = setInterval(stepAnimation, playbackSpeedMs);
+            animationTimer = setInterval(stepAnimation, 40);
         }
 
         function pausePlayback() {
@@ -449,34 +581,16 @@
 
             const packet = document.getElementById('packet');
             const wire = document.getElementById('wire-track');
-            if (packet && wire) {
+            const statusBanner = document.getElementById('status-banner');
+            
+            if (packet && wire && statusBanner) {
                 packet.style.left = currentPosition + "%";
                 packet.style.opacity = '0';
                 packet.classList.remove('clamped-state');
-                packet.innerText = 'SYN: MSS 1460';
                 wire.classList.remove('active-pulse');
+                statusBanner.innerText = 'Status: Ready to transmit handshake segment...';
             }
-        }
-
-        function setPlaybackSpeed(newSpeedMs) {
-            playbackSpeedMs = newSpeedMs;
-            const speedOptions = [20, 50, 100];
-            
-            speedOptions.forEach(speed => {
-                const btn = document.getElementById('btn-speed-' + speed);
-                if (btn) {
-                    if (speed === newSpeedMs) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                }
-            });
-
-            if (!isPaused) {
-                clearInterval(animationTimer);
-                animationTimer = setInterval(stepAnimation, playbackSpeedMs);
-            }
+            updateLiveValues();
         }
 
         function updatePlaybackButtons() {
@@ -493,20 +607,6 @@
             }
         }
 
-        function renderActiveLayout() {
-            const routerNode = document.getElementById('node-router');
-            if (!routerNode) return;
-            const subtitle = routerNode.querySelector('.node-subtitle');
-
-            if (isClampingMode) {
-                if (subtitle) subtitle.innerText = 'Clamping Active (1360B)';
-                routerNode.style.borderColor = 'var(--accent-orange)';
-            } else {
-                if (subtitle) subtitle.innerText = 'Transit Middlebox';
-                routerNode.style.borderColor = 'var(--border)';
-            }
-        }
-
         function handleHover(nodeId, isEntering) {
             const panel = document.getElementById('details-panel');
             if (!panel) return;
@@ -514,12 +614,18 @@
             if (isEntering) {
                 const data = nodeDatabase[nodeId];
                 if (!data) return;
-                
+
                 let contextDesc = data.desc;
-                if (nodeId === 'node-router' && isClampingMode) {
-                    contextDesc = '🔥 CLAMPING ACTIVE: The router unzips the TCP Options space on the fly, intercepts the 1460-Byte request, and overwrites the binary field value directly to 1360 Bytes before re-checksumming the outbound packet.';
-                } else if (nodeId === 'node-b' && isClampingMode) {
-                    contextDesc = '✅ CLAMP EFFECT COMPLETE: Host B accepts the frame believing Host A organically requested 1360 Bytes. Host B will safely match this size on returns, entirely eliminating fragmentation across the hidden VPN tunnel.';
+                const hostMSS = parseInt(document.getElementById('slider-host').value);
+                const clampLimit = parseInt(document.getElementById('slider-router').value);
+
+                // Add live architectural context text to hover inspector
+                if (nodeId === 'node-router') {
+                    if (hostMSS > clampLimit) {
+                        contextDesc = '🔥 CLAMP LIMIT TRIGGERED: Inbound payload requested ' + hostMSS + 'B. The gateway overrides the packet header configuration and down-sizes the value fields to ' + clampLimit + 'B, preventing MTU fragmentation over the encrypted tunnel.';
+                    } else {
+                        contextDesc = '✅ PASSING UNTOUCHED: Inbound payload requested ' + hostMSS + 'B. Since this size sits comfortably underneath the ' + clampLimit + 'B clamp ceiling parameter, no action is taken.';
+                    }
                 }
 
                 panel.innerHTML = `
@@ -537,57 +643,48 @@
         function resetDefaultPanelText() {
             const panel = document.getElementById('details-panel');
             if (!panel) return;
-            panel.innerHTML = `<p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Click either calculation pathway above, or hover/tap any network node component to inspect real-time frame mutations and TCP options fields.</p>`;
-        }
-
-        function setClampingMode(enableClamp) {
-            isClampingMode = enableClamp;
-            const btnStandard = document.getElementById('btn-standard');
-            const btnClamp = document.getElementById('btn-clamp');
-            if (!btnStandard || !btnClamp) return;
-
-            if (isClampingMode) {
-                btnStandard.classList.remove('active');
-                btnClamp.classList.add('active', 'clamped');
-            } else {
-                btnClamp.classList.remove('active', 'clamped');
-                btnStandard.classList.add('active');
-            }
-            renderActiveLayout();
+            panel.innerHTML = `<p class="details-desc" style="text-align: center; color: #94a3b8;">💡 Adjust the tuning handles or tap network components to inspect localized frame modifications.</p>`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const btnStandard = document.getElementById('btn-standard');
-            const btnClamp = document.getElementById('btn-clamp');
+            // Slider configuration tuning handle actions
+            const sliderHost = document.getElementById('slider-host');
+            const sliderRouter = document.getElementById('slider-router');
+
+            if (sliderHost) {
+                sliderHost.addEventListener('input', () => {
+                    updateLiveValues();
+                    if (isPaused && currentPosition === 10) resetPlayback();
+                });
+            }
+            if (sliderRouter) {
+                sliderRouter.addEventListener('input', () => {
+                    updateLiveValues();
+                    if (isPaused && currentPosition === 10) resetPlayback();
+                });
+            }
+
+            // Button actions configuration
             const btnPlay = document.getElementById('btn-play');
             const btnPause = document.getElementById('btn-pause');
             const btnReset = document.getElementById('btn-reset');
 
-            if (btnStandard) btnStandard.addEventListener('click', () => setClampingMode(false));
-            if (btnClamp) btnClamp.addEventListener('click', () => setClampingMode(true));
             if (btnPlay) btnPlay.addEventListener('click', startPlayback);
             if (btnPause) btnPause.addEventListener('click', pausePlayback);
             if (btnReset) btnReset.addEventListener('click', resetPlayback);
 
-            const speedFast = document.getElementById('btn-speed-20');
-            const speedNormal = document.getElementById('btn-speed-50');
-            const speedSlow = document.getElementById('btn-speed-100');
-
-            if (speedFast) speedFast.addEventListener('click', () => setPlaybackSpeed(20));
-            if (speedNormal) speedNormal.addEventListener('click', () => setPlaybackSpeed(50));
-            if (speedSlow) speedSlow.addEventListener('click', () => setPlaybackSpeed(100));
-
+            // Node click/hover interactions configuration
             const nodes = ['node-a', 'node-router', 'node-b'];
             nodes.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
                     el.addEventListener('mouseenter', () => handleHover(id, true));
                     el.addEventListener('mouseleave', () => handleHover(id, false));
+                    el.addEventListener('click', () => startPlayback());
                 }
             });
 
             resetPlayback();
-            renderActiveLayout();
         });
     })();
     </script>
