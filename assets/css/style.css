@@ -169,3 +169,34 @@ li a {
         overflow-x: auto !important;
     }
 }
+
+/* ==========================================================================
+    🖨 Dynamic global background inversion
+   ========================================================================== */
+@media print {
+ 
+  body, html, main, article, .container, #content {
+    background: #FFFFFF !important;
+    color: #111111 !important;
+  }
+
+  /* Force links to render crisp dark grey/black for high visibility */
+  a, a:visited {
+    color: #222222 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Clean up the Site Tree block for crisp black monospace lettering */
+  pre, code, .print-tree, .site-tree-container, .language-text {
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
+    border: none !important;
+    font-weight: bold !important;
+  }
+
+  /* Automatically strip out headers/footer blocks if desired */
+  header, footer, nav, .nav-bar {
+    display: none !important;
+  }
+}
+
