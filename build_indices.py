@@ -65,7 +65,70 @@ def update_readme_file(directory):
     else:
         print(f"Warning: Marker comments (<!-- toc --> / <!-- endtoc -->) missing in {readme_path}")
 
+def generate_global_master_tree():
+    """Generates a visual ASCII tree diagram of all files and updates the root README.md."""
+    root_readme = "README.md"
+    if not os.path.exists(root_readme):
+        print("Root README.md missing. Skipping master map creation.")
+        return
+
+    tree_lines = [
+        "\n## 🌐 Architektúra repozitára / Technical Site Tree\n",
+        "```text\n",
+        "[infra-sandbox-] (Root Adresár)\n"
+    ]
+
+    for i, directory in enumerate(TARGET_DIRS):
+        if not os.path.isdir(directory):
+            continue
+        
+        # Select structural branch markers based on folder index position
+        dir_marker = " └── " if i == len(TARGET_DIRS) - 1 else " ├── "
+        tree_lines.append(f"{dir_marker}[{directory}]\n")
+
+        # Scan for child markdown documents inside the subfolder
+        child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
+        
+        for j, filename in enumerate(child_files):
+            file_path = os.path.join(directory, filename)
+            title = extract_markdown_title(file_path)
+            
+            # Select proper connector lines for nested layout files
+            file_lead = "     " if i == len(TARGET_DIRS) - 1 else " │   "
+            file_marker = "└── " if j == len(child_files) - 1 else "├── "
+            
+            # Pad space dynamically to create a clean, uniform matrix layout row
+            row_content = f"{file_lead}{file_marker}{filename} "
+            dot_padding = "." * (45 - len(row_content))
+            
+            tree_lines.append(f"{row_content}{dot_padding} ({title})\n")
+
+    tree_lines.append("```\n")
+    master_tree_content = "".join(tree_lines)
+
+    # Inject the master tree code block directly into the root layout file
+    with open(root_readme, "r", encoding="utf-8") as f:
+        root_content = f.read()
+
+    master_pattern = r"(<!-- tree -->).*?(<!-- endtree -->)"
+    if re.search(master_pattern, root_content, re.DOTALL):
+        updated_root = re.sub(
+            master_pattern,
+            f"<!-- tree -->{master_tree_content}<!-- endtree -->",
+            root_content,
+            flags=re.DOTALL
+        )
+        with open(root_readme, "w", encoding="utf-8") as f:
+            f.write(updated_root)
+        print(f"Successfully compiled and updated Master Map in {root_readme}")
+    else:
+        print(f"Note: Marker comments (<!-- tree --> / <!-- endtree -->) missing in root {root_readme}")
+
 if __name__ == "__main__":
+    # Run the original folder index operations first
     for directory in TARGET_DIRS:
         if os.path.isdir(directory):
             update_readme_file(directory)
+            
+    # Run the new master tree generator
+    generate_global_master_tree()
