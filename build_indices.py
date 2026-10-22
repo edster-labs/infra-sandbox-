@@ -73,12 +73,14 @@ def generate_global_master_tree():
         return
 
     # Start compiling structured HTML components rather than raw text tags
+       # Start compiling structured HTML components with a larger text profile
     tree_lines = [
         "\n## 🌐 Architektúra repozitára / Technical Site Tree\n",
-        '<div class="site-tree-container" style="font-family: \'Courier New\', Courier, monospace; line-height: 1.6; font-size: 15px;">\n',
-        '  <p style="margin: 0; font-weight: bold;">[infra-sandbox-] (Root Adresár)</p>\n',
+        '<div class="site-tree-container" style="font-family: monospace; line-height: 1.6; font-size: 17px;">\n',
+        '  <p style="margin: 0; font-weight: bold; font-size: 17px;">[infra-sandbox-] (Root Adresár)</p>\n',
         '  <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">\n'
     ]
+
 
     for i, directory in enumerate(TARGET_DIRS):
         if not os.path.isdir(directory):
@@ -92,16 +94,19 @@ def generate_global_master_tree():
         # Scan for child markdown documents inside the subfolder
         child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
         
-        for filename in child_files:
+            for filename in child_files:
             file_path = os.path.join(directory, filename)
             title = extract_markdown_title(file_path)
             relative_url = f"./{directory}/{filename}"
             
-            # Format rows as interactive anchor links using your script markers
-            tree_lines.append('          <li style="margin-bottom: 4px;">\n')
-            tree_lines.append(f'            ├── <a href="{relative_url}" style="font-weight: 600;">{filename}</a>\n')
-            tree_lines.append(f'            <span style="color: #cbd5e1;">... ({title})</span>\n')
-            tree_lines.append('          </li>\n')
+            # Formatted list layout targeting a unified 17px footprint
+            tree_lines.extend([
+                '          <li style="margin-bottom: 4px; font-size: 17px;">\n',
+                f'            ├── <a href="{relative_url}" style="font-weight: 600; font-size: 17px;">{filename}</a>\n',
+                f'            <span style="color: #cbd5e1; font-size: 17px;">... ({title})</span>\n',
+                '          </li>\n'
+            ])
+
 
         tree_lines.append('        </ul>\n')
         tree_lines.append('      </details>\n')
