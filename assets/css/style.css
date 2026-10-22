@@ -274,7 +274,7 @@ li a {
 pre, 
 code,
 pre code {
-    font-size: 16px !important; /* Clearly enlarges the directory block */
+    font-size: 15px !important; /* Clearly enlarges the directory block */
     line-height: 1.80 !important; /* Generates breathing space between branch tracks */
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
 }
@@ -290,11 +290,12 @@ pre code {
     code,
     pre code,
     .highlight pre {
-        font-size: 20px !important;    /* Your desired large layout size */
+        font-size: 16px !important;    /* Your desired large layout size */
         line-height: 1.8 !important;   /* Spacing between branch tracks */
         color: #000000 !important;     /* Pure crisp black ink for clarity */
         background-color: #ffffff !important; 
         white-space: pre !important;    /* Prevent lines from folding weirdly */
+       font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
     }
 
     /* 2. Make sure titles and general list navigation remain fully dark */
