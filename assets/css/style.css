@@ -171,12 +171,12 @@ li a {
 }
 
 /* ==========================================================================
-    🖨 Dynamic global background inversion
+    🖨 HIGH-LEGIBILITY BLUE & WHITE INVERSION PRINT MODULE
    ========================================================================== */
 
 @media print {
-  /* 1. Global Page Background Reset to Pristine White */
-  html, body, main, article, .container, #content, pre, code {
+  /* 1. Force absolute background overrides across your container hierarchy */
+  html, body, main, article, .container, .wrapper, #main_content, pre, code {
     background-color: #FFFFFF !important;
     background: #FFFFFF !important;
     color: #111111 !important;
@@ -184,26 +184,53 @@ li a {
     print-color-adjust: exact !important;
   }
 
-  /* 2. Style Content & Directory Tree Text to Deep Corporate Blue */
-  pre, code, .language-text, .site-tree-container, .print-tree {
-    background-color: #FFFFFF !important;
-    border: none !important;
-    font-weight: 600 !important;
-    /* Forces the text tree map to print in the exact hyperlink blue styling */
-    color: #0056b3 !important; 
+  /* 2. Clear text coloring parameters to handle parent overrides */
+  p, li, td, span {
+    color: #111111 !important;
   }
 
-  /* 3. High-Legibility Hyperlink Text Blocks */
-  a, a:visited, a strong {
-    color: #0056b3 !important;
-    text-decoration: underline !important;
+  h1, h2, h3, h4, h5, h6 {
+    color: #0056b3 !important; /* Structural titles print in crisp navy/blue */
+  }
+
+  strong, b {
+    color: #111111 !important;
     font-weight: bold !important;
   }
 
-  /* 4. Hide Non-Essential Interactivity Blocks */
-  header, footer, nav, .nav-bar, .menu-trigger {
+  /* 3. Force your dynamic ASCII repository tree map rows into hyper-focused blue lettering */
+  pre, code, .language-text, .site-tree-container, .print-tree {
+    background-color: #FFFFFF !important;
+    border: none !important;
+    font-weight: 700 !important;
+    color: #1d70b8 !important; /* Targeted custom blueprint tree blue accent color */
+  }
+
+  /* 4. Formatting rules for links and nested table tracking anchors */
+  a, a:visited, td a, a strong {
+    color: #1d70b8 !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+  }
+
+  /* 5. Clean layout frames for printing text data tables */
+  table, tr, th, td {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #111111 !important;
+    border: 1px solid #CCCCCC !important;
+    box-shadow: none !important;
+  }
+  
+  th {
+    background-color: #F4EFE6 !important;
+    color: #0056b3 !important;
+  }
+
+  /* 6. Strip away non-essential UI items from the hard copy */
+  header, footer, nav, .site-header, .nav-bar, .menu-trigger {
     display: none !important;
   }
 }
-
-
