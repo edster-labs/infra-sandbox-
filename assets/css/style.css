@@ -274,7 +274,7 @@ li a {
 pre, 
 code,
 pre code {
-    font-size: 15.5px !important; /* Clearly enlarges the directory block */
+    font-size: 17px !important; /* Clearly enlarges the directory block */
     line-height: 1.65 !important; /* Generates breathing space between branch tracks */
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
 }
