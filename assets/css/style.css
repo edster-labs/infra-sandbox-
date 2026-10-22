@@ -173,30 +173,37 @@ li a {
 /* ==========================================================================
     🖨 Dynamic global background inversion
    ========================================================================== */
+
 @media print {
- 
-  body, html, main, article, .container, #content {
+  /* 1. Global Page Background Reset to Pristine White */
+  html, body, main, article, .container, #content, pre, code {
+    background-color: #FFFFFF !important;
     background: #FFFFFF !important;
     color: #111111 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Force links to render crisp dark grey/black for high visibility */
-  a, a:visited {
-    color: #222222 !important;
-    text-decoration: underline !important;
-  }
-
-  /* Clean up the Site Tree block for crisp black monospace lettering */
-  pre, code, .print-tree, .site-tree-container, .language-text {
+  /* 2. Style Content & Directory Tree Text to Deep Corporate Blue */
+  pre, code, .language-text, .site-tree-container, .print-tree {
     background-color: #FFFFFF !important;
-    color: #111111 !important;
     border: none !important;
+    font-weight: 600 !important;
+    /* Forces the text tree map to print in the exact hyperlink blue styling */
+    color: #0056b3 !important; 
+  }
+
+  /* 3. High-Legibility Hyperlink Text Blocks */
+  a, a:visited, a strong {
+    color: #0056b3 !important;
+    text-decoration: underline !important;
     font-weight: bold !important;
   }
 
-  /* Automatically strip out headers/footer blocks if desired */
-  header, footer, nav, .nav-bar {
+  /* 4. Hide Non-Essential Interactivity Blocks */
+  header, footer, nav, .nav-bar, .menu-trigger {
     display: none !important;
   }
 }
+
 
