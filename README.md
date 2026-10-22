@@ -4,15 +4,14 @@ Welcome to the master infrastructure lab and sandbox repository. This environmen
 ## 📂 Repository Directory
 
 <div style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.8; font-size: 18px;">
-
-* ⚙️ **System Architecture:** [Go to Infrastructure Blueprints](./system-architecture/)
-* 📑 **Cheat Sheets:** [Go to Reference Guides](./cheat-sheets/)
-* 🏃 **EVE-NG Guides:** [Go to Deployment Documentation](./eve-ng-guides/)
-* 💻 **Network Labs:** [Go to Lab Topologies](./network-labs/)
-* 🛡️ **Security Notebook:** [Go to Security Matrix](./sec-notebook/README.md)
-
+  <ul style="list-style-type: disc; margin: 10px 0; padding-left: 20px;">
+    <li style="margin-bottom: 6px;">⚙️ <strong>System Architecture:</strong> <a href="./system-architecture/">Go to Infrastructure Blueprints</a></li>
+    <li style="margin-bottom: 6px;">📑 <strong>Cheat Sheets:</strong> <a href="./cheat-sheets/">Go to Reference Guides</a></li>
+    <li style="margin-bottom: 6px;">🏃 <strong>EVE-NG Guides:</strong> <a href="./eve-ng-guides/">Go to Deployment Documentation</a></li>
+    <li style="margin-bottom: 6px;">💻 <strong>Network Labs:</strong> <a href="./network-labs/">Go to Lab Topologies</a></li>
+    <li style="margin-bottom: 6px;">🛡️ <strong>Security Notebook:</strong> <a href="./sec-notebook/README.md">Go to Security Matrix</a></li>
+  </ul>
 </div>
-
 
 
 <!-- tree -->
