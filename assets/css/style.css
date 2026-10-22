@@ -234,3 +234,13 @@ li a {
     display: none !important;
   }
 }
+
+/* ==========================================================================
+    /* Specifically bump up the file/site tree font size */
+   ========================================================================== */
+
+pre, code {
+    font-size: 14px !important;    /* Adjust this higher (e.g., 15px or 16px) if you want it larger */
+    line-height: 1.6 !important;   /* Spacing between the tree branches */
+}
+
