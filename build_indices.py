@@ -72,15 +72,13 @@ def generate_global_master_tree():
         print("Root README.md missing. Skipping master map creation.")
         return
 
-    # Start compiling structured HTML components rather than raw text tags
-       # Start compiling structured HTML components with a larger text profile
+    # Start compiling structured HTML components with a larger text profile
     tree_lines = [
         "\n## 🌐 Architektúra repozitára / Technical Site Tree\n",
         '<div class="site-tree-container" style="font-family: monospace; line-height: 1.6; font-size: 17px;">\n',
         '  <p style="margin: 0; font-weight: bold; font-size: 17px;">[infra-sandbox-] (Root Adresár)</p>\n',
         '  <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">\n'
     ]
-
 
     for i, directory in enumerate(TARGET_DIRS):
         if not os.path.isdir(directory):
@@ -94,7 +92,7 @@ def generate_global_master_tree():
         # Scan for child markdown documents inside the subfolder
         child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
         
-            for filename in child_files:
+        for filename in child_files:
             file_path = os.path.join(directory, filename)
             title = extract_markdown_title(file_path)
             relative_url = f"./{directory}/{filename}"
@@ -106,7 +104,6 @@ def generate_global_master_tree():
                 f'            <span style="color: #cbd5e1; font-size: 17px;">... ({title})</span>\n',
                 '          </li>\n'
             ])
-
 
         tree_lines.append('        </ul>\n')
         tree_lines.append('      </details>\n')
