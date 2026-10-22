@@ -2,13 +2,13 @@
 Welcome to the master infrastructure lab and sandbox repository. This environment serves as a centralized, living engineering notebook tracking configurations, network deployments, and security validations.
 
 ## 📁 Repository Directory
-<div style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.8; font-size: 18px;">
+
 * ⚙️ **System Architecture:** [Go to Infrastructure Blueprints](./system-architecture/)
 * 📑 **Cheat Sheets:** [Go to Reference Guides](./cheat-sheets/)
 * 📡 **EVE-NG Guides:** [Go to Deployment Documentation](./eve-ng-guides/)
 * 💻 **Network Labs:** [Go to Lab Topologies](./network-labs/)
 * 🛡️ **Security Notebook:** [Go to Security Matrix](./sec-notebook/README.md)
-</div>
+
 
 <!-- tree -->
 ## 🌐 Architektúra repozitára / Technical Site Tree
