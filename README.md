@@ -17,7 +17,7 @@ Welcome to the master infrastructure lab and sandbox repository. This environmen
 
 <!-- tree -->
 ## 🌐 Architektúra repozitára / Technical Site Tree
-<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 17px;">
+<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px;">
   <p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>
   <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">
     <li style="margin-top: 10px;">
