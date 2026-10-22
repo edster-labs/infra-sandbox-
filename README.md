@@ -9,5 +9,7 @@ Welcome to the master infrastructure lab and sandbox repository. This environmen
 * 💻 **Network Labs:** [Go to Lab Topologies](./network-labs/)
 * 🛡️ **Security Notebook:** [Go to Security Matrix](./sec-notebook/README.md)
 
+<!-- tree -->
+<!-- endtree -->
 
 
