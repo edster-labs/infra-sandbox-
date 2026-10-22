@@ -248,4 +248,35 @@ pre {
     line-height: 1.6 !important;
 }
 
+/* ==========================================
+   INFRA-SANDBOX ACCESSIBILITY & FONT PATCH 
+   ========================================== */
+
+/* 1. FIX THE FAINT GRAY TITLES & TEXT */
+.markdown-body ul li,
+.markdown-body ol li,
+body, 
+p, 
+li {
+    color: #1f2328 !important; /* Overrides the faint gray with crisp GitHub charcoal */
+}
+
+/* 2. MAKE HYPERLINKS POP OUT CLEARLY */
+.markdown-body a,
+li a {
+    color: #0969da !important; /* Classic bold GitHub blue for navigation text */
+    text-decoration: underline !important;
+}
+
+/* 3. INCREASE THE TEXT SIZE OF THE SITE TREE */
+.markdown-body pre,
+.markdown-body code,
+pre, 
+code,
+pre code {
+    font-size: 15.5px !important; /* Clearly enlarges the directory block */
+    line-height: 1.65 !important; /* Generates breathing space between branch tracks */
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
+}
+
 
