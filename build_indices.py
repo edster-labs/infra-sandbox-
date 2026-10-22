@@ -65,6 +65,69 @@ def update_readme_file(directory):
     else:
         print(f"Warning: Marker comments (<!-- toc --> / <!-- endtoc -->) missing in {readme_path}")
 
+def generate_global_master_tree():
+    """Generates an interactive, collapsible HTML site tree for the root README.md."""
+    root_readme = "README.md"
+    if not os.path.exists(root_readme):
+        print("Root README.md missing. Skipping master map creation.")
+        return
+
+    # Start compiling structured HTML components rather than raw text tags
+    tree_lines = [
+        "\n## 🌐 Architektúra repozitára / Technical Site Tree\n",
+        '<div class="site-tree-container" style="font-family: \'Courier New\', Courier, monospace; line-height: 1.6; font-size: 15px;">\n',
+        '  <p style="margin: 0; font-weight: bold;">[infra-sandbox-] (Root Adresár)</p>\n',
+        '  <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">\n'
+    ]
+
+    for i, directory in enumerate(TARGET_DIRS):
+        if not os.path.isdir(directory):
+            continue
+        
+        tree_lines.append('    <li style="margin-top: 10px;">\n')
+        tree_lines.append('      <details open style="cursor: pointer;">\n')
+        tree_lines.append(f'        <summary style="font-weight: bold; color: #f1f5f9;">📁 [{directory}]</summary>\n')
+        tree_lines.append('        <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
+
+        # Scan for child markdown documents inside the subfolder
+        child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
+        
+        for filename in child_files:
+            file_path = os.path.join(directory, filename)
+            title = extract_markdown_title(file_path)
+            relative_url = f"./{directory}/{filename}"
+            
+            # Format rows as interactive anchor links using your script markers
+            tree_lines.append('          <li style="margin-bottom: 4px;">\n')
+            tree_lines.append(f'            ├── <a href="{relative_url}" style="font-weight: 600;">{filename}</a>\n')
+            tree_lines.append(f'            <span style="color: #cbd5e1;">... ({title})</span>\n')
+            tree_lines.append('          </li>\n')
+
+        tree_lines.append('        </ul>\n')
+        tree_lines.append('      </details>\n')
+        tree_lines.append('    </li>\n')
+
+    tree_lines.append('  </ul>\n')
+    tree_lines.append('</div>\n')
+    master_tree_content = "".join(tree_lines)
+
+    # Inject the interactive tree block directly into the root file
+    with open(root_readme, "r", encoding="utf-8") as f:
+        root_content = f.read()
+
+    master_pattern = r"(<!-- tree -->).*?(<!-- endtree -->)"
+    if re.search(master_pattern, root_content, re.DOTALL):
+        updated_root = re.sub(
+            master_pattern,
+            f"<!-- tree -->{master_tree_content}<!-- endtree -->",
+            root_content,
+            flags=re.DOTALL
+        )
+        with open(root_readme, "w", encoding="utf-8") as f:
+            f.write(updated_root)
+        print(f"Successfully compiled and updated Interactive Master Map in {root_readme}")
+    else:
+        print(f"Note: Marker comments (<!-- tree --> / <!-- endtree -->) missing in root {root_readme}")
 
 if __name__ == "__main__":
     # Run the original folder index operations first
