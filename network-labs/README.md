@@ -1,10 +1,10 @@
 # 🖧 Topology Labs, Running Configs & Verifications
 
-👉 **[Click Here for the Live Interactive Ethernet Frame & VLAN Tag Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/vlan-header-v2.html)**
+👉 **[Interactive Ethernet Frame & VLAN Tag Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/vlan-header-v2.html)**
 
-👉 **[Click Here for the Live Interactive TCP MSS Clamping Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/tcp-mss-clamping.html)**
+👉 **[Interactive TCP MSS Clamping Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/tcp-mss-clamping.html)**
 
-👉 **[Click Here for the Live Interactive L2 Switch CAM vs ARP Table Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/cam-vs-arp-table.html)**
+👉 **[Interactive L2 Switch CAM vs ARP Table Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/cam-vs-arp-table.html)**
 
 <!-- toc -->
 ## 📁 Automatically Indexed Modules
