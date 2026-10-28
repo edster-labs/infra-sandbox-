@@ -7,15 +7,30 @@
     <!-- Pulling your repository's native styling infrastructure -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        /* ISOLATION CONTAINER: Prevents global body / main text-align center overrides from moving things */
         .l2-sandbox-wrapper {
             max-width: 960px;
             margin: 2rem auto !important;
             padding: 1.5rem !important;
-            text-align: left !important; /* Forces left alignment inside your centered template */
+            text-align: left !important;
             box-sizing: border-box;
+            position: relative;
         }
         
+        /* Unified Root Back Link matches your global repository header configuration */
+        .nav-back-link {
+            display: inline-block !important;
+            font-size: 14px !important;
+            font-weight: bold !important;
+            color: #60a5fa !important;
+            text-decoration: none !important;
+            margin-bottom: 1.5rem !important;
+            border-bottom: 1px dashed #60a5fa;
+        }
+        .nav-back-link:hover {
+            color: #3b82f6 !important;
+            border-bottom-style: solid;
+        }
+
         .flex-row-center { 
             display: flex !important; 
             justify-content: space-between !important; 
@@ -23,6 +38,44 @@
             gap: 1rem !important; 
             flex-wrap: wrap;
             margin-bottom: 1.5rem;
+        }
+
+        /* Dropdown Control Group Box */
+        .selector-box {
+            background: rgba(30, 41, 59, 0.4) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            border-radius: 8px !important;
+            padding: 0.75rem 1.2rem !important;
+            margin-bottom: 1.5rem !important;
+            display: flex !important;
+            gap: 1.5rem !important;
+            align-items: center !important;
+        }
+
+        .selector-group {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.25rem !important;
+        }
+
+        .selector-group label {
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            color: #94a3b8 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .selector-group select {
+            background: #0f172a !important;
+            color: #ffffff !important;
+            border: 1px solid #334155 !important;
+            border-radius: 6px !important;
+            padding: 0.35rem 1.5rem 0.35rem 0.5rem !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            outline: none !important;
         }
         
         .control-grid { 
@@ -47,10 +100,9 @@
         }
         .square-btn:disabled { opacity: 0.4 !important; cursor: not-allowed !important; }
         
-        /* FIXED CANVAS SIZE: Strictly locks the background area to match the exact coordinates of the SVG cables */
         .topo-canvas { 
             position: relative !important; 
-            width: 896px !important; /* Locked explicit width to align perfectly with SVG coordinates */
+            width: 896px !important; 
             height: 260px !important; 
             border-radius: 10px !important; 
             border: 1px solid rgba(255,255,255,0.1) !important; 
@@ -97,7 +149,7 @@
         }
         
         .port-array { display: flex !important; gap: 0.5rem !important; margin-top: 1rem !important; }
-        .port-box { width: 28px !important; height: 28px !important; border: 1px solid #334155 !important; border-radius: 4px !important; font-size: 10px !important; font-family: monospace !important; display: flex !items: center !justify-content: center !important; color: #94a3b8 !important; }
+        .port-box { width: 28px !important; height: 28px !important; border: 1px solid #334155 !important; border-radius: 4px !important; font-size: 10px !important; font-family: monospace !important; display: flex !important; align-items: center !important; justify-content: center !important; color: #94a3b8 !important; transition: all 0.3s ease; }
         
         .data-panel { border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.1) !important; padding: 1rem !important; box-sizing: border-box !important; }
         .split-tables { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 1.5rem !important; }
@@ -112,8 +164,9 @@
 </head>
 <body>
 
-    <!-- Unified Master Wrapper to force absolute formatting inside your custom site -->
     <div class="l2-sandbox-wrapper">
+        <!-- Site Technical Tree Link Placement -->
+        <a href="../index.html" class="nav-back-link">← infra-sandbox-</a>
         
         <!-- Header Controls -->
         <div class="flex-row-center" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
@@ -126,59 +179,72 @@
             </div>
         </div>
 
-        <!-- Topology Canvas Container (Now perfectly scaled to 896px width bounds) -->
+        <!-- Node Selection Interface -->
+        <div class="selector-box">
+            <div class="selector-group">
+                <label for="src-select">Source Host</label>
+                <select id="src-select" onchange="onNodeSelectionChange()">
+                    <option value="A" selected>Host A</option>
+                    <option value="B">Host B</option>
+                </select>
+            </div>
+            <div class="selector-group">
+                <label for="dest-select">Destination Host</label>
+                <select id="dest-select" onchange="onNodeSelectionChange()">
+                    <option value="C" selected>Host C</option>
+                    <option value="D">Host D</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Topology Canvas Container -->
         <div class="topo-canvas" style="background: rgba(15, 23, 42, 0.4) !important;">
             <svg class="topo-svg-layer" id="topo-svg" viewBox="0 0 896 260" preserveAspectRatio="none">
-                <!-- Static Link Traces mapped to new 896px framework boundaries -->
-                <line x1="140" y1="64" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
-                <line x1="140" y1="192" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
-                <line x1="756" y1="64" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
-                <line x1="756" y1="192" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
-                <!-- Dynamic Pulsing Packet Element -->
+                <line id="link-A" x1="140" y1="64" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <line id="link-B" x1="140" y1="192" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <line id="link-C" x1="756" y1="64" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <line id="link-D" x1="756" y1="192" x2="448" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
                 <circle id="packet-pulse" r="6" fill="#3b82f6" style="display: none;" />
             </svg>
 
             <!-- Left Hosts Column -->
             <div style="display: flex; flex-direction: column; justify-content: space-between; height: 200px;">
                 <div id="node-A" class="network-node">
-                    <div style="font-size: 0.8rem; font-weight: bold; color: #ffffff !important;">Host A (Source)</div>
+                    <div style="font-size: 0.8rem; font-weight: bold; color: #ffffff !important;">Host A</div>
                     <div class="mono-text" style="color: #60a5fa !important; margin-top: 2px;">IP: 10.0.0.1</div>
                     <div class="mono-text" style="opacity: 0.5; color: #cbd5e1 !important;">MAC: 00:AA:00:11</div>
                 </div>
                 <div id="node-B" class="network-node" style="opacity: 0.4 !important;">
                     <div style="font-size: 0.8rem; font-weight: bold; color: #ffffff !important;">Host B</div>
-                    <div class="mono-text" style="margin-top: 2px; color: #cbd5e1 !important;">IP: 10.0.0.2</div>
+                    <div class="mono-text" style="color: #60a5fa !important; margin-top: 2px;">IP: 10.0.0.2</div>
                     <div class="mono-text" style="opacity: 0.5; color: #cbd5e1 !important;">MAC: 00:BB:00:22</div>
                 </div>
             </div>
 
-            <!-- Switch Engine Node -->
             <div id="node-Switch" class="switch-node">
                 <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #ffffff !important;">Layer 2 Switch</div>
                 <div class="port-array">
                     <div id="port-1" class="port-box">P1</div>
-                    <div id="port-2" class="port-box" style="opacity: 0.3 !important;">P2</div>
+                    <div id="port-2" class="port-box">P2</div>
                     <div id="port-3" class="port-box">P3</div>
-                    <div id="port-4" class="port-box" style="opacity: 0.3 !important;">P4</div>
+                    <div id="port-4" class="port-box">P4</div>
                 </div>
             </div>
 
-            <!-- Right Hosts Column -->
             <div style="display: flex; flex-direction: column; justify-content: space-between; height: 200px;">
                 <div id="node-C" class="network-node">
-                    <div style="font-size: 0.8rem; font-weight: bold; color: #ffffff !important;">Host C (Dest)</div>
+                    <div style="font-size: 0.8rem; font-weight: bold; color: #ffffff !important;">Host C</div>
                     <div class="mono-text" style="color: #34d399 !important; margin-top: 2px;">IP: 10.0.0.3</div>
                     <div class="mono-text" style="opacity: 0.5; color: #cbd5e1 !important;">MAC: 00:CC:00:33</div>
                 </div>
                 <div id="node-D" class="network-node" style="opacity: 0.4 !important;">
                     <div style="font-size: 0.8rem; font-weight: bold; color: #ffffff !important;">Host D</div>
-                    <div class="mono-text" style="margin-top: 2px; color: #cbd5e1 !important;">IP: 10.0.0.4</div>
+                    <div class="mono-text" style="color: #34d399 !important; margin-top: 2px;">IP: 10.0.0.4</div>
                     <div class="mono-text" style="opacity: 0.5; color: #cbd5e1 !important;">MAC: 00:DD:00:44</div>
                 </div>
             </div>
         </div>
 
-        <!-- Interface Button Blocks -->
         <div class="control-grid">
             <button id="btn-data" onclick="triggerDataPlaneTraffic()" class="square-btn" style="background: #2563eb !important; color: white !important;">
                 <span style="font-size: 1.2rem; margin-bottom: 2px;">💼</span>User / Data Plane
