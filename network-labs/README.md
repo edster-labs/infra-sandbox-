@@ -4,6 +4,8 @@
 
 👉 **[Click Here for the Live Interactive TCP MSS Clamping Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/tcp-mss-clamping.html)**
 
+👉 **[Click Here for the Live Interactive L2 Switch CAM vs ARP Table Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/cam-vs-arp-table.html)**
+
 <!-- toc -->
 ## 📁 Automatically Indexed Modules
 * 📄 **[Lab: EIGRP Multi-Router Architecture & Path Manipulation](./cisco-eigrp-routing-lab.md)**
