@@ -1,9 +1,9 @@
 // Configuration maps for host nodes properties
 const nodesConfig = {
     'A': { id: 'node-A', ip: '10.0.0.1', mac: '00:AA:00:11', port: 'Gi0/0', portId: 'port-1', startY: 64 },
-    'B': { id: 'node-B', ip: '10.0.0.2', mac: '00:BB:00:22', port: 'Port 2', portId: 'port-2', startY: 192 },
-    'C': { id: 'node-C', ip: '10.0.0.3', mac: '00:CC:00:33', port: 'Port 3', portId: 'port-3', endY: 64 },
-    'D': { id: 'node-D', ip: '10.0.0.4', mac: '00:DD:00:44', port: 'Port 4', portId: 'port-4', endY: 192 }
+    'B': { id: 'node-B', ip: '10.0.0.2', mac: '00:BB:00:22', port: 'Gi0/1', portId: 'port-2', startY: 192 },
+    'C': { id: 'node-C', ip: '10.0.0.3', mac: '00:CC:00:33', port: 'Gi0/2', portId: 'port-3', endY: 64 },
+    'D': { id: 'node-D', ip: '10.0.0.4', mac: '00:DD:00:44', port: 'Gi0/3', portId: 'port-4', endY: 192 }
 };
 
 let isAnimating = false;
@@ -104,10 +104,11 @@ function flushTables() {
 function seedTables() {
     state.cam = [
         { port: 'Gi0/0', mac: '00:AA:00:11' },
-        { port: 'Port 2', mac: '00:BB:00:22' },
-        { port: 'Port 3', mac: '00:CC:00:33' },
-        { port: 'Port 4', mac: '00:DD:00:44' }
+        { port: 'Gi0/1', mac: '00:BB:00:22' },
+        { port: 'Gi0/2', mac: '00:CC:00:33' },
+        { port: 'Gi0/3', mac: '00:DD:00:44' }
     ];
+    
     state.arp = [
         { ip: '10.0.0.1', mac: '00:AA:00:11' },
         { ip: '10.0.0.2', mac: '00:BB:00:22' },
