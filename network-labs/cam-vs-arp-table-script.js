@@ -170,7 +170,8 @@ function triggerManagementTraffic() {
     elements.nodeA.classList.add('active-node');
     elements.nodeA.style.borderColor = '#7c3aed';
 
-    animatePacket(120, 64, 350, 128, 2500, () => {
+   // animatePacket(120, 64, 350, 128, 2500, () => {
+      animatePacket(140, 64, 448, 128, 2500, () => {
         elements.nodeA.classList.remove('active-node');
         elements.nodeSw.classList.add('active-node');
         elements.nodeSw.style.borderColor = '#7c3aed';
@@ -192,7 +193,8 @@ function triggerManagementTraffic() {
             elements.status.textContent = "Status: SVI preparing control response packet. Checking egress port via CAM...";
             
             setTimeout(() => {
-                animatePacket(350, 128, 120, 64, 2500, () => {
+              //animatePacket(350, 128, 120, 64, 2500, () => {
+                animatePacket(448, 128, 140, 64, 2500, () => {
                     elements.nodeSw.classList.remove('active-node');
                     elements.p1.style.background = '';
                     elements.nodeA.style.borderColor = '#7c3aed';
