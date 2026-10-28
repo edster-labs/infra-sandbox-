@@ -15,21 +15,6 @@
             box-sizing: border-box;
             position: relative;
         }
-        
-        /* Unified Root Back Link matches your global repository header configuration */
-        .nav-back-link {
-            display: inline-block !important;
-            font-size: 14px !important;
-            font-weight: bold !important;
-            color: #60a5fa !important;
-            text-decoration: none !important;
-            margin-bottom: 1.5rem !important;
-            border-bottom: 1px dashed #60a5fa;
-        }
-        .nav-back-link:hover {
-            color: #3b82f6 !important;
-            border-bottom-style: solid;
-        }
 
         .flex-row-center { 
             display: flex !important; 
@@ -164,9 +149,12 @@
 </head>
 <body>
 
+    <!-- Native site header container to let global styles render the link back to TOC naturally -->
+    <header class="site-header">
+        <a href="../index.html">infra-sandbox-</a>
+    </header>
+
     <div class="l2-sandbox-wrapper">
-        <!-- Site Technical Tree Link Placement -->
-        <a href="../index.html" class="nav-back-link">← infra-sandbox-</a>
         
         <!-- Header Controls -->
         <div class="flex-row-center" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
