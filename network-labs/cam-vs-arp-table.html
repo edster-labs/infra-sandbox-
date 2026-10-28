@@ -1,1 +1,146 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L2 Switch - CAM vs ARP Table Visualizer</title>
+    <!-- Pulling your repository's native styling infrastructure -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Essential local layout overrides to keep the canvas properly proportioned */
+        .sandbox-container { max-width: 900px; margin: 2rem auto; padding: 1.5rem; }
+        .flex-row-center { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .control-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .square-btn { height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; cursor: pointer; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .square-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .topo-canvas { relative; width: 100%; height: 260px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; padding: 2rem; box-sizing: border-box; }
+        .topo-svg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .network-node { width: 140px; padding: 0.75rem; border-radius: 8px; border: 2px solid #334155; transition: all 0.3s ease; }
+        .switch-node { width: 185px; text-align: center; padding: 1rem; border-radius: 12px; border: 2px solid #334155; display: flex; flex-direction: column; align-items: center; }
+        .port-array { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        .port-box { width: 28px; height: 28px; border: 1px solid #334155; border-radius: 4px; font-size: 10px; font-family: monospace; display: flex; align-items: center; justify-content: center; color: #94a3b8; }
+        .data-panel { border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); padding: 1rem; }
+        .split-tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .mono-text { font-family: monospace; font-size: 0.75rem; }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.4)); }
+            50% { transform: scale(1.03); filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8)); }
+        }
+        .active-node { animation: pulse-glow 2s infinite ease-in-out; }
+    </style>
+</head>
+<body>
+
+    <div class="sandbox-container">
+        <!-- Header & Dynamic Status System -->
+        <div class="flex-row-center" style="border-b: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+            <div>
+                <h1 style="margin: 0; font-size: 1.5rem;">🔌 Layer 2 Switch Operational Sandbox</h1>
+                <p style="margin: 0.25rem 0 0 0; font-size: 0.8rem; opacity: 0.6;">Data Plane (CAM) vs. Control Plane (ARP) Logic</p>
+            </div>
+            <div id="status-banner" style="padding: 0.5rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; border: 1px solid #3b82f6; color: #3b82f6;">
+                Status: System Idle. Ready for traffic injection.
+            </div>
+        </div>
+
+        <!-- Topology Canvas Container -->
+        <div class="topo-canvas" style="background: rgba(0,0,0,0.2);">
+            <svg class="topo-svg-layer" id="topo-svg">
+                <!-- Static Link Traces -->
+                <line x1="120" y1="64" x2="350" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <line x1="120" y1="192" x2="350" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <line x1="680" y1="64" x2="450" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <line x1="680" y1="192" x2="450" y2="128" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+                <!-- Packet Element -->
+                <circle id="packet-pulse" r="6" fill="#3b82f6" style="display: none;" />
+            </svg>
+
+            <!-- End Station Columns -->
+            <div style="display: flex; flex-direction: column; justify-content: space-between; h-full: 100%; height: 200px;">
+                <div id="node-A" class="network-node">
+                    <div style="font-size: 0.8rem; font-weight: bold;">Host A (Source)</div>
+                    <div class="mono-text" style="color: #60a5fa; margin-top: 2px;">IP: 10.0.0.1</div>
+                    <div class="mono-text" style="opacity: 0.5;">MAC: 00:AA:00:11</div>
+                </div>
+                <div id="node-B" class="network-node" style="opacity: 0.4;">
+                    <div style="font-size: 0.8rem; font-weight: bold;">Host B</div>
+                    <div class="mono-text" style="margin-top: 2px;">IP: 10.0.0.2</div>
+                    <div class="mono-text" style="opacity: 0.5;">MAC: 00:BB:00:22</div>
+                </div>
+            </div>
+
+            <div id="node-Switch" class="switch-node">
+                <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; tracking-letter: 1px;">Layer 2 Switch</div>
+                <div class="port-array">
+                    <div id="port-1" class="port-box">P1</div>
+                    <div id="port-2" class="port-box" style="opacity: 0.3;">P2</div>
+                    <div id="port-3" class="port-box">P3</div>
+                    <div id="port-4" class="port-box" style="opacity: 0.3;">P4</div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; justify-content: space-between; height: 200px;">
+                <div id="node-C" class="network-node">
+                    <div style="font-size: 0.8rem; font-weight: bold;">Host C (Dest)</div>
+                    <div class="mono-text" style="color: #34d399; margin-top: 2px;">IP: 10.0.0.3</div>
+                    <div class="mono-text" style="opacity: 0.5;">MAC: 00:CC:00:33</div>
+                </div>
+                <div id="node-D" class="network-node" style="opacity: 0.4;">
+                    <div style="font-size: 0.8rem; font-weight: bold;">Host D</div>
+                    <div class="mono-text" style="margin-top: 2px;">IP: 10.0.0.4</div>
+                    <div class="mono-text" style="opacity: 0.5;">MAC: 00:DD:00:44</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clean Compact Control Panel Matrix -->
+        <div class="control-grid">
+            <button id="btn-data" onclick="triggerDataPlaneTraffic()" class="square-btn" style="background: #2563eb; color: white;">
+                <span style="font-size: 1.2rem; margin-bottom: 2px;">💼</span>User / Data Plane
+            </button>
+            <button id="btn-mgmt" onclick="triggerManagementTraffic()" class="square-btn" style="background: #7c3aed; color: white;">
+                <span style="font-size: 1.2rem; margin-bottom: 2px;">⚙️</span>Mgmt / Control Plane
+            </button>
+            <button id="btn-seed" onclick="seedTables()" class="square-btn" style="background: #334155; color: #f1f5f9;">
+                <span style="font-size: 1.2rem; margin-bottom: 2px;">🌱</span>Seed Data
+            </button>
+            <button id="btn-flush" onclick="flushTables()" class="square-btn" style="background: #334155; color: #f87171;">
+                <span style="font-size: 1.2rem; margin-bottom: 2px;">🗑️</span>Flush Tables
+            </button>
+        </div>
+
+        <!-- Dynamic Output Visualizer Split -->
+        <div class="split-tables">
+            <div id="panel-cam" class="data-panel" style="background: rgba(0,0,0,0.15);">
+                <h3 style="font-size: 0.75rem; text-transform: uppercase; color: #60a5fa; margin-top: 0;">📁 Data Plane: Switch CAM Table</h3>
+                <table style="width: 100%; border-collapse: collapse; text-align: left;" class="mono-text">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #334155; opacity: 0.6;">
+                            <th style="padding-bottom: 0.5rem;">Switchport</th>
+                            <th style="padding-bottom: 0.5rem;">Hardware MAC</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cam-body"></tbody>
+                </table>
+            </div>
+
+            <div id="panel-arp" class="data-panel" style="background: rgba(0,0,0,0.15);">
+                <h3 style="font-size: 0.75rem; text-transform: uppercase; color: #a78bfa; margin-top: 0;">📂 Control Plane: Switch ARP Cache</h3>
+                <table style="width: 100%; border-collapse: collapse; text-align: left;" class="mono-text">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #334155; opacity: 0.6;">
+                            <th style="padding-bottom: 0.5rem;">Protocol IP</th>
+                            <th style="padding-bottom: 0.5rem;">Mapped MAC</th>
+                        </tr>
+                    </thead>
+                    <tbody id="arp-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script modular attachment point -->
+    <script src="cam-vs-arp-table-script.js"></script>
+</body>
+</html>
