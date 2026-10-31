@@ -2,7 +2,7 @@
 
 ## 📁 Security Subject Directory
 
-* 🌋 **DDoS Attack Classifications:** [View the Master OSI Matrix & Layers](./ddos-attack-classifications/README.md)
+* 🌋 **DDoS Attack Classifications:** [View the OSI Matrix & Layers](ddos-attack-classifications/README.md)
   * *Tracks layer-by-layer infrastructure mitigation frameworks (Layers 1-7).*
 * 📡 **Wireless Security Evolution:** [View Wireless Documentation](./wireless-security-evolution.md)
   * *Comparative breakdowns of corporate and personal wireless protocols (WEP through WPA3).*
