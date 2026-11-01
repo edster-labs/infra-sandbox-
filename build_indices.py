@@ -76,7 +76,7 @@ def generate_global_master_tree():
     tree_lines = [
         "\n## 🌐 Architektúra repozitára / Technical Site Tree\n\n",
         '<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px;">\n',
-        '<p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>\n\n',
+       '<p style="margin: 0; font-weight: bold; font-size: 20px;">📂 Site Tree (Root Adresár)</p>\n\n',
         '<ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">\n'
     ]
 
