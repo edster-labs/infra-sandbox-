@@ -1,4 +1,6 @@
+title: Table of Contents
 theme: jekyll-theme-primer
 include: [".github"]
 # To link the custom image style patch:
 custom_css: assets/css/style.css
+
