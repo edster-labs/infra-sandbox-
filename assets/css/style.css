@@ -265,17 +265,21 @@ li a {
     text-decoration: underline !important;
 }
 
-/* 3. INCREASE THE TEXT SIZE OF THE SITE TREE */
+/* 3. INCREASE THE TEXT SIZE & ENFORCE SITE-WIDE TECH FONT */
 .markdown-body pre,
 .markdown-body code,
 pre, 
 code,
-pre code {
-    font-size: 15px !important; /* Clearly enlarges the directory block */
-    line-height: 1.80 !important; /* Generates breathing space between branch tracks */
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
+pre code,
+body,
+p,
+li,
+ul,
+ol {
+    font-size: 15px !important; 
+    line-height: 1.80 !important; 
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important; /* Added body/p/li here to strip Arial off the main index page */
 }
-
 /* ==========================================
    FORCE PRINTER AND PDF GRAPHICS TO BULK UP [DISABLED]
    ========================================== */
