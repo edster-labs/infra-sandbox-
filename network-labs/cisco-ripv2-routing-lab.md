@@ -10,6 +10,7 @@ Deploy Routing Information Protocol version 2 (RIPv2) across a 4-router core rin
 ## 🛠️ Configuration Blueprints
 
 ### Router R1 Configuration
+
 ```cisco
 R1(config)# router rip
 R1(config-router)# version 2
@@ -20,6 +21,7 @@ R1(config-router)# passive-interface GigabitEthernet0/0
 ```
 
 ### Router R2 Configuration
+
 ```cisco
 R2(config)# router rip
 R2(config-router)# version 2
@@ -29,6 +31,7 @@ R2(config-router)# passive-interface GigabitEthernet0/2
 ```
 
 ### Router R3 Configuration
+
 ```cisco
 R3(config)# router rip
 R3(config-router)# version 2
@@ -38,6 +41,7 @@ R3(config-router)# passive-interface GigabitEthernet0/3
 ```
 
 ### Router R4 Configuration
+
 ```cisco
 R4(config)# router rip
 R4(config-router)# version 2
