@@ -349,4 +349,30 @@ pre code {
     cursor: pointer !important;
 }
 
+/* Explicitly restore layout properties for the accordion tree components */
+.site-tree-container details {
+    display: block !important;
+    margin-bottom: 8px !important;
+}
+
+.site-tree-container details summary {
+    display: list-item !important; 
+    cursor: pointer !important;
+    font-weight: bold !important;
+    line-height: 1.6 !important;
+}
+
+.site-tree-container ul {
+    list-style-type: none !important;
+    padding-left: 20px !important;
+    margin: 4px 0 0 0 !important;
+}
+
+.site-tree-container li {
+    margin-bottom: 4px !important;
+    line-height: 1.6 !important;
+    display: block !important;
+}
+
+
 
