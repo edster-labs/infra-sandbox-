@@ -1,4 +1,9 @@
-My centralized engineering sandbox and laboratory notebook. This workspace tracks system configurations, active network deployments, and cross-layer OSI threat mitigations—built as a permanent cryptographic reference ledger for long-term engineering continuity. As an active lab, this site is an ongoing work in progress.
+<div class="brief-container">
+<p>My centralized engineering sandbox and laboratory notebook. This workspace tracks system configurations, 
+  active network deployments, and cross-layer OSI threat mitigations—built as a permanent cryptographic reference ledger for long-term engineering continuity.
+  As an active lab, this site is an ongoing work in progress.
+</p> 
+</div>
 
 ## 📂 Repository Directory
 
