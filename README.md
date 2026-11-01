@@ -18,7 +18,7 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
   <p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>
   <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
+      <details style="cursor: pointer;">
         <summary style="font-weight: bold; color: #f1f5f9;">📁 [cheat-sheets]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
@@ -41,7 +41,7 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
       </details>
     </li>
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
+      <details style="cursor: pointer;">
         <summary style="font-weight: bold; color: #f1f5f9;">📁 [eve-ng-guides]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
@@ -92,7 +92,7 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
       </details>
     </li>
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
+      <details style="cursor: pointer;">
         <summary style="font-weight: bold; color: #f1f5f9;">📁 [network-labs]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
@@ -135,7 +135,7 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
       </details>
     </li>
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
+      <details style="cursor: pointer;">
         <summary style="font-weight: bold; color: #f1f5f9;">📁 [sec-notebook]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
@@ -154,7 +154,7 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
       </details>
     </li>
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
+      <details style="cursor: pointer;">
         <summary style="font-weight: bold; color: #f1f5f9;">📁 [system-architecture]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
