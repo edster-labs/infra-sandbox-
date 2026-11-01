@@ -72,22 +72,22 @@ def generate_global_master_tree():
         print("Root README.md missing. Skipping master map creation.")
         return
 
-    # Start compiling structured HTML components with a larger text profile
+    # Start compiling structured HTML components with a larger text profile and zero indentation
     tree_lines = [
-        "\n## 🌐 Architektúra repozitára / Technical Site Tree\n",
+        "\n## 🌐 Architektúra repozitára / Technical Site Tree\n\n",
         '<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px;">\n',
-        '  <p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>\n',
-        '  <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">\n'
+        '<p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>\n\n',
+        '<ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">\n'
     ]
 
     for i, directory in enumerate(TARGET_DIRS):
         if not os.path.isdir(directory):
             continue
         
-        tree_lines.append('    <li style="margin-top: 10px;">\n')
-        tree_lines.append('      <details style="cursor: pointer;">\n')
-        tree_lines.append(f'        <summary style="font-weight: bold; color: #f1f5f9;">📁 [{directory}]</summary>\n')
-        tree_lines.append('        <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
+        tree_lines.append('<li style="margin-top: 10px;">\n\n')
+        tree_lines.append('<details style="cursor: pointer;">\n')
+        tree_lines.append(f'<summary style="font-weight: bold; color: #f1f5f9;">📁 [{directory}]</summary>\n')
+        tree_lines.append('<ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
 
         # Scan for child markdown documents inside the subfolder
         child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
@@ -99,18 +99,18 @@ def generate_global_master_tree():
             
             # Formatted list layout targeting a unified 17px footprint
             tree_lines.extend([
-                '          <li style="margin-bottom: 4px; font-size: 17px;">\n',
-                f'            ├── <a href="{relative_url}" style="font-weight: 600; font-size: 17px;">{filename}</a>\n',
-                f'            <span style="color: #cbd5e1; font-size: 17px;">... ({title})</span>\n',
-                '          </li>\n'
+                '<li style="margin-bottom: 4px; font-size: 17px;">',
+                f'├── <a href="{relative_url}" style="font-weight: 600; font-size: 17px;">{filename}</a> ',
+                f'<span style="color: #cbd5e1; font-size: 17px;">... ({title})</span>',
+                '</li>\n'
             ])
 
-        tree_lines.append('        </ul>\n')
-        tree_lines.append('      </details>\n')
-        tree_lines.append('    </li>\n')
+        tree_lines.append('</ul>\n')
+        tree_lines.append('</details>\n\n')
+        tree_lines.append('</li>\n')
 
-    tree_lines.append('  </ul>\n')
-    tree_lines.append('</div>\n')
+    tree_lines.append('</ul>\n')
+    tree_lines.append('</div>\n\n')
     master_tree_content = "".join(tree_lines)
 
     # Inject the interactive tree block directly into the root file
