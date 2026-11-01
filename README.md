@@ -1,4 +1,4 @@
-Welcome to infrastructure lab and sandbox repository. This environment serves as a centralized notebook to track configurations, network deployments, and security validations as each lab/project is created and submitted here.
+My centralized engineering sandbox and laboratory notebook. This workspace tracks system configurations, active network deployments, and cross-layer OSI threat mitigations—built as a permanent cryptographic reference ledger for long-term engineering continuity. As an active lab, this site is an ongoing work in progress.
 
 ## 📂 Repository Directory
 
