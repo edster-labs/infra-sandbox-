@@ -1,11 +1,11 @@
-## Topology & Data Flow Map
+## Layer 3 DHCP Relay Topology
 
-<img width="2358" height="1252" alt="dhcp-relay-lab" src="https://github.com/user-attachments/assets/98b2d5af-b1f2-4495-b9b8-9ddfa4fdcd93" />
+<img width="2616" height="1631" alt="image" src="https://github.com/user-attachments/assets/056a5daf-d989-42f9-bdb8-d0fe58a57fdc" />
 
-# Basic and conceptual Layer 3 DHCP Relay Reference Architecture
+# Conceptual Blueprint: Layer 3 DHCP Relay Architecture   
 
 ## 🎯 Lab Objective
-Document a scalable enterprise infrastructure design inside an EVE-NG environment hosted on VMware Workstation. This documentation highlights how to configure a centralized DHCP server (Router) to dynamically allocate IP addresses to multiple downstream segments across a single Layer 3 transit link, eliminating redundant physical cabling.
+Document a scalable enterprise infrastructure design inside an EVE-NG environment hosted on VMware Workstation, highlighting a centralized DHCP server (Router) dynamically allocating IP addresses to multiple downstream segments across a single Layer 3 transit link. This implementation leverages explicit static return routes to establish deterministic reachability back to the client subnets.
 
 ## 🛠 Active Network Configurations
 
