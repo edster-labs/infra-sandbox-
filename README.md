@@ -1,4 +1,4 @@
-Welcome to the master infrastructure lab and sandbox repository. This environment serves as a centralized, living engineering notebook tracking configurations, network deployments, and security validations.
+Welcome to infrastructure lab and sandbox repository. This environment serves as a centralized notebook to track configurations, network deployments, and security validations as each lab/project is created and submitted here.
 
 ## 📂 Repository Directory
 
