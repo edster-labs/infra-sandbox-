@@ -3,14 +3,21 @@
    ========================================================================== */
 
 /* 1. Global Document Root Styles: Flip the primary background and body text */
-body {
+
+	body {
     background-color: #0f172a !important; /* Premium Midnight Dark Slate */
     color: #cbd5e1 !important;            /* Balanced off-white text to reduce glare */
     line-height: 1.6 !important;
 }
 
-/* 2. Standard Typography Color Balancing */
-h1, h2, h3, h4, h5, h6 {
+/* 2. Standard Typography Color & Scale Balancing */
+
+	h1 {
+    font-size: 1.75rem !important; /* Shrinks the oversized main title down to a crisp size */
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+	h2, h3, h4, h5, h6 {
     color: #ffffff !important;
     font-weight: 700 !important;
 }
