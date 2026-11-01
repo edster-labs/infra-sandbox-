@@ -10,6 +10,7 @@ Document a scalable enterprise infrastructure design inside an EVE-NG environmen
 ## 🛠 Active Network Configurations
 
 ### 1. Centralized DHCP Server (Router Node)
+
 ```text
 Router#show run | beg dhcp
 ip dhcp excluded-address 192.168.1.1 192.168.1.10
@@ -47,6 +48,7 @@ ip route 192.168.30.0 255.255.255.0 192.168.1.11
 ```
 
 ### 2. Multi-Layer Distribution Core (Switch Node)
+
 ```text
 !
 interface GigabitEthernet0/0
@@ -97,8 +99,6 @@ ip route 0.0.0.0 0.0.0.0 192.168.1.1
 ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 !
-
-
 ```
 ---
 
