@@ -334,4 +334,19 @@ pre code {
 }
 */
 
+/* ==========================================
+   FORCE SYSTEM ACTIONS TO ACCEPTS COLLAPSED STATES 
+   ========================================== */
+
+/* Force browser rendering engines to hide trailing content blocks unless open attribute is active */
+.site-tree-container details:not([open]) summary ~ * {
+    display: none !important;
+}
+
+/* Realign pointer triggers and folder arrow symbols across custom dark grids */
+.site-tree-container details summary {
+    display: list-item !important; 
+    cursor: pointer !important;
+}
+
 
