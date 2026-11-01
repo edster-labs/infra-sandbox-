@@ -44,13 +44,13 @@ R2(config-if)# ip ospf 1 area 0
 R2(config)# interface GigabitEthernet0/4
 R2(config-if)# ip ospf 1 area 0
 ```
-
 ---
 
 ## 🔍 Part 3: Live Telemetry & Verification Captures (R1 Data Set)
 
 ### 1. Neighbor Adjacency Audit (`show ip ospf neighbor`)
 Confirm that dynamic protocol discovery successfully logs a stable **`FULL`** synchronization state with all adjacent neighbors:
+
 ```text
 R1#show ip ospf neighbor
 
@@ -61,6 +61,7 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 
 ### 2. Active Routing Table Structure Verification (`show ip route`)
 Ensure Equal-Cost Multi-Pathing (ECMP) load balancing routes are working, and verify that the local RIB contains exact matches for the VLSM design criteria:
+
 ```text
 R1#show ip route
 Gateway of last resort is 172.20.15.134 to network 0.0.0.0
@@ -78,6 +79,7 @@ C        172.20.15.128/30 is directly connected, GigabitEthernet0/2
 ```
 
 ### 3. Link-State Database Health Auditing (`show ip ospf database`)
+
 ```text
 R1#show ip ospf database
 
@@ -96,6 +98,7 @@ Link ID         ADV Router      Age         Seq#       Checksum Tag
 ```
 
 ### 4. Data Plane Inter-Network Connectivity Logs (ICMP Testing Matrix)
+
 ```text
 R1#ping 172.20.15.134  (R3 Interface Link)     -> !!!!! (100% Success Rate)
 R1#ping 172.20.14.11   (Managers Core Network)  -> !!!!! (100% Success Rate)
