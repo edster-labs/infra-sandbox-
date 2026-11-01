@@ -258,7 +258,7 @@ pre {
 body, 
 p, 
 li {
-    color: #1f2328 !important; /* Overrides the faint gray with crisp GitHub charcoal */
+    color: #e2e8f0 !important; /* Overrides the faint gray with crisp GitHub charcoal */
 }
 
 /* 2. MAKE HYPERLINKS POP OUT CLEARLY */
