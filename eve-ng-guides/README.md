@@ -1,6 +1,11 @@
 # 📡 EVE-NG Deployment & Optimization Guides
 
-My operational notebook for EVE-NG environment emulation and image optimization. This directory compiles practical setups for Cisco platforms alongside the exact solutions needed when troubleshooting virtualization friction—specifically targeting QEMU master image building, Linux kernel bridge tuning, and system deadlock resolution.
+<div class="brief-container">
+<p>My operational notebook for EVE-NG environment emulation and image optimization. This directory compiles practical setups for 
+  Cisco platforms alongside the exact solutions needed when troubleshooting virtualization friction—specifically targeting QEMU master image building, 
+  Linux kernel bridge tuning, and system deadlock resolution.
+</p>
+</div>
 
 ## ⚙️ Cisco Platform Images & Node Installation
 * 🟦 **[Cisco IOL Architecture Setup Guide](./cisco-iol-installation-guide.md)**
