@@ -1,6 +1,6 @@
 # 📑 Infrastructure Command Snippets & Quick References
 
-Welcome to the quick reference guide directory. Select a technical track below to view optimized command syntax baselines and deployment frameworks.
+My operational logbook of infrastructure command snippets and system baselines. These modules standardize core configuration syntaxes, ranging from isolated Linux network nodes to advanced Windows Firewall manipulation via CLI and PowerShell frameworks. This module remains an active, evolving project.
 
 ## 🐧 Linux Networking Reference Modules
 * 🛠️ **[Core Services Setup Matrix](./linux-dhcp-dnsmasq-setup.md)**
