@@ -334,27 +334,17 @@ pre code {
 }
 */
 
-/* ==========================================
-   FORCE SYSTEM ACTIONS TO ACCEPTS COLLAPSED STATES 
-   ========================================== */
+/* ==========================================================================
+   🌐 SITE TREE INTERACTIVE COMPONENT STYLING
+   ========================================================================== */
 
-/* Force browser rendering engines to hide trailing content blocks unless open attribute is active */
-.site-tree-container details:not([open]) summary ~ * {
-    display: none !important;
-}
-
-/* Realign pointer triggers and folder arrow symbols across custom dark grids */
-.site-tree-container details summary {
-    display: list-item !important; 
-    cursor: pointer !important;
-}
-
-/* Explicitly restore layout properties for the accordion tree components */
+/* Maintain the custom cursor and padding spacing for the folder block rows */
 .site-tree-container details {
     display: block !important;
     margin-bottom: 8px !important;
 }
 
+/* Ensure the native browser arrow renders and stays clickable */
 .site-tree-container details summary {
     display: list-item !important; 
     cursor: pointer !important;
@@ -362,17 +352,20 @@ pre code {
     line-height: 1.6 !important;
 }
 
+/* Kill default bullet points on your customized tree lists */
 .site-tree-container ul {
     list-style-type: none !important;
     padding-left: 20px !important;
     margin: 4px 0 0 0 !important;
 }
 
+/* Maintain compact vertical alignment between file entries */
 .site-tree-container li {
     margin-bottom: 4px !important;
     line-height: 1.6 !important;
     display: block !important;
 }
+
 
 
 
