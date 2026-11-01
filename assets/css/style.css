@@ -170,12 +170,13 @@ li a {
     }
 }
 
+
 /* ==========================================================================
-    🖨 HIGH-LEGIBILITY BLUE & WHITE INVERSION PRINT MODULE
+    🖨 HIGH-LEGIBILITY BLUE & WHITE INVERSION PRINT MODULE [DISABLED]
    ========================================================================== */
 
+/* 
 @media print {
-  /* 1. Force absolute background overrides across your container hierarchy */
   html, body, main, article, .container, .wrapper, #main_content, pre, code {
     background-color: #FFFFFF !important;
     background: #FFFFFF !important;
@@ -184,13 +185,12 @@ li a {
     print-color-adjust: exact !important;
   }
 
-  /* 2. Clear text coloring parameters to handle parent overrides */
   p, li, td, span {
     color: #111111 !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: #0056b3 !important; /* Structural titles print in crisp navy/blue */
+    color: #0056b3 !important; 
   }
 
   strong, b {
@@ -198,15 +198,13 @@ li a {
     font-weight: bold !important;
   }
 
-  /* 3. Force your dynamic ASCII repository tree map rows into hyper-focused blue lettering */
   pre, code, .language-text, .site-tree-container, .print-tree {
     background-color: #FFFFFF !important;
     border: none !important;
     font-weight: 700 !important;
-    color: #1d70b8 !important; /* Targeted custom blueprint tree blue accent color */
+    color: #1d70b8 !important; 
   }
 
-  /* 4. Formatting rules for links and nested table tracking anchors */
   a, a:visited, td a, a strong {
     color: #1d70b8 !important;
     text-decoration: underline !important;
@@ -215,7 +213,6 @@ li a {
     padding: 0 !important;
   }
 
-  /* 5. Clean layout frames for printing text data tables */
   table, tr, th, td {
     background-color: #FFFFFF !important;
     background: #FFFFFF !important;
@@ -229,14 +226,14 @@ li a {
     color: #0056b3 !important;
   }
 
-  /* 6. Strip away non-essential UI items from the hard copy */
   header, footer, nav, .site-header, .nav-bar, .menu-trigger {
     display: none !important;
   }
 }
+*/
 
 /* ==========================================================================
-    /* Specifically bump up the file/site tree font size */
+   Specifically bump up the file/site tree font size
    ========================================================================== */
 
 /* This forces all preformatted text blocks to scale up, ignoring theme defaults */
@@ -280,34 +277,33 @@ pre code {
 }
 
 /* ==========================================
-   FORCE PRINTER AND PDF GRAPHICS TO BULK UP
+   FORCE PRINTER AND PDF GRAPHICS TO BULK UP [DISABLED]
    ========================================== */
+/*
 @media print {
-    /* 1. Force the file tree and preformatted blocks to render huge */
     .markdown-body pre,
     .markdown-body code,
     pre, 
     code,
     pre code,
     .highlight pre {
-        font-size: 16px !important;    /* Your desired large layout size */
-        line-height: 1.8 !important;   /* Spacing between branch tracks */
-        color: #000000 !important;     /* Pure crisp black ink for clarity */
+        font-size: 16px !important;    
+        line-height: 1.8 !important;   
+        color: #000000 !important;     
         background-color: #ffffff !important; 
-        white-space: pre !important;    /* Prevent lines from folding weirdly */
+        white-space: pre !important;    
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
     }
 
-    /* 2. Make sure titles and general list navigation remain fully dark */
     .markdown-body ul li,
     .markdown-body ol li,
     body, 
     p, 
     li {
-        font-size: 16px !important;    /* Scales global text slightly larger for physical print */
+        font-size: 16px !important;    
         color: #000000 !important;
     }
 }
-
+*/
 
 
