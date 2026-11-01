@@ -11,24 +11,30 @@ Document a scalable enterprise infrastructure design inside an EVE-NG environmen
 
 ### 1. Centralized DHCP Server (Router Node)
 ```text
+Router#show run | beg dhcp
 ip dhcp excluded-address 192.168.1.1 192.168.1.10
-ip dhcp excluded-address 192.168.10.1 192.168.10.10
-ip dhcp excluded-address 172.16.20.1 172.16.20.10
 ip dhcp excluded-address 192.168.30.1 192.168.30.10
+ip dhcp excluded-address 172.16.20.1 172.16.20.10
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
 !
-ip dhcp pool SVI_10
- network 192.168.10.0 255.255.255.0
- default-router 192.168.10.1
+ip dhcp pool SVI_30
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.1
+ dns-server 1.1.1.1
+!
+ip dhcp pool Default_Pool
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 8.8.8.8
 !
 ip dhcp pool SVI_20
  network 172.16.20.0 255.255.255.0
  default-router 172.16.20.1
  dns-server 8.8.8.8
 !
-ip dhcp pool SVI_30
- network 192.168.30.0 255.255.255.0
- default-router 192.168.30.1
- dns-server 1.1.1.1
+ip dhcp pool SVI_10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
 !
 interface GigabitEthernet0/1
  ip address 192.168.1.1 255.255.255.0
@@ -42,11 +48,37 @@ ip route 192.168.30.0 255.255.255.0 192.168.1.11
 
 ### 2. Multi-Layer Distribution Core (Switch Node)
 ```text
+!
 interface GigabitEthernet0/0
  no switchport
  ip address dhcp
  negotiation auto
 !
+interface GigabitEthernet0/1
+ switchport access vlan 30
+ switchport mode access
+ switchport nonegotiate
+ negotiation auto
+ spanning-tree portfast edge
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport nonegotiate
+ negotiation auto
+ spanning-tree portfast edge
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/3
+ switchport access vlan 10
+ switchport mode access
+ switchport nonegotiate
+ negotiation auto
+ spanning-tree portfast edge
+ spanning-tree bpduguard enable
+!
+
 interface Vlan10
  ip address 192.168.10.1 255.255.255.0
  ip helper-address 192.168.1.1
@@ -58,6 +90,15 @@ interface Vlan20
 interface Vlan30
  ip address 192.168.30.1 255.255.255.0
  ip helper-address 192.168.1.1
+
+# Gateway of last resort 
+!
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+
+
 ```
 ---
 
