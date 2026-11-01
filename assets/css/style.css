@@ -13,7 +13,7 @@
 /* 2. Standard Typography Color & Scale Balancing */
 
 	h1 {
-    font-size: 1.75rem !important; /* Shrinks the oversized main title down to a crisp size */
+    font-size: 1.60rem !important; /* Shrinks the oversized main title down to a crisp size */
     color: #ffffff !important;
     font-weight: 700 !important;
 }
@@ -27,7 +27,7 @@ strong, b {
 }
 
 /* 3. Outer Frame Layout Container Alignments */
-.container, .wrapper, #main_content, main {
+	.container, .wrapper, #main_content, main {
     background-color: #0f172a !important; 
     margin-left: auto !important;
     margin-right: auto !important;
