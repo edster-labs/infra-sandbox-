@@ -14,12 +14,14 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
 
 <!-- tree -->
 ## 🌐 Architektúra repozitára / Technical Site Tree
+
 <div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px;">
   <p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>
   <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">
+    
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
-        <summary style="font-weight: bold; color: #f1f5f9;">📁 [cheat-sheets]</summary>
+      <details style="cursor: pointer;" markdown="1">
+        <summary style="font-weight: bold; color: #f1f5f9; display: list-item;">📁 [cheat-sheets]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./cheat-sheets/linux-dhcp-dnsmasq-setup.md" style="font-weight: 600; font-size: 17px;">linux-dhcp-dnsmasq-setup.md</a>
@@ -40,9 +42,10 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
         </ul>
       </details>
     </li>
+
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
-        <summary style="font-weight: bold; color: #f1f5f9;">📁 [eve-ng-guides]</summary>
+      <details style="cursor: pointer;" markdown="1">
+        <summary style="font-weight: bold; color: #f1f5f9; display: list-item;">📁 [eve-ng-guides]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./eve-ng-guides/cisco-iol-installation-guide.md" style="font-weight: 600; font-size: 17px;">cisco-iol-installation-guide.md</a>
@@ -91,9 +94,10 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
         </ul>
       </details>
     </li>
+
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
-        <summary style="font-weight: bold; color: #f1f5f9;">📁 [network-labs]</summary>
+      <details style="cursor: pointer;" markdown="1">
+        <summary style="font-weight: bold; color: #f1f5f9; display: list-item;">📁 [network-labs]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./network-labs/cisco-eigrp-routing-lab.md" style="font-weight: 600; font-size: 17px;">cisco-eigrp-routing-lab.md</a>
@@ -134,9 +138,10 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
         </ul>
       </details>
     </li>
+
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
-        <summary style="font-weight: bold; color: #f1f5f9;">📁 [sec-notebook]</summary>
+      <details style="cursor: pointer;" markdown="1">
+        <summary style="font-weight: bold; color: #f1f5f9; display: list-item;">📁 [sec-notebook]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./sec-notebook/cryptography-cipher-theory.md" style="font-weight: 600; font-size: 17px;">cryptography-cipher-theory.md</a>
@@ -153,9 +158,10 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
         </ul>
       </details>
     </li>
+
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
-        <summary style="font-weight: bold; color: #f1f5f9;">📁 [system-architecture]</summary>
+      <details style="cursor: pointer;" markdown="1">
+        <summary style="font-weight: bold; color: #f1f5f9; display: list-item;">📁 [system-architecture]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./system-architecture/ci-cd-ui-ux-frameworks.md" style="font-weight: 600; font-size: 17px;">ci-cd-ui-ux-frameworks.md</a>
