@@ -1,5 +1,5 @@
 <!-- Move your title header cleanly on its own line -->
-## 🗺️ Topology Labs, Running Configs & Verifications
+## 🗺️ Lab Topologies and Case Studies
 
 <div class="brief-container">
 <p>My core repository and centralized testing environment for practical network topologies and functional deployments. 
