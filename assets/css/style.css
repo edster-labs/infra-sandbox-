@@ -365,6 +365,24 @@ pre code {
     line-height: 1.6 !important;
     display: block !important;
 }
+/* ==========================================================================
+   📖 READABILITY MODULE: ENGNEERING BRIEF LAYOUTS
+   ========================================================================== */
+
+.brief-container {
+    max-width: 720px !important;       /* Optimal line length prevents horizontal eye straining */
+    line-height: 1.85 !important;      /* Extra breathing room between line heights */
+    margin: 16px 0 28px 0 !important;  /* Balanced spacing separating titles and lists */
+    color: #cbd5e1 !important;         /* Balanced off-white text to minimize brightness glare */
+    font-size: 16px !important;        /* Crisp, clear baseline reading size */
+}
+
+/* Optional styling tweak: smooth out the text lines into crisp paragraphs */
+.brief-container p {
+    margin-bottom: 12px !important;
+}
+
+
 
 
 
