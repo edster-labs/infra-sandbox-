@@ -85,7 +85,7 @@ def generate_global_master_tree():
             continue
         
         tree_lines.append('    <li style="margin-top: 10px;">\n')
-        tree_lines.append('      <details open style="cursor: pointer;">\n')
+        tree_lines.append('      <details style="cursor: pointer;">\n')
         tree_lines.append(f'        <summary style="font-weight: bold; color: #f1f5f9;">📁 [{directory}]</summary>\n')
         tree_lines.append('        <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
 
