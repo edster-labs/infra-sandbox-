@@ -1,5 +1,11 @@
 # 🛡️ Security Engineering Notebook
 
+<section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">
+
+My personal reference ledger for analyzing cryptographic principles, wireless security architectures, and low-level protocol mechanics. This directory serves as a focused knowledge repository designed to break down multi-layer security concepts—specifically targeting handshake frameworks, cipher negotiations, and encryption engines—providing an actionable baseline to return to and expand upon over time.
+
+</section>
+
 ## 📁 Security Subject Directory
 
 * 🌋 **DDoS Attack Classifications:** [View the OSI Matrix & Layers](ddos-attack-classifications/README.md)
@@ -10,5 +16,4 @@
   * *Deep-dives into Simultaneous Authentication of Equals (SAE) packet captures and mitigations.*
 
 ---
-
 
