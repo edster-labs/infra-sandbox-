@@ -252,47 +252,57 @@ pre {
     line-height: 1.6 !important;
 }
 
-/* ==========================================
-   INFRA-SANDBOX ACCESSIBILITY & FONT PATCH 
-   ========================================== */
 
 /* ==========================================
    INFRA-SANDBOX ACCESSIBILITY & FONT PATCH 
    ========================================== */
 
-/* 1. FIX THE FAINT GRAY TITLES & TEXT */
-.markdown-body ul li,
-.markdown-body ol li,
+/* 1. UNIVERSAL FONT AND COLOR ALIGNMENT Across all page layouts */
 body, 
 p, 
-li {
-    color: #e2e8f0 !important; 
+li, 
+ul, 
+ol, 
+a,
+.markdown-body,
+.markdown-body ul li,
+.markdown-body ol li {
+    color: #e2e8f0 !important; /* Forces readable white text everywhere */
+    font-size: 15px !important;
+    line-height: 1.80 !important;
+    /* This overrides the browser defaults and unifies your font engine across index + sub-pages */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
 }
 
-/* 2. MAKE HYPERLINKS POP OUT CLEARLY */
+/* 2. SHRINK THE OVERSIZED MAIN TITLE */
+h1 {
+    font-size: 1.65rem !important; /* Clean, compact heading scale for "infra-sandbox-" */
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* 3. MAKE HYPERLINKS POP OUT CLEARLY */
 .markdown-body a,
-li a {
-    color: #0969da !important; 
+li a,
+a {
+    color: #0969da !important; /* GitHub bold link accent blue */
     text-decoration: underline !important;
 }
 
-/* 3. INCREASE THE TEXT SIZE ONLY (DROPPED THE FONT FAMILY OVERRIDE) */
+/* 4. PRESERVE DYNAMIC MONOSPACE ONLY FOR LOGS AND FILE TREES */
 .markdown-body pre,
 .markdown-body code,
 pre, 
 code,
-pre code,
-body,
-p,
-li,
-ul,
-ol {
-    font-size: 15px !important; 
-    line-height: 1.80 !important; 
-    /* The font-family line was completely deleted here. */
-    /* This forces all containers on every page to drop manual styles and fall back to your native Jekyll theme font! */
+pre code {
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
 }
-}
+
 
 /* ==========================================
    FORCE PRINTER AND PDF GRAPHICS TO BULK UP [DISABLED]
