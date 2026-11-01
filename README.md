@@ -111,7 +111,7 @@ Welcome to the master infrastructure lab and sandbox repository. This environmen
           </li>
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./network-labs/dhcp-relay-concept-and-implementation.md" style="font-weight: 600; font-size: 17px;">dhcp-relay-concept-and-implementation.md</a>
-            <span style="color: #cbd5e1; font-size: 17px;">... (Basic and conceptual Layer 3 DHCP Relay Reference Architecture)</span>
+            <span style="color: #cbd5e1; font-size: 17px;">... (Conceptual Blueprint: Layer 3 DHCP Relay Architecture)</span>
           </li>
           <li style="margin-bottom: 4px; font-size: 17px;">
             ├── <a href="./network-labs/inception-bridge-routing-project.md" style="font-weight: 600; font-size: 17px;">inception-bridge-routing-project.md</a>
