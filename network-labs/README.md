@@ -1,6 +1,11 @@
-# 🖧 Topology Labs, Running Configs & Verifications
+<!-- Move your title header cleanly on its own line -->
+## 🗺️ Topology Labs, Running Configs & Verifications
 
-My core repository and centralized testing environment for practical network topologies and functional deployments. The rest of this site houses the necessary side tracks—such as QEMU node imaging, firewall provisioning, and hypervisor optimizations—required to make this environment possible. While the current index focuses on foundational Layer 2 and Layer 3 matrices, this sandbox is an active work in progress designed to scale into full, multi-site enterprise architectures and secure infrastructure deployments.
+<div class="brief-container">
+<p>My core repository and centralized testing environment for practical network topologies and functional deployments. The rest of this site houses the necessary side tracks—such as QEMU node imaging, firewall provisioning, and hypervisor optimizations—required to make this environment possible.</p>
+
+<p>While the current index focuses on foundational Layer 2 and Layer 3 matrices, this sandbox is an active work in progress designed to scale into full, multi-site enterprise architectures and secure infrastructure deployments.</p>
+</div>
 
 
 👉 **[Interactive Ethernet Frame & VLAN Tag Visualizer](https://edster-labs.github.io/infra-sandbox-/network-labs/vlan-header-v2.html)**
