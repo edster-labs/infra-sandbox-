@@ -1,4 +1,3 @@
-
 # ⚙️ Infrastructure Blueprints & System Architecture
 
 <section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">
