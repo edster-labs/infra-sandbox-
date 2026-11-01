@@ -12,7 +12,6 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
   </ul>
 </div>
 
-
 <!-- tree -->
 ## 🌐 Architektúra repozitára / Technical Site Tree
 <div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px;">
