@@ -1,6 +1,9 @@
+
 # ⚙️ Infrastructure Blueprints & System Architecture
 
+<section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">
 Welcome to the systems architecture handbook. This directory documents the automation configurations, hosting environments, and integration tools powering this lab sandbox.
+</section>
 
 <!-- toc -->
 ## 📁 Automatically Indexed Modules
