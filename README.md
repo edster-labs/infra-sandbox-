@@ -13,12 +13,12 @@ Welcome to infrastructure lab and sandbox repository. This environment serves as
 </div>
 
 <!-- tree -->
-## 🌐 Architektúra repozitára / Technical Site Tree
+## 🌐 Architektúra repozitára / Technical Site Tree  
 <div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px;">
   <p style="margin: 0; font-weight: bold; font-size: 20px;">[infra-sandbox-] (Root Adresár)</p>
   <ul style="list-style-type: none; margin: 0; padding-left: 20px; border-left: 1px dashed #CCCCCC;">
     <li style="margin-top: 10px;">
-      <details open style="cursor: pointer;">
+      <details style="cursor: pointer;">
         <summary style="font-weight: bold; color: #f1f5f9;">📁 [cheat-sheets]</summary>
         <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
           <li style="margin-bottom: 4px; font-size: 17px;">
