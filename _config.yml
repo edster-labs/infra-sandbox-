@@ -1,6 +1,7 @@
 title: Table of Contents
 theme: jekyll-theme-primer
 include: [".github"]
-# To link the custom image style patch:
-custom_css: assets/css/style.css
+# Appending ?v=1 forces GitHub Pages CDN to drop the old cached stylesheet instantly:
+custom_css: assets/css/style.css?v=1
+
 
