@@ -24,6 +24,6 @@ The rest of this site houses the necessary side tracks—such as QEMU node imagi
 * 📄 **[Project: The Inception Bridge & Isolated Routing Matrix](./inception-bridge-routing-project.md)**
 * 📄 **[Project: Isolated Active Directory Multi-Homed Lab Environment](./isolated-ad-multihomed-env.md)**
 * 📄 **[Deploying High-Performance RDP Access on Isolated Linux Lab Nodes](./lubuntu-internet-rdp-bake.md)**
-* 📄 **[Root Guard Behavior Lab](./root_guard_behavior.md)**
+* 📄 **[Lab: Root Guard Behavior](./root_guard_behavior.md)**
 * 📄 **[Project: Analyzing Cryptographic TLS Handshake Failures & Cipher Selection](./tls-cipher-negotiation-analysis.md)**
 <!-- endtoc -->
