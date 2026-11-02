@@ -9,20 +9,17 @@
 This repository contains a Cisco networking lab built to simulate an enterprise-grade environment focusing on Layer 2 switching separation,
 Router-on-a-Stick (ROAS) sub-interface routing, multi-subnet DHCP Relay topology, and an isolated Out-of-Band (OOB) Management framework.
 
-# 🗺️ Topology Overview
+## 🗺️ Topology Overview
 
 The lab leverages a multi-segment addressing design that explicitly strips Layer 3 capabilities away from the core distribution layer, preserving a pure Layer 2 switching architecture:
 * • R1-DHCP_Server: Houses central IP pools, handles global network exit routing, and anchors the upstream OOB gateway interface.
-
 * • R2-DHCP_Relay: Acts as the local default gateway (/22, /23, and /24 sub-interfaces) and converts client DHCP broadcasts into unicast relay tracking payloads.
-
 * • L2-Switch: Serves as a transparent Layer 2 transit node processing user VLANs (10, 20, 30) and a dedicated management plane (VLAN 99).
-
 * • Endpoints: Isolated user clusters alongside a mock Lubuntu administration server running inside production segments.
 
 ## 🛠 Active Network Configurations
 
-# 1. R1-DHCP_Server (Centralized DHCP Server)
+### 1. R1-DHCP_Server (Centralized DHCP Server)
 
 ```text
 ip dhcp excluded-address 172.30.8.1 172.30.8.10
@@ -60,7 +57,7 @@ ip route 172.30.0.0 255.255.224.0 172.30.0.2
 ip route 172.30.0.0 255.255.224.0 Null0 250
 ```
 
-# 2. R2-DHCP_Relay (Gateway & Relay Agent)
+### 2. R2-DHCP_Relay (Gateway & Relay Agent)
 
 ```text
 interface GigabitEthernet0/0
@@ -91,7 +88,7 @@ interface GigabitEthernet0/1
 ip route 192.168.99.0 255.255.255.0 172.30.0.1
 ```
 
-# 3. L2-Switch (Pure Layer 2 Access Switch)
+### 3. L2-Switch (Pure Layer 2 Access Switch)
 
   ```text
 vlan 10,20,30,99
@@ -123,13 +120,13 @@ ip default-gateway 192.168.99.1
 
 ## 🔬 Case Study: The Switch Short-Circuit & OOB Isolation Flaw
 
-# The Problem Definition
+### The Problem Definition
 
 During lab testing, a mock management host (Lubuntu Server) inside production VLAN 30 needed remote terminal access to the 
 L2-Switch management interface (192.168.99.2) via the isolated OOB Network (VLAN 99).
 Initially, a static Linux network configuration was applied using an inaccurate next-hop gateway setting:
 
-# Broken Host Routing Intent
+### Broken Host Routing Intent
 
 ```text
 routes:
@@ -146,7 +143,7 @@ root@Lubuntu-PC:~# tracepath 192.168.99.2
 ``` 
 Despite a physical wire trace mapping up through multiple routers, the network hop count registered at exactly 1. The management traffic completely short-circuited the transit framework, traversing directly inside the Switch hardware matrix from VLAN 30 to VLAN 99.
 
-The Underlying Mechanics
+### The Underlying Mechanics
 
 1. ARP Interception: Because the Linux host targeted the switch's local interface (172.30.30.1), it broadcasted an ARP request. 
 The switch responded with its own inner hardware MAC address.
@@ -156,20 +153,19 @@ Instead of looking up an external port interface, it passed the frame right up t
 4. Local Processing: The switch CPU looked inside the Layer 3 header, verified it owned both target endpoints (172.30.30.1 and 192.168.99.2), 
 and handled the network loop completely inside local cache memory.
 
-# Architectural and Security Implications
+### Architectural and Security Implications
 
 While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture.
 
 * • By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
-
 * • If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine
 without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
 
-The Corrective Fix
+### The Corrective Fix
 
 To maintain strict data/control boundary planes, the endpoint configuration was adjusted to enforce strict transit up to the primary network router node:
 
-# Corrected Host Routing Path
+### Corrected Host Routing Path
 
 ```text
 routes:
@@ -177,7 +173,7 @@ routes:
     via: 172.30.30.2 # <--- R2-DHCP_Relay's subinterface GigabitEthernet0/0.30 (Gateway IP)
 ```
 
-# Re-running verification metrics confirmed a fully isolated, routed, secure transaction loop:
+### Re-running verification metrics confirmed a fully isolated, routed, secure transaction loop:
 
 ```text
 root@Lubuntu-PC:~# tracepath 192.168.99.2
