@@ -27,29 +27,29 @@ ip dhcp excluded-address 172.30.20.1 172.30.20.10
 ip dhcp excluded-address 172.30.30.1 172.30.30.10
 !
 ip dhcp pool vlan10
- network 172.30.8.0 255.255.252.0
- default-router 172.30.10.2
- dns-server 8.8.8.8
+network 172.30.8.0 255.255.252.0
+default-router 172.30.10.2
+dns-server 8.8.8.8
 !
 ip dhcp pool vlan20
- network 172.30.20.0 255.255.254.0
- default-router 172.30.20.2
- dns-server 8.8.8.8
+network 172.30.20.0 255.255.254.0
+default-router 172.30.20.2
+dns-server 8.8.8.8
 !
 ip dhcp pool vlan30
- network 172.30.30.0 255.255.255.0
- default-router 172.30.30.2
- dns-server 8.8.8.8
+network 172.30.30.0 255.255.255.0
+default-router 172.30.30.2
+dns-server 8.8.8.8
 !
 interface GigabitEthernet0/0
- description Transit_To_R2_Relay
- ip address 172.30.0.1 255.255.255.252
- no shutdown
+description Transit_To_R2_Relay
+ip address 172.30.0.1 255.255.255.252
+no shutdown
 !
 interface GigabitEthernet0/3
- description OOB_Management_Gateway
- ip address 192.168.99.1 255.255.255.0
- no shutdown
+description OOB_Management_Gateway
+ip address 192.168.99.1 255.255.255.0
+no shutdown
 !
 ! Summarized /19 enterprise path pointing back to R2
 ip route 172.30.0.0 255.255.224.0 172.30.0.2
@@ -61,28 +61,28 @@ ip route 172.30.0.0 255.255.224.0 Null0 250
 
 ```text
 interface GigabitEthernet0/0
- no ip address
- no shutdown
+no ip address
+no shutdown
 !
 interface GigabitEthernet0/0.10
- encapsulation dot1Q 10
- ip address 172.30.10.2 255.255.252.0
- ip helper-address 172.30.0.1
+encapsulation dot1Q 10
+ip address 172.30.10.2 255.255.252.0
+ip helper-address 172.30.0.1
 !
 interface GigabitEthernet0/0.20
- encapsulation dot1Q 20
- ip address 172.30.20.2 255.255.254.0
- ip helper-address 172.30.0.1
+encapsulation dot1Q 20
+ip address 172.30.20.2 255.255.254.0
+ip helper-address 172.30.0.1
 !
 interface GigabitEthernet0/0.30
- encapsulation dot1Q 30
- ip address 172.30.30.2 255.255.255.0
- ip helper-address 172.30.0.1
+encapsulation dot1Q 30
+ip address 172.30.30.2 255.255.255.0
+ip helper-address 172.30.0.1
 !
 interface GigabitEthernet0/1
- description Transit_To_R1_Server
- ip address 172.30.0.2 255.255.255.252
- no shutdown
+description Transit_To_R1_Server
+ip address 172.30.0.2 255.255.255.252
+no shutdown
 !
 ! Static pathway forwarding management traffic down to the OOB wire
 ip route 192.168.99.0 255.255.255.0 172.30.0.1
@@ -94,26 +94,26 @@ ip route 192.168.99.0 255.255.255.0 172.30.0.1
 vlan 10,20,30,99
 !
 interface GigabitEthernet0/0
- description Trunk_To_R2_ROAS
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport trunk allowed vlan 10,20,30
+description Trunk_To_R2_ROAS
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30
 !
 interface GigabitEthernet0/3
- description Access_To_Mock_Linux_Server
- switchport mode access
- switchport access vlan 30
- spanning-tree portfast edge
+description Access_To_Mock_Linux_Server
+switchport mode access
+switchport access vlan 30
+spanning-tree portfast edge
 !
 interface GigabitEthernet1/3
- description Dedicated_Physical_OOB_Link
- switchport mode access
- switchport access vlan 99
+description Dedicated_Physical_OOB_Link
+switchport mode access
+switchport access vlan 99
 !
 interface Vlan99
- description Isolated_Management_SVI
- ip address 192.168.99.2 255.255.255.0
- no shutdown
+description Isolated_Management_SVI
+ip address 192.168.99.2 255.255.255.0
+no shutdown
 !
 ip default-gateway 192.168.99.1
 ```
@@ -130,8 +130,8 @@ Initially, a static Linux network configuration was applied using an inaccurate 
 
 ```text
 routes:
-  - to: 192.168.99.2
-    via: 172.30.30.1 # <--- The Local Switch Interface IP (SVI)
+ - to: 192.168.99.2
+   via: 172.30.30.1 # <--- The Local Switch Interface IP (SVI)
 ```
 
 Executing a tracepath tool check yielded a highly unexpected traffic behavioral layout:
@@ -145,13 +145,10 @@ Despite a physical wire trace mapping up through multiple routers, the network h
 
 ### The Underlying Mechanics
 
-1. ARP Interception: Because the Linux host targeted the switch's local interface (172.30.30.1), it broadcasted an ARP request. 
-The switch responded with its own inner hardware MAC address.
-2. CPU Hijacking: The Linux host wrapped the Telnet payload inside an Ethernet frame stamped with the switch's destination MAC address.
-3. Internal Switching Control Plane Bypass: When the switch's ASIC processor analyzed the incoming frame, it matched its own MAC identity.
-Instead of looking up an external port interface, it passed the frame right up to the switch CPU.
-4. Local Processing: The switch CPU looked inside the Layer 3 header, verified it owned both target endpoints (172.30.30.1 and 192.168.99.2), 
-and handled the network loop completely inside local cache memory.
+1. **ARP Interception:** Because the Linux host targeted the switch's local interface (172.30.30.1), it broadcasted an ARP request. The switch responded with its own inner hardware MAC address.
+2. **CPU Hijacking:** The Linux host wrapped the Telnet payload inside an Ethernet frame stamped with the switch's destination MAC address.
+3. **Internal Switching Control Plane Bypass:** When the switch's ASIC processor analyzed the incoming frame, it matched its own MAC identity. Instead of looking up an external port interface, it passed the frame right up to the switch CPU.
+4. **Local Processing:** The switch CPU looked inside the Layer 3 header, verified it owned both target endpoints (172.30.30.1 and 192.168.99.2), and handled the network loop completely inside local cache memory.
 
 ### Architectural and Security Implications
 
