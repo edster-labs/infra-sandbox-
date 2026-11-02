@@ -151,8 +151,8 @@ Despite a physical wire trace mapping up through multiple routers, the network h
 ### Architectural and Security Implications
 
 While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture.
-* By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
-* If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
+By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
+If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
 
 ### The Corrective Fix
 
