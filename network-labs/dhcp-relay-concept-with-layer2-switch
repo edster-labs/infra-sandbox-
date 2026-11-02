@@ -1,1 +1,191 @@
+## Layer 2 DHCP Relay Topology
+
+
+
+# Reference Architecture | Layer 2 DHCP Relay with ROAS
+### Conceptual Blueprint for Enterprise Control-Plane Isolation
+  
+
+## 🎯 Lab Objective
+This repository contains a Cisco networking lab built to simulate an enterprise-grade environment focusing on Layer 2 switching separation,
+Router-on-a-Stick (ROAS) sub-interface routing, multi-subnet DHCP Relay topology, and an isolated Out-of-Band (OOB) Management framework.
+
+# 🗺️ Topology Overview
+The lab leverages a multi-segment addressing design that explicitly strips Layer 3 capabilities away from the core distribution layer, preserving a pure Layer 2 switching architecture:
+• R1-DHCP_Server: Houses central IP pools, handles global network exit routing, and anchors the upstream OOB gateway interface.
+• R2-DHCP_Relay: Acts as the local default gateway (/22, /23, and /24 sub-interfaces) and converts client DHCP broadcasts into unicast relay tracking payloads.
+• L2-Switch: Serves as a transparent Layer 2 transit node processing user VLANs (10, 20, 30) and a dedicated management plane (VLAN 99).
+• Endpoints: Isolated user clusters alongside a mock Lubuntu administration server running inside production segments.
+
+## 🛠 Active Network Configurations
+
+# 1. R1-DHCP_Server (Centralized DHCP Server)
+
+```text
+ip dhcp excluded-address 172.30.8.1 172.30.8.10
+ip dhcp excluded-address 172.30.20.1 172.30.20.10
+ip dhcp excluded-address 172.30.30.1 172.30.30.10
+!
+ip dhcp pool vlan10
+ network 172.30.8.0 255.255.252.0
+ default-router 172.30.10.2
+ dns-server 8.8.8.8
+!
+ip dhcp pool vlan20
+ network 172.30.20.0 255.255.254.0
+ default-router 172.30.20.2
+ dns-server 8.8.8.8
+!
+ip dhcp pool vlan30
+ network 172.30.30.0 255.255.255.0
+ default-router 172.30.30.2
+ dns-server 8.8.8.8
+!
+interface GigabitEthernet0/0
+ description Transit_To_R2_Relay
+ ip address 172.30.0.1 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet0/3
+ description OOB_Management_Gateway
+ ip address 192.168.99.1 255.255.255.0
+ no shutdown
+!
+! Summarized /19 enterprise path pointing back to R2
+ip route 172.30.0.0 255.255.224.0 172.30.0.2
+! Floating discard route to kill unassigned IP packet loops
+ip route 172.30.0.0 255.255.224.0 Null0 250
+```
+
+# 2. R2-DHCP_Relay (Gateway & Relay Agent)
+
+```text
+interface GigabitEthernet0/0
+ no ip address
+ no shutdown
+!
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 172.30.10.2 255.255.252.0
+ ip helper-address 172.30.0.1
+!
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 172.30.20.2 255.255.254.0
+ ip helper-address 172.30.0.1
+!
+interface GigabitEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 172.30.30.2 255.255.255.0
+ ip helper-address 172.30.0.1
+!
+interface GigabitEthernet0/1
+ description Transit_To_R1_Server
+ ip address 172.30.0.2 255.255.255.252
+ no shutdown
+!
+! Static pathway forwarding management traffic down to the OOB wire
+ip route 192.168.99.0 255.255.255.0 172.30.0.1
+```
+# 3. L2-Switch (Pure Layer 2 Access Switch)
+  ```text
+vlan 10,20,30,99
+!
+interface GigabitEthernet0/0
+ description Trunk_To_R2_ROAS
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+!
+interface GigabitEthernet0/3
+ description Access_To_Mock_Linux_Server
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast edge
+!
+interface GigabitEthernet1/3
+ description Dedicated_Physical_OOB_Link
+ switchport mode access
+ switchport access vlan 99
+!
+interface Vlan99
+ description Isolated_Management_SVI
+ ip address 192.168.99.2 255.255.255.0
+ no shutdown
+!
+ip default-gateway 192.168.99.1
+```
+## 🔬 Case Study: The Switch Short-Circuit & OOB Isolation Flaw
+
+# The Problem Definition
+
+During lab testing, a mock management host (Lubuntu Server) inside production VLAN 30 needed remote terminal access to the 
+L2-Switch management interface (192.168.99.2) via the isolated OOB Network (VLAN 99).
+Initially, a static Linux network configuration was applied using an inaccurate next-hop gateway setting:
+
+```text
+# Broken Host Routing Intent
+routes:
+  - to: 192.168.99.2
+    via: 172.30.30.1 # <--- The Local Switch Interface IP (SVI)
+```
+
+Executing a tracepath tool check yielded a highly unexpected traffic behavioral layout:
+
+``` text
+root@Lubuntu-PC:~# tracepath 192.168.99.2
+ 1:  172.30.30.1                                           1.548ms reached
+     Resume: pmtu 1500 hops 1 back 1
+``` 
+Despite a physical wire trace mapping up through multiple routers, the network hop count registered at exactly 1. The management traffic completely short-circuited the transit framework, traversing directly inside the Switch hardware matrix from VLAN 30 to VLAN 99.
+
+The Underlying Mechanics
+
+1. ARP Interception: Because the Linux host targeted the switch's local interface (172.30.30.1), it broadcasted an ARP request. 
+The switch responded with its own inner hardware MAC address.
+2. CPU Hijacking: The Linux host wrapped the Telnet payload inside an Ethernet frame stamped with the switch's destination MAC address.
+3. Internal Switching Control Plane Bypass: When the switch's ASIC processor analyzed the incoming frame, it matched its own MAC identity.
+Instead of looking up an external port interface, it passed the frame right up to the switch CPU.
+4. Local Processing: The switch CPU looked inside the Layer 3 header, verified it owned both target endpoints (172.30.30.1 and 192.168.99.2), 
+and handled the network loop completely inside local cache memory.
+
+# Architectural and Security Implications
+
+While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture.
+• By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
+• If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine
+without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
+
+The Corrective Fix
+
+To maintain strict data/control boundary planes, the endpoint configuration was adjusted to enforce strict transit up to the primary network router node:
+
+# Corrected Host Routing Path
+
+```text
+routes:
+  - to: 192.168.99.0/24
+    via: 172.30.30.2 # <--- R2-DHCP_Relay's subinterface GigabitEthernet0/0.30 (Gateway IP)
+```
+# Re-running verification metrics confirmed a fully isolated, routed, secure transaction loop:
+```text
+root@Lubuntu-PC:~# tracepath 192.168.99.2
+ 1:  172.30.30.2 (R2 Gateway)                              4.251ms 
+ 2:  172.30.0.1  (R1 DHCP/OOB Server Gateway)              5.391ms 
+ 3:  192.168.99.2 (L2-Switch Management SVI)               4.360ms reached
+
+```
+
+This verification run demonstrates a pristine topology structure suitable for enterprise implementations.
+
+---
+
+## ⚡ Quick Protocol Summary: The Blueprint Flow
+
+When an end-host requests an IP address across an enterprise relay architecture, the handshake executes through these three precise sequence steps:
+
+1. **The Client Broadcast:** The Virtual PC (VPC) shoots out a blind `DHCPDISCOVER` broadcast frame. Because it does not possess an IP identity yet, the packet's internal **`GIADDR`** field is populated as **`0.0.0.0`**.
+2. **The Switch Interception:** The Layer 3 Switch catches the local broadcast on its access port. It activates the relay agent, converts the broadcast into a targeted Layer 3 routed unicast packet, and explicitly writes its own local SVI IP address (**`192.168.30.1`**) straight into the **`GIADDR`** field slot before routing it upstream.
+3. **The Router Scope Selection:** The Central Router receives the unicast packet. It completely ignores the physical wire interface the packet arrived on and scans the **`GIADDR`** value (**`192.168.30.1`**). By reading this label, the database instantly knows to select a lease scope out of **`ip dhcp pool SVI_30`** and routes the contract back to the switch gateway.
+
 
