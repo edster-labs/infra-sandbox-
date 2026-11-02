@@ -13,8 +13,11 @@ Router-on-a-Stick (ROAS) sub-interface routing, multi-subnet DHCP Relay topology
 
 The lab leverages a multi-segment addressing design that explicitly strips Layer 3 capabilities away from the core distribution layer, preserving a pure Layer 2 switching architecture:
 * • R1-DHCP_Server: Houses central IP pools, handles global network exit routing, and anchors the upstream OOB gateway interface.
+
 * • R2-DHCP_Relay: Acts as the local default gateway (/22, /23, and /24 sub-interfaces) and converts client DHCP broadcasts into unicast relay tracking payloads.
+
 * • L2-Switch: Serves as a transparent Layer 2 transit node processing user VLANs (10, 20, 30) and a dedicated management plane (VLAN 99).
+
 * • Endpoints: Isolated user clusters alongside a mock Lubuntu administration server running inside production segments.
 
 ## 🛠 Active Network Configurations
@@ -156,7 +159,9 @@ and handled the network loop completely inside local cache memory.
 # Architectural and Security Implications
 
 While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture.
+
 * • By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
+
 * • If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine
 without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
 
