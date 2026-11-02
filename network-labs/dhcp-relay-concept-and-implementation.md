@@ -1,8 +1,8 @@
-## Layer 3 DHCP Relay Topology
+# Lab: Layer 3 DHCP Relay Topology
 
 <img width="2673" height="1705" alt="image" src="https://github.com/user-attachments/assets/a87c4f73-088b-450f-b60a-5928c996a53f" />
 
-# Lab: Layer 3 DHCP Relay Topology  
+## Layer 3 DHCP Relay Topology
 
 ## 🎯 Lab Objective
 Document a scalable enterprise infrastructure design inside an EVE-NG environment hosted on VMware Workstation, highlighting a centralized DHCP server (Router) dynamically allocating IP addresses to multiple downstream segments across a single Layer 3 transit link. This implementation leverages explicit static return routes to establish deterministic reachability back to the client subnets.
