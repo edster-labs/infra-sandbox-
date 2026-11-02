@@ -1,5 +1,7 @@
 # Layer 2 DHCP Relay Topology
 
+<img width="2958" height="1689" alt="dhcp-relay-l2sw" src="https://github.com/user-attachments/assets/5ac41e32-6b06-40e2-941a-f01dc73f38a1" />
+
 ## Reference Architecture | Layer 2 DHCP Relay with ROAS
 
 ### Conceptual Blueprint for Enterprise Control-Plane Isolation
