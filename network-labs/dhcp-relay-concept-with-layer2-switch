@@ -136,7 +136,7 @@ routes:
 
 Executing a tracepath tool check yielded a highly unexpected traffic behavioral layout:
 
-``` text
+```text
 root@Lubuntu-PC:~# tracepath 192.168.99.2
  1:  172.30.30.1                                           1.548ms reached
      Resume: pmtu 1500 hops 1 back 1
