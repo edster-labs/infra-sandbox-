@@ -20,7 +20,7 @@ The lab leverages a multi-segment addressing design that explicitly strips Layer
 
 ### 1. R1-DHCP_Server (Centralized DHCP Server)
 
-```ios
+```text
 ip dhcp excluded-address 172.30.8.1 172.30.8.10
 ip dhcp excluded-address 172.30.20.1 172.30.20.10
 ip dhcp excluded-address 172.30.30.1 172.30.30.10
@@ -56,7 +56,7 @@ ip route 172.30.0.0 255.255.224.0 Null0 250
 
 ### 2. R2-DHCP_Relay (Gateway & Relay Agent)
 
-```ios
+```text
 interface GigabitEthernet0/0
  no ip address
  no shutdown
@@ -86,7 +86,7 @@ ip route 192.168.99.0 255.255.255.0 172.30.0.1
 
 ### 3. L2-Switch (Pure Layer 2 Access Switch)
 
-```ios
+```text
 vlan 10,20,30,99
 !
 interface GigabitEthernet0/0
@@ -122,16 +122,17 @@ During lab testing, a mock management host (Lubuntu Server) inside production VL
 
 ### Broken Host Routing Intent
 
-```yaml
-# Note: Inaccurate route pointing to the Switch SVI instead of R2 Gateway
+```text
 routes:
   - to: 192.168.99.2
     via: 172.30.30.1
 ```
 
+*(Note: The routing logic above points directly to the local Switch Interface IP instead of the network gateway router).*
+
 Executing a tracepath tool check yielded a highly unexpected traffic behavioral layout:
 
-```bash
+```text
 root@Lubuntu-PC:~# tracepath 192.168.99.2
  1:  172.30.30.1                                           1.548ms reached
      Resume: pmtu 1500 hops 1 back 1
@@ -148,7 +149,7 @@ Despite a physical wire trace mapping up through multiple routers, the network h
 
 ### Architectural and Security Implications
 
-While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture. By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane. 
+While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture. By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
 
 If a production host becomes compromised, an attacker can launch local brute-force exploits against the infrastructure control engine without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
 
@@ -158,16 +159,17 @@ To maintain strict data/control boundary planes, the endpoint configuration was 
 
 ### Corrected Host Routing Path
 
-```yaml
-# Note: Gateway corrected to R2-DHCP_Relay's subinterface GigabitEthernet0/0.30
+```text
 routes:
   - to: 192.168.99.0/24
     via: 172.30.30.2
 ```
 
+*(Note: The gateway has been corrected to use R2-DHCP_Relay's subinterface).*
+
 ### Re-running verification metrics confirmed a fully isolated, routed, secure transaction loop:
 
-```bash
+```text
 root@Lubuntu-PC:~# tracepath 192.168.99.2
  1:  172.30.30.2 (R2 Gateway)                              4.251ms 
  2:  172.30.0.1  (R1 DHCP/OOB Server Gateway)              5.391ms 
