@@ -1,13 +1,11 @@
 # Layer 2 DHCP Relay Topology
 
 ## Reference Architecture | Layer 2 DHCP Relay with ROAS
-
 ### Conceptual Blueprint for Enterprise Control-Plane Isolation
   
 ## 🎯 Lab Objective
 
-This repository contains a Cisco networking lab built to simulate an enterprise-grade environment focusing on Layer 2 switching separation,
-Router-on-a-Stick (ROAS) sub-interface routing, multi-subnet DHCP Relay topology, and an isolated Out-of-Band (OOB) Management framework.
+This repository contains a Cisco networking lab built to simulate an enterprise-grade environment focusing on Layer 2 switching separation, Router-on-a-Stick (ROAS) sub-interface routing, multi-subnet DHCP Relay topology, and an isolated Out-of-Band (OOB) Management framework.
 
 ## 🗺️ Topology Overview
 
@@ -17,7 +15,7 @@ The lab leverages a multi-segment addressing design that explicitly strips Layer
 * **L2-Switch:** Serves as a transparent Layer 2 transit node processing user VLANs (10, 20, 30) and a dedicated management plane (VLAN 99).
 * **Endpoints:** Isolated user clusters alongside a mock Lubuntu administration server running inside production segments.
 
-## 🛠 Active Network Configurations
+## 🛠️ Active Network Configurations
 
 ### 1. R1-DHCP_Server (Centralized DHCP Server)
 
@@ -27,29 +25,29 @@ ip dhcp excluded-address 172.30.20.1 172.30.20.10
 ip dhcp excluded-address 172.30.30.1 172.30.30.10
 !
 ip dhcp pool vlan10
-network 172.30.8.0 255.255.252.0
-default-router 172.30.10.2
-dns-server 8.8.8.8
+ network 172.30.8.0 255.255.252.0
+ default-router 172.30.10.2
+ dns-server 8.8.8.8
 !
 ip dhcp pool vlan20
-network 172.30.20.0 255.255.254.0
-default-router 172.30.20.2
-dns-server 8.8.8.8
+ network 172.30.20.0 255.255.254.0
+ default-router 172.30.20.2
+ dns-server 8.8.8.8
 !
 ip dhcp pool vlan30
-network 172.30.30.0 255.255.255.0
-default-router 172.30.30.2
-dns-server 8.8.8.8
+ network 172.30.30.0 255.255.255.0
+ default-router 172.30.30.2
+ dns-server 8.8.8.8
 !
 interface GigabitEthernet0/0
-description Transit_To_R2_Relay
-ip address 172.30.0.1 255.255.255.252
-no shutdown
+ description Transit_To_R2_Relay
+ ip address 172.30.0.1 255.255.255.252
+ no shutdown
 !
 interface GigabitEthernet0/3
-description OOB_Management_Gateway
-ip address 192.168.99.1 255.255.255.0
-no shutdown
+ description OOB_Management_Gateway
+ ip address 192.168.99.1 255.255.255.0
+ no shutdown
 !
 ! Summarized /19 enterprise path pointing back to R2
 ip route 172.30.0.0 255.255.224.0 172.30.0.2
@@ -61,28 +59,28 @@ ip route 172.30.0.0 255.255.224.0 Null0 250
 
 ```text
 interface GigabitEthernet0/0
-no ip address
-no shutdown
+ no ip address
+ no shutdown
 !
 interface GigabitEthernet0/0.10
-encapsulation dot1Q 10
-ip address 172.30.10.2 255.255.252.0
-ip helper-address 172.30.0.1
+ encapsulation dot1Q 10
+ ip address 172.30.10.2 255.255.252.0
+ ip helper-address 172.30.0.1
 !
 interface GigabitEthernet0/0.20
-encapsulation dot1Q 20
-ip address 172.30.20.2 255.255.254.0
-ip helper-address 172.30.0.1
+ encapsulation dot1Q 20
+ ip address 172.30.20.2 255.255.254.0
+ ip helper-address 172.30.0.1
 !
 interface GigabitEthernet0/0.30
-encapsulation dot1Q 30
-ip address 172.30.30.2 255.255.255.0
-ip helper-address 172.30.0.1
+ encapsulation dot1Q 30
+ ip address 172.30.30.2 255.255.255.0
+ ip helper-address 172.30.0.1
 !
 interface GigabitEthernet0/1
-description Transit_To_R1_Server
-ip address 172.30.0.2 255.255.255.252
-no shutdown
+ description Transit_To_R1_Server
+ ip address 172.30.0.2 255.255.255.252
+ no shutdown
 !
 ! Static pathway forwarding management traffic down to the OOB wire
 ip route 192.168.99.0 255.255.255.0 172.30.0.1
@@ -94,26 +92,26 @@ ip route 192.168.99.0 255.255.255.0 172.30.0.1
 vlan 10,20,30,99
 !
 interface GigabitEthernet0/0
-description Trunk_To_R2_ROAS
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk allowed vlan 10,20,30
+ description Trunk_To_R2_ROAS
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
 !
 interface GigabitEthernet0/3
-description Access_To_Mock_Linux_Server
-switchport mode access
-switchport access vlan 30
-spanning-tree portfast edge
+ description Access_To_Mock_Linux_Server
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast edge
 !
 interface GigabitEthernet1/3
-description Dedicated_Physical_OOB_Link
-switchport mode access
-switchport access vlan 99
+ description Dedicated_Physical_OOB_Link
+ switchport mode access
+ switchport access vlan 99
 !
 interface Vlan99
-description Isolated_Management_SVI
-ip address 192.168.99.2 255.255.255.0
-no shutdown
+ description Isolated_Management_SVI
+ ip address 192.168.99.2 255.255.255.0
+ no shutdown
 !
 ip default-gateway 192.168.99.1
 ```
@@ -122,16 +120,14 @@ ip default-gateway 192.168.99.1
 
 ### The Problem Definition
 
-During lab testing, a mock management host (Lubuntu Server) inside production VLAN 30 needed remote terminal access to the 
-L2-Switch management interface (192.168.99.2) via the isolated OOB Network (VLAN 99).
-Initially, a static Linux network configuration was applied using an inaccurate next-hop gateway setting:
+During lab testing, a mock management host (Lubuntu Server) inside production VLAN 30 needed remote terminal access to the L2-Switch management interface (192.168.99.2) via the isolated OOB Network (VLAN 99). Initially, a static Linux network configuration was applied using an inaccurate next-hop gateway setting:
 
 ### Broken Host Routing Intent
 
 ```text
 routes:
- - to: 192.168.99.2
-   via: 172.30.30.1 # <--- The Local Switch Interface IP (SVI)
+  - to: 192.168.99.2
+    via: 172.30.30.1 # <--- The Local Switch Interface IP (SVI)
 ```
 
 Executing a tracepath tool check yielded a highly unexpected traffic behavioral layout:
@@ -140,7 +136,8 @@ Executing a tracepath tool check yielded a highly unexpected traffic behavioral 
 root@Lubuntu-PC:~# tracepath 192.168.99.2
  1:  172.30.30.1                                           1.548ms reached
      Resume: pmtu 1500 hops 1 back 1
-``` 
+```
+
 Despite a physical wire trace mapping up through multiple routers, the network hop count registered at exactly 1. The management traffic completely short-circuited the transit framework, traversing directly inside the Switch hardware matrix from VLAN 30 to VLAN 99.
 
 ### The Underlying Mechanics
@@ -153,10 +150,8 @@ Despite a physical wire trace mapping up through multiple routers, the network h
 ### Architectural and Security Implications
 
 While the switch acted logically, this design completely broke the Out-of-Band Isolation architecture.
-
-* • By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
-* • If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine
-without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
+* By resolving a cross-network transaction locally, production users gain direct access to the system management CPU plane.
+* If a production host becomes compromised, an attacker can launch local bruteforce exploits against the infrastructure control engine without passing security firewalls or access-lists configured at the true network gateway boundary (R2).
 
 ### The Corrective Fix
 
