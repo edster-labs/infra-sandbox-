@@ -1,4 +1,4 @@
-# Layer 4: Transport Layer & Protocol Flood Protection
+# Transport Layer & Protocol Flood Protection
 
 ## 1. The Protocol Target Profile
 Layer 4 attacks exploit the state tracking engines of operating system kernels and network firewalls. The goal is to saturate connection memory tables—specifically host-based firewall state tables (like conntrack) and the OS TCP stack queues—so that legitimate handshakes are dropped, even if the internet link itself isn't full.
