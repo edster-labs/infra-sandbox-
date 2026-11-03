@@ -1,11 +1,9 @@
 <!-- include-osi-nav -->
 <!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
+[⬅️ Back to Master OSI Table](../../../README.md#master-osi-table) | [📂 Main Repository Index](../../../README.md)
 
 ---
 <!-- automated-nav-end -->
-
-
 # Physical layer
 
 > **Status:** Pending

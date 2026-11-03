@@ -1,11 +1,9 @@
 <!-- include-osi-nav -->
 <!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
+[⬅️ Back to Master OSI Table](../../../README.md#master-osi-table) | [📂 Main Repository Index](../../../README.md)
 
 ---
 <!-- automated-nav-end -->
-
-
 # Network Layer (Volume & Routing Protection)
 
 This section maps common Layer 3 network attacks directly to specific architectural and device-level defenses. Because Layer 3 threats range from brute-force traffic saturation to malicious routing logic, countermeasures must be strategically implemented from the upstream provider network down to the local router interface.
