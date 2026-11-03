@@ -1,5 +1,9 @@
 <!-- include-osi-nav -->
+<!-- automated-nav-start -->
+[⬅️ Back to Master OSI Table](../../../README.md#master-osi-table) | [📂 Main Repository Index](../../../README.md)
 
+---
+<!-- automated-nav-end -->
 # Application Layer & Web Application Firewall (WAF) Protections
 
 ## 1. The Application Target Profile
