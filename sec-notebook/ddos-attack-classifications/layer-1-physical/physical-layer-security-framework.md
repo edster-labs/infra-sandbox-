@@ -1,4 +1,4 @@
-# Layer 1 Framework
+# Physical layer
 
 > **Status:** Pending
 
