@@ -16,14 +16,24 @@ jobs:
     steps:
       - name: Checkout Repository Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required: Fetches history so Git can see what changed
 
       - name: Set Up Python Runtime Env
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
+      - name: Detect Changed Markdown Files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*.md
+
       - name: Auto-Scan Folders and Rebuild Matrix Directories
-        run: python build_indices.py
+        run: |
+          python build_indices.py ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Commit Updated Dashboard Layout
         uses: stefanzweifel/git-auto-commit-action@v5
