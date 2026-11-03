@@ -75,7 +75,7 @@ def generate_global_master_tree():
     # Start compiling structured HTML components with a larger text profile and zero indentation
        # Start compiling structured HTML components with a larger text profile and zero indentation
     tree_lines = [
-        "\n## 🌐 Architektúra repozitára / Technical Site Tree\n\n",
+        "\n## 🌐 Technical Site Tree\n\n",
         '<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px; color: #e2e8f0;">\n',
         '  <span style="margin: 0; font-weight: bold; font-size: 20px; display: block; color: #ffffff;">📂 Site Tree (Root Adresár)</span>\n\n',
         '  <ul style="list-style-type: none; margin: 10px 0 0 0; padding-left: 20px; border-left: 1px dashed #CCCCCC; list-style: none;">\n'
