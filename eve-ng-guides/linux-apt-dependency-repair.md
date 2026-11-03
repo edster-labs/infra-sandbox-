@@ -1,3 +1,8 @@
+<!-- automated-nav-start -->
+[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
+
+---
+<!-- automated-nav-end -->
 # Linux System Administration: Repairing Corrupted APT Package Lists
 <!-- toc -->
 ## 🎯 Problem Statement

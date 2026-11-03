@@ -1,3 +1,8 @@
+<!-- automated-nav-start -->
+[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
+
+---
+<!-- automated-nav-end -->
 # Diagnostic & Recovery Protocol for EVE-NG GUI Login Failures
 <!-- toc -->
 ## 🎯 Problem Statement

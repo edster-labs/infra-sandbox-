@@ -1,3 +1,8 @@
+<!-- automated-nav-start -->
+[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
+
+---
+<!-- automated-nav-end -->
 # Project: Isolated Active Directory Multi-Homed Lab Environment
 <!-- toc -->
 ## 🎯 Project Overview & Objective

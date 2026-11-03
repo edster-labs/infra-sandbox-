@@ -1,3 +1,8 @@
+<!-- automated-nav-start -->
+[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
+
+---
+<!-- automated-nav-end -->
 <img width="2345" height="1310" alt="EIGRP" src="https://github.com/user-attachments/assets/bb4cadf5-ef1f-4194-aa63-28feb68be50a" />
 
 # Lab: EIGRP Multi-Router Architecture & Path Manipulation
