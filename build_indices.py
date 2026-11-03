@@ -27,12 +27,15 @@ def inject_navigation_header(file_path):
     nav_marker_end = "<!-- automated-nav-end -->"
     opt_in_tag = "<!-- include-osi-nav -->"
     
-    # ⚡ FIX: Calculate exactly how many folders deep we are relative to the root,
-    # then construct a precise relative path back up to the root README.md
+    # Calculate exactly how many folders deep we are relative to the root
     root_dir = os.path.dirname(file_path)
     levels_deep = len(root_dir.split(os.sep)) if root_dir else 0
     path_to_root = "../" * levels_deep if levels_deep > 0 else "./"
     
+    # ⚡ FIX: Explicitly target "README.md" so the server handles the anchor correctly
+    master_table_url = f"{path_to_root}README.md#master-osi-table"
+    main_menu_url = f"{path_to_root}README.md"
+
     # Construct paths that dynamically target your root layout sections perfectly
     master_table_url = f"{path_to_root}README.md#master-osi-table"
     main_menu_url = f"{path_to_root}README.md"
