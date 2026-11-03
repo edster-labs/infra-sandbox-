@@ -1,6 +1,6 @@
 <!-- include-osi-nav -->
 <!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../../../sec-notebook/ddos-attack-classifications/README.md#ddos-attack-threat-mitigation-table) | [📂 Main Repository Index](../../../README.md)
+[⬅️ DDos Attack Threat Mitigation Table](../../../sec-notebook/ddos-attack-classifications/README.md#ddos-attack-threat-mitigation-table)
 
 ---
 <!-- automated-nav-end -->
