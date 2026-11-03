@@ -1,5 +1,4 @@
 <div id="master-osi-table">
-
 | OSI Layer | Attack Type / Defensive Measure | Category | Primary Target / Method | Live Notebook Link |
 | :--- | :--- | :--- | :--- | :--- |
 | **Layer 7 (Application)** | **WAF & Web App Firewall Inspection** | Application | Decrypts SSL/TLS, runs JS browser tests, and parses raw HTTP data to block bad requests. | [👉Layer 7 Framework](./layer-7-application/application-layer-waf-framework.md) |
@@ -17,5 +16,4 @@
 | | **Ping Sweeps (Reconnaissance)** | Protocol | Blinds automated network mapping tools by dropping or rate-limiting public Echo queries. | [👉Layer 3 Framework](./layer-3-network/cloud-scrubbing-framework.md) |
 | **Layer 2 (Data Link)** | **Layer 2 Protocol Hardening** | Protocol | Uses 802.1X and Dynamic ARP Inspection (DAI) to stop local switch tables from crashing. | [👉Layer 2 Framework](./layer-2-data-link/dot1x-dai-mitigation-framework.md) |
 | **Layer 1 (Physical)** | **Perimeter & Physical Link Protection** | Physical | Hardens hardware boxes, fiber runs, and physical link lines. | [👉Layer 1 Framework](./layer-1-physical/physical-layer-security-framework.md) |
-
 </div>
