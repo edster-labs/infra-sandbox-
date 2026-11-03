@@ -4,7 +4,6 @@
 
 ---
 <!-- automated-nav-end -->
-
 # Data link layer
 
 # 🛡️ Data Link Layer Security & Mitigation Framework
