@@ -1,4 +1,4 @@
-# Layer 7: Application Layer & Web Application Firewall (WAF) Protections
+# Application Layer & Web Application Firewall (WAF) Protections
 
 ## 1. The Application Target Profile
 Layer 7 attacks do not try to flood your network bandwidth or break TCP tables. Instead, they try to kill the host CPU, tank database queries, or exhaust application worker processes by mimicking standard user actions.
