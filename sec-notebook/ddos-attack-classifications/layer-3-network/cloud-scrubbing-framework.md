@@ -1,3 +1,5 @@
+<!-- include-osi-nav -->
+
 # Network Layer (Volume & Routing Protection)
 
 This section maps common Layer 3 network attacks directly to specific architectural and device-level defenses. Because Layer 3 threats range from brute-force traffic saturation to malicious routing logic, countermeasures must be strategically implemented from the upstream provider network down to the local router interface.
@@ -42,7 +44,7 @@ This section maps common Layer 3 network attacks directly to specific architectu
 Volumetric attacks (like ICMP/Smurf) cannot be stopped at the local firewall because they saturate the internet pipe before reaching it. Traffic must be rerouted via BGP to a cloud provider (like Cloudflare or Akamai) to "scrub" out the bad volume.
 
 ### Cloud Scrubbing Mechanics & Deployment Models (Routing Specific)
-<!-- toc -->
+
 <a name="important-note"></a>
 **Important note:** The ingress entry point uses Layer 3 BGP routing to pull the traffic into the datacenter, but once that traffic crosses the threshold of the scrubbing center, the engineering changes completely. High-capacity Layer 4 firewalls instantly drop the bulk protocol floods (like massive SYN/UDP spikes) to protect state tables. Only the clean-looking TCP traffic is passed up to Layer 7 proxy nodes, where deep packet inspection (DPI), SSL decryption, and behavioral WAF tests parse the raw HTTP data. These methods are detailed in their respective layer profiles.
 
@@ -72,6 +74,4 @@ While some providers offer "emergency" onboarding during an active attack, it is
 * **BGP Flowspec:** A modern BGP extension that allows for more granular traffic filtering (e.g., redirecting only specific protocols or ports) rather than all traffic for an IP.
 * **Latency:** The trade-off—rerouting traffic through scrubbing centers adds some latency, but prevents a total outage.
 * **Volumetric vs. Application Layer:** Scrubbing is excellent for volumetric attacks (flooding your bandwidth), but may require SSL/TLS decryption keys to effectively scrub "application-layer" (Layer 7) attacks.
-
-<!-- endtoc -->
 
