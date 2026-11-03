@@ -21,6 +21,36 @@ def extract_markdown_title(file_path):
     base = os.path.splitext(os.path.basename(file_path))[0]
     return base.replace("-", " ").replace("_", " ").title()
 
+def inject_navigation_header(file_path):
+    """Automatically injects or updates a standard navigation block at the absolute top of child markdown files."""
+    nav_marker_start = "<!-- automated-nav-start -->"
+    nav_marker_end = "<!-- automated-nav-end -->"
+    
+    # Generate the relative paths back to the root README and its Master OSI Table anchor
+    nav_content = f"{nav_marker_start}\n[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)\n\n---\n{nav_marker_end}\n"
+    
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Check if our automated block already exists
+        pattern = f"{re.escape(nav_marker_start)}.*?{re.escape(nav_marker_end)}\\s*"
+        if re.search(pattern, content, re.DOTALL):
+            # Update existing navigation block if any changes are made to the format
+            updated_content = re.sub(pattern, nav_content, content, flags=re.DOTALL)
+        else:
+            # If no nav block exists, prepend it to the very top of the file
+            updated_content = nav_content + content
+            
+        # Only rewrite the file if changes actually occurred
+        if updated_content != content:
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(updated_content)
+            print(f"Injected/Updated navigation headers in {file_path}")
+            
+    except Exception as e:
+        print(f"Error handling navigation injection for {file_path}: {e}")
+
 def update_readme_file(directory):
     readme_path = os.path.join(directory, "README.md")
     if not os.path.exists(readme_path):
@@ -32,6 +62,10 @@ def update_readme_file(directory):
     for entry in sorted(os.listdir(directory)):
         if entry.lower() != "readme.md" and entry.endswith(".md"):
             full_path = os.path.join(directory, entry)
+            
+            # RUN AUTO-INJECTION ON CHILD FILES HERE
+            inject_navigation_header(full_path)
+            
             title = extract_markdown_title(full_path)
             valid_files.append((title, entry))
 
@@ -73,9 +107,8 @@ def generate_global_master_tree():
         return
 
     # Start compiling structured HTML components with a larger text profile and zero indentation
-       # Start compiling structured HTML components with a larger text profile and zero indentation
     tree_lines = [
-        "\n## 🌐 Technical Site Tree\n\n",
+        "\n## 🌐 Architektúra repozitára / Technical Site Tree\n\n",
         '<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px; color: #e2e8f0;">\n',
         '  <span style="margin: 0; font-weight: bold; font-size: 20px; display: block; color: #ffffff;">📂 Site Tree (Root Adresár)</span>\n\n',
         '  <ul style="list-style-type: none; margin: 10px 0 0 0; padding-left: 20px; border-left: 1px dashed #CCCCCC; list-style: none;">\n'
