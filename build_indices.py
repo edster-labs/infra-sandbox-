@@ -1,14 +1,26 @@
 import os
 import re
 
-# 1. Target Directories List
+# Directories to index automatically
 TARGET_DIRS = ["cheat-sheets", "eve-ng-guides", "network-labs", "sec-notebook", "system-architecture"]
 
-# 2. Existing Title Extractor Function
 def extract_markdown_title(file_path):
-    # ... (Keep existing code here) ...
+    """Extracts the first H1 header found in a markdown file to use as anchor text."""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("# "):
+                    # Strip out the '# ' and any emoji/spaces to clean the string
+                    title = line[2:].strip()
+                    return title
+    except Exception as e:
+        print(f"Error reading title from {file_path}: {e}")
+    
+    # Fallback to a prettified version of the filename if no H1 title exists
+    base = os.path.splitext(os.path.basename(file_path))[0]
+    return base.replace("-", " ").replace("_", " ").title()
 
-# 3. ⭐️ PASTE THE NEW FUNCTION HERE ⭐️
 def inject_navigation_header(file_path):
     """Automatically injects or updates navigation headers ONLY if the file contains the target opt-in tag."""
     nav_marker_start = "<!-- automated-nav-start -->"
@@ -38,40 +50,35 @@ def inject_navigation_header(file_path):
     except Exception as e:
         print(f"Error handling controlled navigation injection for {file_path}: {e}")
 
-# 4. Existing Readme Update Function (Make sure it calls the new function inside its loop!)
 def update_readme_file(directory):
     readme_path = os.path.join(directory, "README.md")
     if not os.path.exists(readme_path):
+        print(f"Skipping directory {directory}: README.md missing.")
         return
 
     valid_files = []
     for entry in sorted(os.listdir(directory)):
-        # Notice case-insensitive check added here (.lower())
         if entry.lower() != "readme.md" and entry.lower().endswith(".md"):
             full_path = os.path.join(directory, entry)
             
-            # 🔥 CALLING THE FUNCTION HERE
             inject_navigation_header(full_path)
             
             title = extract_markdown_title(full_path)
             valid_files.append((title, entry))
-    # ... (above function was added to make <!-- include-osi-nav --> tag add a back-navigation menu on any page it is added on top of) ...
+
     if not valid_files:
         print(f"No standalone documentation assets found in {directory}/.")
         return
 
-    # Build the dynamic relative Markdown lists
     generated_lines = ["\n## 📁 Automatically Indexed Modules\n"]
     for title, filename in valid_files:
         generated_lines.append(f"* 📄 **[{title}](./{filename})**\n")
 
     generated_content = "".join(generated_lines)
 
-    # Read the existing file data to safely target our comments
     with open(readme_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Dynamic regex matching parameters to swap blocks safely
     pattern = r"(<!-- toc -->).*?(<!-- endtoc -->)"
     if re.search(pattern, content, re.DOTALL):
         updated_content = re.sub(
@@ -93,7 +100,6 @@ def generate_global_master_tree():
         print("Root README.md missing. Skipping master map creation.")
         return
 
-    # Start compiling structured HTML components with a larger text profile and zero indentation
     tree_lines = [
         "\n## 🌐 Architektúra repozitára / Technical Site Tree\n\n",
         '<div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px; color: #e2e8f0;">\n',
@@ -110,17 +116,13 @@ def generate_global_master_tree():
         tree_lines.append(f'<summary style="font-weight: bold; color: #f1f5f9;">📁 [{directory}]</summary>\n')
         tree_lines.append('<ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
 
-        # Scan for child markdown documents inside the subfolder
-        #child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
         child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.lower().endswith(".md")])
-
         
         for filename in child_files:
             file_path = os.path.join(directory, filename)
             title = extract_markdown_title(file_path)
             relative_url = f"./{directory}/{filename}"
             
-            # Formatted list layout targeting a unified 17px footprint
             tree_lines.extend([
                 '<li style="margin-bottom: 4px; font-size: 17px;">',
                 f'├── <a href="{relative_url}" style="font-weight: 600; font-size: 17px;">{filename}</a> ',
@@ -136,7 +138,6 @@ def generate_global_master_tree():
     tree_lines.append('</div>\n\n')
     master_tree_content = "".join(tree_lines)
 
-    # Inject the interactive tree block directly into the root file
     with open(root_readme, "r", encoding="utf-8") as f:
         root_content = f.read()
 
@@ -155,10 +156,8 @@ def generate_global_master_tree():
         print(f"Note: Marker comments (<!-- tree --> / <!-- endtree -->) missing in root {root_readme}")
 
 if __name__ == "__main__":
-    # Run the original folder index operations first
     for directory in TARGET_DIRS:
         if os.path.isdir(directory):
             update_readme_file(directory)
             
-    # Run the new master tree generator
     generate_global_master_tree()
