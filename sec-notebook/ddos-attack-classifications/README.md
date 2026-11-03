@@ -15,6 +15,6 @@
 | | **ICMP Redirection Attacks** | Protocol | Prevents Man-in-the-Middle traffic interception by dropping Type 5 routing updates. | [👉Layer 3 Framework](./layer-3-network/cloud-scrubbing-framework.md) |
 | | **LAND Attacks (Stack Exhaustion)** | Protocol | Blocks spoofed loopback packets using firewall Strict Reverse Path Forwarding (RPF). | [👉Layer 3 Framework](./layer-3-network/cloud-scrubbing-framework.md) |
 | | **Ping Sweeps (Reconnaissance)** | Protocol | Blinds automated network mapping tools by dropping or rate-limiting public Echo queries. | [👉Layer 3 Framework](./layer-3-network/cloud-scrubbing-framework.md) |
-| **Layer 2 (Data Link)** | **Layer 2 Protocol Hardening** | Protocol | Uses 802.1X and Dynamic ARP Inspection (DAI) to stop local switch tables from crashing. | [👉Layer 2 Framework](./layer-2-data-link/dot1x-dai-mitigation-framework.md) |
+| **Layer 2 (Data Link)** | **Layer 2 Protocol Hardening** | Protocol | Uses 802.1X and Dynamic ARP Inspection (DAI) to stop local switch tables from crashing. | [👉Layer 2 Framework](./layer-2-data-link/l2-mitigation-framework.md) |
 | **Layer 1 (Physical)** | **Perimeter & Physical Link Protection** | Physical | Hardens hardware boxes, fiber runs, and physical link lines. | [👉Layer 1 Framework](./layer-1-physical/physical-layer-security-framework.md) |
 
