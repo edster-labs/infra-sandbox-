@@ -1,76 +1,61 @@
 import os
 import re
 
-# Directories to index automatically
+# 1. Target Directories List
 TARGET_DIRS = ["cheat-sheets", "eve-ng-guides", "network-labs", "sec-notebook", "system-architecture"]
 
+# 2. Existing Title Extractor Function
 def extract_markdown_title(file_path):
-    """Extracts the first H1 header found in a markdown file to use as anchor text."""
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith("# "):
-                    # Strip out the '# ' and any emoji/spaces to clean the string
-                    title = line[2:].strip()
-                    return title
-    except Exception as e:
-        print(f"Error reading title from {file_path}: {e}")
-    
-    # Fallback to a prettified version of the filename if no H1 title exists
-    base = os.path.splitext(os.path.basename(file_path))[0]
-    return base.replace("-", " ").replace("_", " ").title()
+    # ... (Keep existing code here) ...
 
+# 3. ⭐️ PASTE THE NEW FUNCTION HERE ⭐️
 def inject_navigation_header(file_path):
-    """Automatically injects or updates a standard navigation block at the absolute top of child markdown files."""
+    """Automatically injects or updates navigation headers ONLY if the file contains the target opt-in tag."""
     nav_marker_start = "<!-- automated-nav-start -->"
     nav_marker_end = "<!-- automated-nav-end -->"
+    opt_in_tag = "<!-- include-osi-nav -->"
     
-    # Generate the relative paths back to the root README and its Master OSI Table anchor
     nav_content = f"{nav_marker_start}\n[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)\n\n---\n{nav_marker_end}\n"
     
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
         
-        # Check if our automated block already exists
+        if opt_in_tag not in content:
+            return
+            
         pattern = f"{re.escape(nav_marker_start)}.*?{re.escape(nav_marker_end)}\\s*"
         if re.search(pattern, content, re.DOTALL):
-            # Update existing navigation block if any changes are made to the format
             updated_content = re.sub(pattern, nav_content, content, flags=re.DOTALL)
         else:
-            # If no nav block exists, prepend it to the very top of the file
-            updated_content = nav_content + content
+            updated_content = content.replace(opt_in_tag, f"{opt_in_tag}\n{nav_content}")
             
-        # Only rewrite the file if changes actually occurred
         if updated_content != content:
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(updated_content)
-            print(f"Injected/Updated navigation headers in {file_path}")
+            print(f"Successfully injected controlled navigation header in {file_path}")
             
     except Exception as e:
-        print(f"Error handling navigation injection for {file_path}: {e}")
+        print(f"Error handling controlled navigation injection for {file_path}: {e}")
 
+# 4. Existing Readme Update Function (Make sure it calls the new function inside its loop!)
 def update_readme_file(directory):
     readme_path = os.path.join(directory, "README.md")
     if not os.path.exists(readme_path):
-        print(f"Skipping directory {directory}: README.md missing.")
         return
 
-    # Scan the directory tracking only child markdown files (excluding the README index itself)
     valid_files = []
     for entry in sorted(os.listdir(directory)):
-        #if entry.lower() != "readme.md" and entry.endswith(".md"):
+        # Notice case-insensitive check added here (.lower())
         if entry.lower() != "readme.md" and entry.lower().endswith(".md"):
-
             full_path = os.path.join(directory, entry)
             
-            # RUN AUTO-INJECTION ON CHILD FILES HERE
+            # 🔥 CALLING THE FUNCTION HERE
             inject_navigation_header(full_path)
             
             title = extract_markdown_title(full_path)
             valid_files.append((title, entry))
-
+    # ... (above function was added to make <!-- include-osi-nav --> tag add a back-navigation menu on any page it is added on top of) ...
     if not valid_files:
         print(f"No standalone documentation assets found in {directory}/.")
         return
