@@ -32,14 +32,10 @@ def inject_navigation_header(file_path):
     levels_deep = len(root_dir.split(os.sep)) if root_dir else 0
     path_to_root = "../" * levels_deep if levels_deep > 0 else "./"
     
-    # ⚡ FIX: Explicitly target "README.md" so the server handles the anchor correctly
-    master_table_url = f"{path_to_root}README.md#master-osi-table"
+    # ⚡ Precision Targeting: Routes straight to the table's actual folder file!
+    master_table_url = f"{path_to_root}sec-notebook/ddos-attack-classifications/README.md#ddos-attack-threat-mitigation-table"
     main_menu_url = f"{path_to_root}README.md"
-
-    # Construct paths that dynamically target your root layout sections perfectly
-    master_table_url = f"{path_to_root}README.md#master-osi-table"
-    main_menu_url = f"{path_to_root}README.md"
-    
+   
     nav_content = f"{nav_marker_start}\n[⬅️ Back to Master OSI Table]({master_table_url}) | [📂 Main Repository Index]({main_menu_url})\n\n---\n{nav_marker_end}\n"
 
     try:
