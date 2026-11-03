@@ -4,8 +4,6 @@
 
 ---
 <!-- automated-nav-end -->
-
-
 # Session Layer (Connection Control & State Protection)
 
 This section maps common Layer 5 session attacks directly to specific security controls and platform defenses. Because Layer 5 threats focus on hijacking active sessions, exhausting state-tracking allocations, or abusing communication protocols, countermeasures must be enforced at the gateway and session management layers.

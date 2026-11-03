@@ -4,8 +4,6 @@
 
 ---
 <!-- automated-nav-end -->
-
-
 # Transport Layer & Protocol Flood Protection
 
 ## 1. The Protocol Target Profile
