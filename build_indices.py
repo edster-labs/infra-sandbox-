@@ -57,22 +57,31 @@ def update_readme_file(directory):
         return
 
     valid_files = []
-    for entry in sorted(os.listdir(directory)):
-        if entry.lower() != "readme.md" and entry.lower().endswith(".md"):
-            full_path = os.path.join(directory, entry)
-            
-            inject_navigation_header(full_path)
-            
-            title = extract_markdown_title(full_path)
-            valid_files.append((title, entry))
+    
+    # 🚀 CHANGED: os.walk recursively searches all sub-folders automatically!
+    for root, dirs, files in os.walk(directory):
+        for entry in sorted(files):
+            # Skip the root README itself or any README files in subfolders
+            if entry.lower() != "readme.md" and entry.lower().endswith(".md"):
+                full_path = os.path.join(root, entry)
+                
+                # Run the backlink injector on the file
+                inject_navigation_header(full_path)
+                
+                # Calculate relative path from the root directory to this file for the link
+                relative_path = os.path.relpath(full_path, directory)
+                title = extract_markdown_title(full_path)
+                valid_files.append((title, relative_path))
 
     if not valid_files:
         print(f"No standalone documentation assets found in {directory}/.")
         return
 
     generated_lines = ["\n## 📁 Automatically Indexed Modules\n"]
-    for title, filename in valid_files:
-        generated_lines.append(f"* 📄 **[{title}](./{filename})**\n")
+    for title, rel_url in valid_files:
+        # Replaces backslashes with forward slashes for cross-platform link compatibility
+        clean_url = rel_url.replace("\\", "/")
+        generated_lines.append(f"* 📄 **[{title}](./{clean_url})**\n")
 
     generated_content = "".join(generated_lines)
 
