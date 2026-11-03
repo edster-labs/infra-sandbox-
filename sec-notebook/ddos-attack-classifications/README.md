@@ -1,6 +1,6 @@
 <div id="master-osi-table"></div>
 
-# DDoS Threat Classification by OSI Model
+# DDoS Threat Classification & Mitigation Mapping by OSI Model
 
 | OSI Layer | Attack Type / Defensive Measure | Category | Primary Target / Method | Live Notebook Link |
 | :--- | :--- | :--- | :--- | :--- |
