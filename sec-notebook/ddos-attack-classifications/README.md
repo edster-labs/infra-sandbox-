@@ -1,5 +1,7 @@
 <div id="master-osi-table"></div>
-  
+
+# DDoS Threat Classification by OSI Model
+
 | OSI Layer | Attack Type / Defensive Measure | Category | Primary Target / Method | Live Notebook Link |
 | :--- | :--- | :--- | :--- | :--- |
 | **Layer 7 (Application)** | **WAF & Web App Firewall Inspection** | Application | Decrypts SSL/TLS, runs JS browser tests, and parses raw HTTP data to block bad requests. | [👉Layer 7 Framework](./layer-7-application/application-layer-waf-framework.md) |
