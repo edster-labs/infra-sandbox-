@@ -1,4 +1,4 @@
-# Layer 2 Framework
+# Data link layer
 
 > **Status:** WIP
 
