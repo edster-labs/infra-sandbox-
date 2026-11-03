@@ -60,7 +60,9 @@ def update_readme_file(directory):
     # Scan the directory tracking only child markdown files (excluding the README index itself)
     valid_files = []
     for entry in sorted(os.listdir(directory)):
-        if entry.lower() != "readme.md" and entry.endswith(".md"):
+        #if entry.lower() != "readme.md" and entry.endswith(".md"):
+        if entry.lower() != "readme.md" and entry.lower().endswith(".md"):
+
             full_path = os.path.join(directory, entry)
             
             # RUN AUTO-INJECTION ON CHILD FILES HERE
@@ -124,7 +126,9 @@ def generate_global_master_tree():
         tree_lines.append('<ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
 
         # Scan for child markdown documents inside the subfolder
-        child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
+        #child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.endswith(".md")])
+        child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.lower().endswith(".md")])
+
         
         for filename in child_files:
             file_path = os.path.join(directory, filename)
