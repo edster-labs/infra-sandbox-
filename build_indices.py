@@ -164,9 +164,48 @@ def generate_global_master_tree():
     else:
         print(f"Note: Marker comments (<!-- tree --> / <!-- endtree -->) missing in root {root_readme}")
 
+import sys  # Make sure 'import sys' is added at the top of your file!
+
 if __name__ == "__main__":
-    for directory in TARGET_DIRS:
-        if os.path.isdir(directory):
-            update_readme_file(directory)
+    # Check if the GitHub Action passed specific changed files as command-line arguments
+    if len(sys.argv) > 1:
+        # sys.argv[0] is the script name itself, sys.argv[1:] are the actual file paths passed in
+        changed_files = sys.argv[1:]
+        print(f"⚡ Fast-Track: Processing only {len(changed_files)} changed file(s).")
+        
+        # Track directories that need their README files updated based on which files changed
+        directories_to_rebuild = set()
+        
+        for file_path in changed_files:
+            # Clean up path separators just in case
+            file_path = file_path.replace("\\", "/")
             
-    generate_global_master_tree()
+            # Verify it's a markdown file and belongs to one of our managed folders
+            if file_path.endswith(".md") and any(td in file_path for td in TARGET_DIRS):
+                # 1. Inject the backlink headers immediately into the modified file
+                if os.path.exists(file_path) and os.path.basename(file_path).lower() != "readme.md":
+                    inject_navigation_header(file_path)
+                
+                # 2. Extract which root target directory this file belongs to
+                for td in TARGET_DIRS:
+                    if file_path.startswith(f"{td}/"):
+                        directories_to_rebuild.add(td)
+                        break
+        
+        # Only rebuild the README tables of contents for directories that actually saw changes
+        for directory in directories_to_rebuild:
+            if os.path.isdir(directory):
+                update_readme_file(directory)
+                
+        # Always rebuild the global tree to keep the landing page pristine
+        generate_global_master_tree()
+        
+    else:
+        # 🐢 Fallback mode: If no arguments are passed, crawl everything safely
+        print("🐢 Fallback: No specific file arguments received. Running complete repository crawl...")
+        for directory in TARGET_DIRS:
+            if os.path.isdir(directory):
+                update_readme_file(directory)
+                
+        generate_global_master_tree()
+
