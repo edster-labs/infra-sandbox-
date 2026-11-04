@@ -102,10 +102,10 @@ td {
     vertical-align: top !important; 
     line-height: 1.6 !important;
     
-    /* UNIVERSAL WRAP ENGINE: Forces lines to break cleanly on every single device size */
+    /* UNIVERSAL WRAP ENGINE: Keeps words whole but allows clean line drops */
     white-space: normal !important;
-    word-break: break-all !important;       
-    overflow-wrap: anywhere !important;     
+    word-break: break-word !important; /* Changed from break-all to break-word */      
+    overflow-wrap: break-word !important; /* Changed from anywhere to break-word */    
 }
 
 tr:nth-child(even) { background-color: #1e293b !important; }
@@ -150,7 +150,7 @@ table th:last-child, table td:last-child      /* Live Notebook Link */ {
 @media screen and (min-width: 1400px) {
     table th:not(:first-child):not(:last-child),
     table td:not(:first-child):not(:last-child) {
-        max-width: 280px !important; /* Forces a line break once columns hit this width on huge screens */
+        max-width: 200px !important; /* Forces a line break once columns hit this width on huge screens */
     }
 }
 
