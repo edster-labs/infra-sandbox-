@@ -146,6 +146,14 @@ table th:last-child, table td:last-child      /* Live Notebook Link */ {
     }
 }
 
+/* 3. Ultra-Wide Display Control: Prevents cells from stretching infinitely on large monitors */
+@media screen and (min-width: 1400px) {
+    table th:not(:first-child):not(:last-child),
+    table td:not(:first-child):not(:last-child) {
+        max-width: 380px !important; /* Forces a line break once columns hit this width on huge screens */
+    }
+}
+
 /* ==========================================================================
    🖼 RESPONSIVE IMAGE ARCHITECTURE: TOPOLOGY DRAWING CONSTRAINTS
    ========================================================================== */
