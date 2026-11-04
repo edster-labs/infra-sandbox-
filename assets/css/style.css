@@ -80,8 +80,9 @@ table {
     border-radius: 8px !important;
     overflow: hidden !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
-    /* FIX 1: Forces the browser to strictly respect cell widths and wrap text */
-    table-layout: fixed !important; 
+    
+    /* CHANGE 1: Remove table-layout: fixed. Go back to auto-scaling */
+    table-layout: auto !important; 
 }
 
 th {
@@ -99,9 +100,10 @@ td {
     padding: 14px 16px !important;
     border-bottom: 1px solid #334155 !important;
     color: #cbd5e1 !important;
-    vertical-align: top !important;
+    vertical-align: middle !important; /* Centers elements vertically nicely */
     line-height: 1.6 !important;
-    /* FIX 2: Universal safety wrap for every single data cell */
+    
+    /* KEEP THIS: Crucial safety wrap for text */
     white-space: normal !important;
     word-break: break-word !important; 
 }
@@ -130,12 +132,22 @@ td a:hover {
     background-color: #2563eb !important;
 }
 
-/* Column Width Percentages for 5-Column Matrices */
-table th:nth-child(1) { width: 15% !important; } 
-table th:nth-child(2) { width: 22% !important; } 
-table th:nth-child(3) { width: 12% !important; } 
-table th:nth-child(4) { width: 33% !important; } 
-table th:nth-child(5) { width: 18% !important; } 
+/* ==========================================================================
+   📊 DYNAMIC COLUMN LAYOUT & AUTO-SCALING CONTROLS
+   ========================================================================== */
+
+/* 1. Prevents long text columns from stretching infinitely on ultra-wide screens */
+table th, table td {
+    max-width: 400px !important; 
+}
+
+/* 2. Shrinks short columns to perfectly fit their text and removes empty space */
+table th:nth-child(1), table td:nth-child(1), /* OSI Layer */
+table th:nth-child(3), table td:nth-child(3), /* Category */
+table th:nth-child(5), table td:nth-child(5)  /* Live Notebook Link */ {
+    white-space: nowrap !important; /* Locks short values onto one line */
+    width: 1% !important;           /* Forces the column to shrink tightly around the text */
+}
 
 
 /* ==========================================================================
