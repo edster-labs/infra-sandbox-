@@ -136,19 +136,32 @@ td a:hover {
    📊 DYNAMIC COLUMN LAYOUT & AUTO-SCALING CONTROLS
    ========================================================================== */
 
-/* 1. Prevents long text columns from stretching infinitely on ultra-wide screens */
+/* 1. Allows tables to dynamically stretch and wrap content naturally */
+table {
+    table-layout: auto !important;
+    width: 100% !important;
+}
+
+/* 2. Sets safe paddings and vertical alignments */
 table th, table td {
-    max-width: 400px !important; 
+    padding: 12px 14px !important;
+    vertical-align: top !important;
 }
 
-/* 2. Shrinks short columns to perfectly fit their text and removes empty space */
-table th:nth-child(1), table td:nth-child(1), /* OSI Layer */
-table th:nth-child(3), table td:nth-child(3), /* Category */
-table th:nth-child(5), table td:nth-child(5)  /* Live Notebook Link */ {
-    white-space: nowrap !important; /* Locks short values onto one line */
-    width: 1% !important;           /* Forces the column to shrink tightly around the text */
+/* 3. Forces all columns to break words nicely instead of overlapping */
+table td {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
 }
 
+/* 4. Locks the short, predictable columns so they stay on one clean line */
+table th:first-child, table td:first-child,               /* OSI Layer */
+table th:nth-last-child(2), table td:nth-last-child(2),   /* Category / Type */
+table th:last-child, table td:last-child                  /* Live Notebook Link */ {
+    white-space: nowrap !important;
+    width: 1% !important;
+}
 
 /* ==========================================================================
    🖼 RESPONSIVE IMAGE ARCHITECTURE: TOPOLOGY DRAWING CONSTRAINTS
