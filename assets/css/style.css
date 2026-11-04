@@ -80,6 +80,8 @@ table {
     border-radius: 8px !important;
     overflow: hidden !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
+    /* FIX 1: Forces the browser to strictly respect cell widths and wrap text */
+    table-layout: fixed !important; 
 }
 
 th {
@@ -99,6 +101,9 @@ td {
     color: #cbd5e1 !important;
     vertical-align: top !important;
     line-height: 1.6 !important;
+    /* FIX 2: Universal safety wrap for every single data cell */
+    white-space: normal !important;
+    word-break: break-word !important; 
 }
 
 tr:nth-child(even) { background-color: #1e293b !important; }
@@ -116,6 +121,8 @@ td a {
     padding: 4px 8px !important;
     background-color: rgba(56, 189, 248, 0.1) !important;
     border-radius: 4px !important;
+    /* FIX 3: Keeps long link tags inside their pill container cleanly */
+    display: inline-block !important; 
 }
 
 td a:hover {
@@ -123,19 +130,13 @@ td a:hover {
     background-color: #2563eb !important;
 }
 
-/* Column Width Percentages */
+/* Column Width Percentages for 5-Column Matrices */
 table th:nth-child(1) { width: 15% !important; } 
 table th:nth-child(2) { width: 22% !important; } 
 table th:nth-child(3) { width: 12% !important; } 
 table th:nth-child(4) { width: 33% !important; } 
 table th:nth-child(5) { width: 18% !important; } 
 
-table th:nth-child(1), table td:nth-child(1),
-table th:nth-child(3), table td:nth-child(3) {
-    /*white-space: nowrap !important;*/
-	white-space: normal !important; /* This allows normal line breaks */
-    word-break: break-word;        /* Prevents long strings from breaking layout */
-}
 
 /* ==========================================================================
    🖼 RESPONSIVE IMAGE ARCHITECTURE: TOPOLOGY DRAWING CONSTRAINTS
