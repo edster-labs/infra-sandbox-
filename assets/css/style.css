@@ -150,7 +150,7 @@ table th:last-child, table td:last-child      /* Live Notebook Link */ {
 @media screen and (min-width: 1400px) {
     table th:not(:first-child):not(:last-child),
     table td:not(:first-child):not(:last-child) {
-        max-width: 380px !important; /* Forces a line break once columns hit this width on huge screens */
+        max-width: 280px !important; /* Forces a line break once columns hit this width on huge screens */
     }
 }
 
