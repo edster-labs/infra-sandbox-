@@ -132,7 +132,9 @@ table th:nth-child(5) { width: 18% !important; }
 
 table th:nth-child(1), table td:nth-child(1),
 table th:nth-child(3), table td:nth-child(3) {
-    white-space: nowrap !important;
+    /*white-space: nowrap !important;*/
+	white-space: normal !important; /* This allows normal line breaks */
+    word-break: break-word;        /* Prevents long strings from breaking layout */
 }
 
 /* ==========================================================================
