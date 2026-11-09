@@ -1,5 +1,7 @@
-# Installing Lubuntu QEMU Nodes in EVE-NG Community Edition
 
+
+# Installing Lubuntu QEMU Nodes in EVE-NG Community Edition
+<!-- toc -->
 Modern network engineering labs frequently require multi-homed Linux workloads—such as web servers, database clusters, or application firewalls—that interface with multiple subnets across a topology. While external management virtual machines (such as a standalone `toaster` automation controller hosted directly on VMware Workstation) excel at Out-of-Band (OOB) script execution via Ansible or NETCONF, representing multi-interface workloads directly on the EVE-NG canvas requires a native QEMU virtual machine image.
 
 Attempting to connect an external virtual machine to multiple subnets via separate EVE-NG Cloud objects (`Cloud0`, `Cloud1`, `Cloud2`) introduces severe visual clutter and false topology representations, making a single host appear as disjointed network icons. By deploying a dedicated Lubuntu 24.04 Desktop QEMU template inside EVE-NG, network engineers gain clean single-icon nodes with native, multi-interface bindings (`eth0`, `eth1`, `eth2`).
@@ -205,3 +207,4 @@ With 101 GB of available disk space on the root logical volume (`/dev/mapper/ubu
 ### Operational Lifecycle of Future Nodes
 
 Because future Linux nodes added to any lab canvas utilize new Copy-on-Write overlays pointing to `virtioa.qcow2`, instantiating new Lubuntu nodes will not replicate the full 8 GB storage footprint. Each new node consumes only minimal disk space proportional to new configuration changes generated during lab sessions.
+<!-- toc -->
