@@ -6,6 +6,7 @@
 </p>
 </div>
 
+<!-- toc -->
 ## 🐧 Linux Networking Reference Modules
 * 🛠️ **[Core Services Setup Matrix](./linux-dhcp-dnsmasq-setup.md)**
 * 🛣️ **[IP Routing Architecture Guide](./linux-ip-route-cheat-sheet.md)**
@@ -13,3 +14,4 @@
 
 ## 🛡️ Windows Administration Systems
 * 🧱 **[PowerShell Firewall Control Matrix](./win-powershell-firewall-rules.md)**
+<!-- endtoc -->
