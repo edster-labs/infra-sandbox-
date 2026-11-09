@@ -1,4 +1,5 @@
 # EVE-NG Lubuntu Node Setup & Template Management
+
 <!-- toc -->
 A practical guide to building, customizing, and maintaining Lubuntu QEMU templates in EVE-NG—covering overlay mechanics, FreeRADIUS setup, safe base-image updates, and storage cleanup.
 
