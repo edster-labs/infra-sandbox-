@@ -200,9 +200,5 @@ tmpfs                              4.8G     0  4.8G   0% /run/qemu
 tmpfs                              967M  4.0K  967M   1% /run/user/0
 ```
 
-With 101 GB of available disk space on the root logical volume (`/dev/mapper/ubuntu--vg-ubuntu--lv`), the EVE-NG host maintains ample capacity.
-
-### Operational Lifecycle of Future Nodes
-
-Because future Linux nodes added to any lab canvas utilize new Copy-on-Write overlays pointing to `virtioa.qcow2`, instantiating new Lubuntu nodes will not replicate the full 8 GB storage footprint. Each new node consumes only minimal disk space proportional to new configuration changes generated during lab sessions.
+101 GB of available disk space on the root logical volume (`/dev/mapper/ubuntu--vg-ubuntu--lv`).
 <!-- endtoc -->
