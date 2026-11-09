@@ -7,6 +7,7 @@
 </p>
 </div>
 
+<!-- toc -->
 ## ⚙️ Cisco Platform Images & Node Installation
 * 🟦 **[Cisco IOL Architecture Setup Guide](./cisco-iol-installation-guide.md)**
 * 🟦 **[Cisco IOSv QEMU Template Framework](./cisco-iosv-qemu-installation.md)**
@@ -23,3 +24,4 @@
 * 🔧 **[Virtual Cable Lifecycle Integrity Fix](./eve-virtual-cable-lifecycle.md)**
 * 🔧 **[Ubuntu APT Package Dependency Repair](./linux-apt-dependency-repair.md)**
 * 🔧 **[Master QEMU Image Baking Guide](./qemu-image-baking-guide.md)**
+<!-- endtoc -->
