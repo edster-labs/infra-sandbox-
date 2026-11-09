@@ -20,5 +20,6 @@
 * 📄 **[EVE-NG to VMware Interface Matrix & Topology Bridging](./eve-vmware-nic-mapping.md)**
 * 📄 **[Installing Lubuntu QEMU Nodes in EVE-NG Community Edition](./how-to-add-lubuntu-qemu-to-eveng.md)**
 * 📄 **[Linux System Administration: Repairing Corrupted APT Package Lists](./linux-apt-dependency-repair.md)**
+* 📄 **[EVE-NG Lubuntu Node Setup & Template Management](./lubuntu-node-setup-and-template-management.md)**
 * 📄 **[QEMU Master Image Building & Snapshot Commit Process](./qemu-image-baking-guide.md)**
 <!-- endtoc -->
