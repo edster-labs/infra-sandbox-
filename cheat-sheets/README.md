@@ -7,11 +7,9 @@
 </div>
 
 <!-- toc -->
-## 🐧 Linux Networking Reference Modules
-* 🛠️ **[Core Services Setup Matrix](./linux-dhcp-dnsmasq-setup.md)**
-* 🛣️ **[IP Routing Architecture Guide](./linux-ip-route-cheat-sheet.md)**
-* 🌐 **[Netplan Configuration Engine](./linux-netplan-configuration.md)**
-
-## 🛡️ Windows Administration Systems
-* 🧱 **[PowerShell Firewall Control Matrix](./win-powershell-firewall-rules.md)**
+## 📁 Automatically Indexed Modules
+* 📄 **[Linux Network Administration: Building Isolated DHCP Core Nodes](./linux-dhcp-dnsmasq-setup.md)**
+* 📄 **[Linux Network Administration: Interface IP & Route Management](./linux-ip-route-cheat-sheet.md)**
+* 📄 **[Linux Netplan Interface Configuration](./linux-netplan-configuration.md)**
+* 📄 **[Windows PowerShell Advanced NetFirewall Configurations](./win-powershell-firewall-rules.md)**
 <!-- endtoc -->
