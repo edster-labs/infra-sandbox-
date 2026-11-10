@@ -1,14 +1,12 @@
 # 📡 EVE-NG Deployment & Optimization Guides
 
 <div class="brief-container">
-<p>My operational notebook for EVE-NG environment emulation and image optimization. This directory compiles practical setups for 
-  Cisco platforms alongside the exact solutions needed when troubleshooting virtualization friction—specifically targeting QEMU master image building, 
+<p> This directory lists a few practical setups and solutions when I was troubleshooting virtualization problems targeting QEMU image building, 
   Linux kernel bridge tuning, and system deadlock resolution.
 </p>
 </div>
 
 <!-- toc -->
-## 📁 Automatically Indexed Modules
 * 📄 **[Cisco IOS-on-Linux (IOL/IOU) Images & Licensing Integration](./cisco-iol-installation-guide.md)**
 * 📄 **[Cisco IOSvL2 (QEMU Image) Appliance Deployment Setup](./cisco-iosv-qemu-installation.md)**
 * 📄 **[Resolving Linux Networking Service Deadlocks & Phantom Bridges](./eve-bridge-deadlock-fix.md)**
