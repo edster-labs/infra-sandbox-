@@ -1,8 +1,3 @@
-<!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
-
----
-<!-- automated-nav-end -->
 <img width="2244" height="1498" alt="ospfv2-single-area" src="https://github.com/user-attachments/assets/f4e68a6b-c02d-4156-8f98-d403e51e4a91" />
 
 # Case Study: OSPFv2 Single-Area Core Topology & VLSM Design

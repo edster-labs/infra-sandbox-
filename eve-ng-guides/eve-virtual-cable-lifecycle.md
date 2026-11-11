@@ -1,8 +1,3 @@
-<!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
-
----
-<!-- automated-nav-end -->
 # Technical Analysis: The Lifecycle of a Virtual Cable Interface
 <!-- toc -->
 ## 🎯 Conceptual Overview

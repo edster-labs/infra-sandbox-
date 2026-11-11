@@ -1,8 +1,3 @@
-<!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
-
----
-<!-- automated-nav-end -->
 <img width="2950" height="1776" alt="image" src="https://github.com/user-attachments/assets/6214cb87-0bfa-4e7a-ba94-abe63766b611" />
 # Root Guard Behavior Lab
 

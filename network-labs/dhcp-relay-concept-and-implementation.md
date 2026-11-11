@@ -1,8 +1,3 @@
-<!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
-
----
-<!-- automated-nav-end -->
 # Lab: Layer 3 DHCP Relay Topology
 
 <img width="2673" height="1705" alt="image" src="https://github.com/user-attachments/assets/a87c4f73-088b-450f-b60a-5928c996a53f" />

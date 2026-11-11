@@ -1,8 +1,3 @@
-<!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
-
----
-<!-- automated-nav-end -->
 # 🛠️ Autonomous Documentation Engine & CI/CD Pipeline Architecture
 
 Welcome to the architectural breakdown of the automation engine powering the **Infra Sandbox** repository layout. This document details how changes pushed to markdown documentation assets are discovered, mapped, compiled, and published live to the internet completely hands-free.

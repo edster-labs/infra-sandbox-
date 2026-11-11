@@ -1,8 +1,3 @@
-<!-- automated-nav-start -->
-[⬅️ Back to Master OSI Table](../README.md#master-osi-table) | [📂 Main Repository Index](../README.md)
-
----
-<!-- automated-nav-end -->
 # 🔄 Real-World Case Study: Applying CI/CD and UI/UX to This Sandbox
 
 This document is a quick reference showing exactly what **CI/CD** and **UI/UX** mean by looking directly at the engineering automation and layout styles running this entire repository.
