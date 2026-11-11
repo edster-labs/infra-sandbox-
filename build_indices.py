@@ -43,7 +43,14 @@ def inject_navigation_header(file_path):
             content = f.read()
         
         if opt_in_tag not in content:
+            pattern = f"{re.escape(nav_marker_start)}.*?{re.escape(nav_marker_end)}\\s*"
+            cleaned = re.sub(pattern, "", content, flags=re.DOTALL)
+            if cleaned != content:
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(cleaned)
+                print(f"Removed leftover header from {file_path}")
             return
+
             
         pattern = f"{re.escape(nav_marker_start)}.*?{re.escape(nav_marker_end)}\\s*"
         if re.search(pattern, content, re.DOTALL):
