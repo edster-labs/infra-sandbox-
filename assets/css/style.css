@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🌌 GLOBAL DARK THEME & ACCESSIBILITY ARCHITECTURE OVRERIDES
+   🌌 GLOBAL DARK THEME & ACCESSIBILITY ARCHITECTURE OVERRIDES
    ========================================================================== */
 
 /* 1. Global Document Root Styles: Flip the primary background and body text */
@@ -384,7 +384,7 @@ pre code {
     display: block !important;
 }
 /* ==========================================================================
-   📖 READABILITY MODULE: ENGNEERING BRIEF LAYOUTS
+   📖 READABILITY MODULE: ENGINEERING BRIEF LAYOUTS
    ========================================================================== */
 
 .brief-container {
