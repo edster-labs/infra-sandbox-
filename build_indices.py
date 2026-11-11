@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 # Directories to index automatically
 TARGET_DIRS = ["cheat-sheets", "eve-ng-guides", "network-labs", "sec-notebook", "system-architecture"]
@@ -132,7 +133,7 @@ def generate_global_master_tree():
         '  <ul style="list-style-type: none; margin: 10px 0 0 0; padding-left: 20px; border-left: 1px dashed #CCCCCC; list-style: none;">\n'
     ]
 
-    for i, directory in enumerate(TARGET_DIRS):
+    for directory in TARGET_DIRS:
         if not os.path.isdir(directory):
             continue
         
@@ -141,19 +142,31 @@ def generate_global_master_tree():
         tree_lines.append(f'<summary style="font-weight: bold; color: #f1f5f9;">📁 [{directory}]</summary>\n')
         tree_lines.append('<ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">\n')
 
-        child_files = sorted([f for f in os.listdir(directory) if f.lower() != "readme.md" and f.lower().endswith(".md")])
-        
-        for filename in child_files:
-            file_path = os.path.join(directory, filename)
-            title = extract_markdown_title(file_path)
-            relative_url = f"./{directory}/{filename}"
-            
-            tree_lines.extend([
-                '<li style="margin-bottom: 4px; font-size: 17px;">',
-                f'├── <a href="{relative_url}" style="font-weight: 600; font-size: 17px;">{filename}</a> ',
-                f'<span style="color: #cbd5e1; font-size: 17px;">... ({title})</span>',
-                '</li>\n'
-            ])
+        for root, dirs, files in os.walk(directory):
+            dirs.sort()
+            rel_dir = os.path.relpath(root, directory)
+            indent = "&nbsp;&nbsp;&nbsp;&nbsp;" if rel_dir != "." else ""
+
+            if rel_dir != ".":
+                folder_url = f"./{directory}/{rel_dir}".replace("\\", "/")
+                tree_lines.extend([
+                    f'<li style="margin-top: 6px; margin-bottom: 4px; font-size: 17px; color: #38bdf8;">',
+                    f'├── 📂 <a href="{folder_url}/" style="font-weight: 700; font-size: 17px;">[{rel_dir}]</a>',
+                    '</li>\n'
+                ])
+
+            child_files = sorted([f for f in files if f.lower() != "readme.md" and f.lower().endswith(".md")])
+            for filename in child_files:
+                file_path = os.path.join(root, filename)
+                title = extract_markdown_title(file_path)
+                relative_url = f"./{file_path}".replace("\\", "/")
+                
+                tree_lines.extend([
+                    '<li style="margin-bottom: 4px; font-size: 17px;">',
+                    f'{indent}├── <a href="{relative_url}" style="font-weight: 600; font-size: 17px;">{filename}</a> ',
+                    f'<span style="color: #cbd5e1; font-size: 17px;">... ({title})</span>',
+                    '</li>\n'
+                ])
 
         tree_lines.append('</ul>\n')
         tree_lines.append('</details>\n\n')
@@ -180,7 +193,6 @@ def generate_global_master_tree():
     else:
         print(f"Note: Marker comments (<!-- tree --> / <!-- endtree -->) missing in root {root_readme}")
 
-import sys  # Make sure 'import sys' is added at the top of your file!
 
 if __name__ == "__main__":
     # Check if the GitHub Action passed specific changed files as command-line arguments
