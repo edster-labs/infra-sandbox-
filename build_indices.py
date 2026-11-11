@@ -34,7 +34,7 @@ def inject_navigation_header(file_path):
     path_to_root = "../" * levels_deep if levels_deep > 0 else "./"
     
     # ⚡ Precision Targeting: Routes straight to the table's actual folder file!
-    master_table_url = f"{path_to_root}sec-notebook/ddos-attack-classifications/README.md#ddos-attack-threat-mitigation-table"
+    master_table_url = f"{path_to_root}sec-notebook/ddos-attack-classifications/#ddos-attack-threat-mitigation-table"
     main_menu_url = f"{path_to_root}README.md"
    
     nav_content = f"{nav_marker_start}\n[⬅️ DDos Attack Threat Mitigation Table]({master_table_url})\n\n---\n{nav_marker_end}\n"
