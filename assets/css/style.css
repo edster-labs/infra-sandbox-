@@ -104,7 +104,7 @@ td {
     
     /* UNIVERSAL WRAP ENGINE: Keeps words whole but allows clean line drops */
     white-space: normal !important;
-    word-break: break-word !important; /* Changed from break-all to break-word */      
+    word-break: normal !important; /* Changed from break-all to break-word */      
     overflow-wrap: break-word !important; /* Changed from anywhere to break-word */    
 }
 
@@ -132,8 +132,7 @@ td a:hover {
 }
 
 /* 1. Tighten structural outer columns to snap to text dimensions without bloating */
-table th:first-child, table td:first-child,   /* OSI Layer */
-table th:last-child, table td:last-child      /* Live Notebook Link */ {
+table th:first-child, table td:first-child{
     white-space: nowrap !important;
     width: 1% !important;
 }
