@@ -308,9 +308,17 @@ h2, h3, h4, h5, h6 {
 .markdown-body a,
 li a,
 a {
-    color: #0969da !important; /* GitHub bold link accent blue */
+    color: #38bdf8 !important; /* High-contrast sky blue for dark slate theme */
+    text-decoration: none !important;
+}
+
+.markdown-body a:hover,
+li a:hover,
+a:hover {
+    color: #60a5fa !important;
     text-decoration: underline !important;
 }
+
 
 /* 4. PRESERVE DYNAMIC MONOSPACE ONLY FOR LOGS AND FILE TREES */
 .markdown-body pre,
