@@ -148,12 +148,19 @@ def generate_global_master_tree():
             indent = "&nbsp;&nbsp;&nbsp;&nbsp;" if rel_dir != "." else ""
 
             if rel_dir != ".":
-                folder_url = f"./{directory}/{rel_dir}".replace("\\", "/")
-                tree_lines.extend([
-                    f'<li style="margin-top: 6px; margin-bottom: 4px; font-size: 17px; color: #38bdf8;">',
-                    f'├── 📂 <a href="{folder_url}/" style="font-weight: 700; font-size: 17px;">[{rel_dir}]</a>',
-                    '</li>\n'
-                ])
+                folder_name = os.path.basename(rel_dir)
+                has_index = any(f.lower() == "readme.md" for f in files)
+                if has_index:
+                    folder_url = f"./{directory}/{rel_dir}".replace("\\", "/")
+                    label = f'<a href="{folder_url}/" style="font-weight: 700; font-size: 17px;">[{folder_name}]</a>'
+                else:
+                    label = f'<strong style="font-weight: 700; font-size: 17px; color: #f1f5f9;">[{folder_name}]</strong>'
+                 tree_lines.extend([
+                     f'<li style="margin-top: 6px; margin-bottom: 4px; font-size: 17px; color: #cbd5e1;">',
+                     f'├── 📂 {label}',
+                     '</li>\n'
+            ])
+
 
             child_files = sorted([f for f in files if f.lower() != "readme.md" and f.lower().endswith(".md")])
             for filename in child_files:
