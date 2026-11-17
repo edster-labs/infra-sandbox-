@@ -242,7 +242,9 @@ router-id 3.3.3.3
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+
+🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
 
 ```ios
 hostname R11-dhcp-server
