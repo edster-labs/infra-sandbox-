@@ -10,7 +10,8 @@ This lab documents the design, Variable Length Subnet Masking (VLSM) allocation,
 
 ## 🗺️ Network Topology & Logical Design
 
-<img width="7377" height="2202" alt="image" src="https://github.com/user-attachments/assets/88f51712-16aa-4f90-8ad2-b38cf9adc091"/>
+<img width="3692" height="1721" alt="multi-area-ospf" src="https://github.com/user-attachments/assets/3e108a14-71d2-4670-9d89-d67a850b3887" />
+
 
 ### 1. Architecture & Core Technologies
 * **Multi-Area OSPF (`router ospf 1`):** Segmented into **Area 0 (Backbone)** and **Area 10**, bridged by **R11** operating as the Area Border Router (ABR) with deterministic static Router IDs (`1.1.1.1` through `33.33.33.33`).
