@@ -239,6 +239,7 @@ interface GigabitEthernet0/2
  !
 router ospf 1
 router-id 3.3.3.3
+ 
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
@@ -449,6 +450,7 @@ interface GigabitEthernet0/3
  switchport mode trunk
  switchport nonegotiate
 
+</details>
 
 🔍 Key Milestones & Troubleshooting Wins
 • Area 10 & Serial P2P Verification: Verified EVE-NG hypervisor clocking on Serial1/3, confirmed POINT_TO_POINT vs. BROADCAST OSPF network types, and standardized clean static Router IDs (1.1.1.1–33.33.33.33) across all routers.
