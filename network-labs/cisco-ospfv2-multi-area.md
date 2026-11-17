@@ -108,8 +108,8 @@ default via 192.168.36.2 dev ens3 proto dhcp src 192.168.36.154 metric 500
 Click any device below to expand its active interfaces, routing protocols, HSRP groups, and switching rules.
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
-
+<summary style="font-weight: bold; color: #38bdf8;">
+🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
 ```ios
 hostname R1
 !
@@ -138,8 +138,8 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
-
+<summary style="font-weight: bold; color: #38bdf8;">
+🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
 ```ios
 hostname R2-dhcp-relay
 !
@@ -192,8 +192,8 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
-
+<summary style="font-weight: bold; color: #38bdf8;">
+🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
 ```ios
 hostname R3-dhcp-relay
 !
