@@ -499,7 +499,7 @@ interface GigabitEthernet0/3
 * End-to-End Connectivity & DHCP Relay: Verified full DORA DHCP leases and cross-area ICMP reachability between Users_LAN10 (172.25.10.11/23), Managers_LAN20 (172.25.12.12/24), and Servers_LAN30 (172.25.13.13/25).
 
 ## 📝Note:
-In order to achieve full mesh between R2/R3 and ASW1/ASW2 without causing IP subnet overlaps or Spanning Tree loops one way is to use so called <BR> Multi-Chassis EtherChannel (MEC) technologies—specifically StackWise Virtual or Virtual Switching System (VSS) on Catalyst switches, <BR> or vPC (Virtual Port Channel) on Nexus switches.
+In order to achieve full mesh between R2/R3 and ASW1/ASW2 without causing IP subnet overlaps or Spanning Tree loops one way is to use so called <BR> Multi-Chassis EtherChannel (MEC) technologies—specifically StackWise Virtual or Virtual Switching System (VSS) on Catalyst switches, or vPC (Virtual Port Channel) on Nexus switches.
 
 ### How It Works in Enterprise Hardware
 * The Core Concept: Normally, a router cannot bundle two links into a single Layer 3 Port-Channel if those links go to two different physical switches.
