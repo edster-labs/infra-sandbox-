@@ -243,9 +243,7 @@ router-id 3.3.3.3
 
 <details style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
-
 🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
-
 ```ios
 hostname R11-dhcp-server
 !
@@ -296,7 +294,6 @@ router ospf 1
  router-id 11.11.11.11
 
 🌐 R22 — Backup WAN Exit (Type-5 External Metric 10) & Area 10 Router
-
 hostname R22
 !
 interface Ethernet0/0
@@ -321,7 +318,6 @@ router ospf 1
  default-information originate metric 10
 
 🔀 R33-dhcp-relay — Area 10 Edge Router & Users_LAN10 Gateway
-
 hostname R33-dhcp-relay
 !
 interface Ethernet0/0
@@ -352,7 +348,6 @@ router ospf 1
  router-id 33.33.33.33
 
 🔌 ASW1 — Access Switch 1 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)
-
 hostname ASW1
 spanning-tree mode pvst
 !
@@ -397,7 +392,6 @@ interface range GigabitEthernet1/0 - 1
  channel-group 1 mode active
 
 🔌 ASW2 — Access Switch 2 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)
-
 hostname ASW2
 spanning-tree mode pvst
 !
@@ -436,7 +430,6 @@ interface GigabitEthernet0/3
  spanning-tree bpduguard enable
 
 🔌 ASW11 — Area 10 Access Switch (VLAN 10, PortFast & BPDU Guard)
-
 hostname ASW11
 spanning-tree mode pvst
 !
@@ -458,7 +451,6 @@ interface GigabitEthernet0/3
 
 
 🔍 Key Milestones & Troubleshooting Wins
-
 • Area 10 & Serial P2P Verification: Verified EVE-NG hypervisor clocking on Serial1/3, confirmed POINT_TO_POINT vs. BROADCAST OSPF network types, and standardized clean static Router IDs (1.1.1.1–33.33.33.33) across all routers.
 • WAN Failover & Type-5 LSA Analysis: Tested shutting down R1's primary WAN interface (Gi0/0), verified R22 automatically injected its backup Type-5 External LSA (O*E2 0.0.0.0/0 [110/10]) once R1's primary default route ([110/1]) withdrew, and confirmed uninterrupted external reachability (8.8.8.8 / 1.1.1.1).
 • Layer 2 vs. Layer 3 Gateway Separation: Proved that L2 access switches (ASW1) forward client frames transparently without requiring an ip default-gateway for data-plane transit, which isolated and resolved a missing default-router parameter in R11's centralized DHCP pool.
@@ -467,7 +459,6 @@ interface GigabitEthernet0/3
 
 
 🚀 Planned Lab Expansion (Phase 2)
-
 • Dual-Process OSPF Redistribution: Introduce a secondary OSPF process (router ospf 2) on the boundary edge to simulate multi-domain route redistribution and administrative distance tuning.
 
 
