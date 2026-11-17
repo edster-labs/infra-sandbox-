@@ -155,7 +155,7 @@ def generate_global_master_tree():
                     label = f'<a href="{folder_url}/" style="font-weight: 700; font-size: 17px;">[{folder_name}]</a>'
                 else:
                     label = f'<strong style="font-weight: 700; font-size: 17px; color: #f1f5f9;">[{folder_name}]</strong>'
-                 tree_lines.extend([
+                     tree_lines.extend([
                      f'<li style="margin-top: 6px; margin-bottom: 4px; font-size: 17px; color: #cbd5e1;">',
                      f'├── 📂 {label}',
                      '</li>\n'
