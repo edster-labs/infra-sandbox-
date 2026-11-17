@@ -105,7 +105,7 @@ default via 192.168.36.2 dev ens3 proto dhcp src 192.168.36.154 metric 500
 
 Click any device below to expand its active interfaces, routing protocols, HSRP groups, and switching rules.
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
 🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
 
@@ -136,7 +136,7 @@ router ospf 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
 🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
 
@@ -191,7 +191,7 @@ router ospf 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
 🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
 
@@ -244,7 +244,7 @@ router ospf 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
 🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
 
@@ -300,7 +300,7 @@ router ospf 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
 🌐 R22 — Backup WAN Exit (Type-5 External Metric 10) & Area 10 Router</summary>
 
@@ -331,7 +331,7 @@ router ospf 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
 🔀 R33-dhcp-relay — Area 10 Edge Router & Users_LAN10 Gateway</summary>
  
@@ -368,7 +368,7 @@ router ospf 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
  🔌 ASW1 — Access Switch 1 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
 
@@ -419,7 +419,7 @@ interface range GigabitEthernet1/0 - 1
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
 <summary style="font-weight: bold; color: #38bdf8;">
  🔌 ASW2 — Access Switch 2 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
 
@@ -464,8 +464,9 @@ interface GigabitEthernet0/3
 
 </details>
 
-<details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔌 ASW11 — Area 10 Access Switch (VLAN 10, PortFast & BPDU Guard)</summary>
+<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
+<summary style="font-weight: bold; color: #38bdf8;">
+🔌 ASW11 — Area 10 Access Switch (VLAN 10, PortFast & BPDU Guard)</summary>
 
 ```ios
 hostname ASW11
@@ -489,7 +490,7 @@ interface GigabitEthernet0/3
 ```
 </details>
 
-##🔍 Key Milestones & Troubleshooting Wins
+## 🔍 Key Milestones & Troubleshooting Wins
 * Area 10 & Serial P2P Verification: Verified EVE-NG hypervisor clocking on Serial1/3, confirmed POINT_TO_POINT vs. BROADCAST OSPF network types, and standardized clean static Router IDs (1.1.1.1–33.33.33.33) across all routers.
 * WAN Failover & Type-5 LSA Analysis: Tested shutting down R1's primary WAN interface (Gi0/0), verified R22 automatically injected its backup Type-5 External LSA (O*E2 0.0.0.0/0 [110/10]) once R1's primary default route ([110/1]) withdrew, and confirmed uninterrupted external reachability (8.8.8.8 / 1.1.1.1).
 * Layer 2 vs. Layer 3 Gateway Separation: Proved that L2 access switches (ASW1) forward client frames transparently without requiring an ip default-gateway for data-plane transit, which isolated and resolved a missing default-router parameter in R11's centralized DHCP pool.
