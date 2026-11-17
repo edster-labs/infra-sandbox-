@@ -1,5 +1,3 @@
-<img width="3685" height="1725" alt="image" src="https://github.com/user-attachments/assets/8422c326-c9bd-4391-a6d8-bdc5009bdbb4"/>
-
 # Case Study: OSPFv2 Multi-Area Enterprise Topology & High-Availability Core
 
 <section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">
@@ -11,8 +9,8 @@ This lab documents the design, Variable Length Subnet Masking (VLSM) allocation,
 ---
 
 ## 🗺️ Network Topology & Logical Design
-<!-- toc -->
-![OSPFv2 Multi-Area Topology](../assets/images/ospfv2-multi-area-topology.png)
+
+<img width="3685" height="1725" alt="image" src="https://github.com/user-attachments/assets/8422c326-c9bd-4391-a6d8-bdc5009bdbb4"/>
 
 ### 1. Architecture & Core Technologies
 * **Multi-Area OSPF (`router ospf 1`):** Segmented into **Area 0 (Backbone)** and **Area 10**, bridged by **R11** operating as the Area Border Router (ABR) with deterministic static Router IDs (`1.1.1.1` through `33.33.33.33`).
@@ -108,9 +106,10 @@ default via 192.168.36.2 dev ens3 proto dhcp src 192.168.36.154 metric 500
 Click any device below to expand its active interfaces, routing protocols, HSRP groups, and switching rules.
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
 
-```ios
+ ```ios
 hostname R1
 !
 interface GigabitEthernet0/0
@@ -138,9 +137,10 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
 
-```ios
+ ```ios
 hostname R2-dhcp-relay
 !
 interface GigabitEthernet0/0
@@ -192,9 +192,10 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
 
-```ios
+ ```ios
 hostname R3-dhcp-relay
 !
 interface GigabitEthernet0/0
@@ -244,9 +245,10 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
 
-```ios
+ ```ios
 hostname R11-dhcp-server
 !
 ip dhcp excluded-address 172.25.10.1 172.25.10.10
@@ -299,9 +301,10 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🌐 R22 — Backup WAN Exit (Type-5 External Metric 10) & Area 10 Router</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+🌐 R22 — Backup WAN Exit (Type-5 External Metric 10) & Area 10 Router</summary>
 
-```ios
+ ```ios
 hostname R22
 !
 interface Ethernet0/0
@@ -329,8 +332,9 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔀 R33-dhcp-relay — Area 10 Edge Router & Users_LAN10 Gateway</summary>
-
+<summary style="font-weight: bold; color: #38bdf8;">
+🔀 R33-dhcp-relay — Area 10 Edge Router & Users_LAN10 Gateway</summary>
+ 
 ```ios
 hostname R33-dhcp-relay
 !
@@ -365,9 +369,10 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔌 ASW1 — Access Switch 1 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+ 🔌 ASW1 — Access Switch 1 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
 
-```ios
+ ```ios
 hostname ASW1
 spanning-tree mode pvst
 !
@@ -415,9 +420,10 @@ interface range GigabitEthernet1/0 - 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">🔌 ASW2 — Access Switch 2 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
+<summary style="font-weight: bold; color: #38bdf8;">
+ 🔌 ASW2 — Access Switch 2 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
 
-```ios
+ ```ios
 hostname ASW2
 spanning-tree mode pvst
 !
@@ -481,21 +487,15 @@ interface GigabitEthernet0/3
  switchport mode trunk
  switchport nonegotiate
 ```
-
 </details>
 
-
-🔍 Key Milestones & Troubleshooting Wins
-• Area 10 & Serial P2P Verification: Verified EVE-NG hypervisor clocking on Serial1/3, confirmed POINT_TO_POINT vs. BROADCAST OSPF network types, and standardized clean static Router IDs (1.1.1.1–33.33.33.33) across all routers.
-• WAN Failover & Type-5 LSA Analysis: Tested shutting down R1's primary WAN interface (Gi0/0), verified R22 automatically injected its backup Type-5 External LSA (O*E2 0.0.0.0/0 [110/10]) once R1's primary default route ([110/1]) withdrew, and confirmed uninterrupted external reachability (8.8.8.8 / 1.1.1.1).
-• Layer 2 vs. Layer 3 Gateway Separation: Proved that L2 access switches (ASW1) forward client frames transparently without requiring an ip default-gateway for data-plane transit, which isolated and resolved a missing default-router parameter in R11's centralized DHCP pool.
-• Access Layer Topology Simplification: Removed redundant diagonal router uplinks (Gi0/3), relying on single 802.1Q trunk uplinks per router (R2 → ASW1 and R3 → ASW2) bridged cleanly by the Po1 LACP inter-switch trunk.
-• End-to-End Connectivity & DHCP Relay: Verified full DORA DHCP leases and cross-area ICMP reachability between Users_LAN10 (172.25.10.11/23), Managers_LAN20 (172.25.12.12/24), and Servers_LAN30 (172.25.13.13/25).
-
-
-🚀 Planned Lab Expansion (Phase 2)
-• Dual-Process OSPF Redistribution: Introduce a secondary OSPF process (router ospf 2) on the boundary edge to simulate multi-domain route redistribution and administrative distance tuning.
+##🔍 Key Milestones & Troubleshooting Wins
+* Area 10 & Serial P2P Verification: Verified EVE-NG hypervisor clocking on Serial1/3, confirmed POINT_TO_POINT vs. BROADCAST OSPF network types, and standardized clean static Router IDs (1.1.1.1–33.33.33.33) across all routers.
+* WAN Failover & Type-5 LSA Analysis: Tested shutting down R1's primary WAN interface (Gi0/0), verified R22 automatically injected its backup Type-5 External LSA (O*E2 0.0.0.0/0 [110/10]) once R1's primary default route ([110/1]) withdrew, and confirmed uninterrupted external reachability (8.8.8.8 / 1.1.1.1).
+* Layer 2 vs. Layer 3 Gateway Separation: Proved that L2 access switches (ASW1) forward client frames transparently without requiring an ip default-gateway for data-plane transit, which isolated and resolved a missing default-router parameter in R11's centralized DHCP pool.
+* Access Layer Topology Simplification: Removed redundant diagonal router uplinks (Gi0/3), relying on single 802.1Q trunk uplinks per router (R2 → ASW1 and R3 → ASW2) bridged cleanly by the Po1 LACP inter-switch trunk.
+* End-to-End Connectivity & DHCP Relay: Verified full DORA DHCP leases and cross-area ICMP reachability between Users_LAN10 (172.25.10.11/23), Managers_LAN20 (172.25.12.12/24), and Servers_LAN30 (172.25.13.13/25).
 
 
-
-<!-- endtoc -->
+## 🚀 Planned Lab Expansion (Phase 2)
+* Dual-Process OSPF Redistribution: Introduce a secondary OSPF process (router ospf 2) on the boundary edge to simulate multi-domain route redistribution and administrative distance tuning.
