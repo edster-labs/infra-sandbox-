@@ -108,8 +108,8 @@ default via 192.168.36.2 dev ens3 proto dhcp src 192.168.36.154 metric 500
 Click any device below to expand its active interfaces, routing protocols, HSRP groups, and switching rules.
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">
-🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
+<summary style="font-weight: bold; color: #38bdf8;">🌐 R1 — Primary WAN Gateway & Area 0 Backbone Router</summary>
+
 ```ios
 hostname R1
 !
@@ -138,8 +138,8 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">
-🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
+<summary style="font-weight: bold; color: #38bdf8;">🔀 R2-dhcp-relay — ROAS, HSRP Primary (VLAN 20) & Area 0 Backbone</summary>
+
 ```ios
 hostname R2-dhcp-relay
 !
@@ -192,8 +192,8 @@ router ospf 1
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">
-🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
+<summary style="font-weight: bold; color: #38bdf8;">🔀 R3-dhcp-relay — ROAS, HSRP Primary (VLAN 30) & Area 0 Backbone</summary>
+
 ```ios
 hostname R3-dhcp-relay
 !
@@ -230,21 +230,22 @@ interface GigabitEthernet0/1
  ip address 172.25.13.131 255.255.255.248
  ip ospf 1 area 0
  no shutdown
- !
+!
 interface GigabitEthernet0/2
  description Transit to L2-SW2 (Area 0)
  ip address 172.25.13.139 255.255.255.248
  ip ospf 1 area 0
  no shutdown
- !
+!
 router ospf 1
-router-id 3.3.3.3
- 
+ router-id 3.3.3.3
+```
+
 </details>
 
 <details style="cursor: pointer; margin-bottom: 10px;">
-<summary style="font-weight: bold; color: #38bdf8;">
-🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
+<summary style="font-weight: bold; color: #38bdf8;">🏛️ R11-dhcp-server — Area Border Router (ABR Area 0 / Area 10) & Central DHCP Server</summary>
+
 ```ios
 hostname R11-dhcp-server
 !
@@ -293,8 +294,14 @@ interface GigabitEthernet0/3
 !
 router ospf 1
  router-id 11.11.11.11
+```
 
-🌐 R22 — Backup WAN Exit (Type-5 External Metric 10) & Area 10 Router
+</details>
+
+<details style="cursor: pointer; margin-bottom: 10px;">
+<summary style="font-weight: bold; color: #38bdf8;">🌐 R22 — Backup WAN Exit (Type-5 External Metric 10) & Area 10 Router</summary>
+
+```ios
 hostname R22
 !
 interface Ethernet0/0
@@ -317,8 +324,14 @@ interface Serial1/3
 router ospf 1
  router-id 22.22.22.22
  default-information originate metric 10
+```
 
-🔀 R33-dhcp-relay — Area 10 Edge Router & Users_LAN10 Gateway
+</details>
+
+<details style="cursor: pointer; margin-bottom: 10px;">
+<summary style="font-weight: bold; color: #38bdf8;">🔀 R33-dhcp-relay — Area 10 Edge Router & Users_LAN10 Gateway</summary>
+
+```ios
 hostname R33-dhcp-relay
 !
 interface Ethernet0/0
@@ -347,8 +360,14 @@ interface Serial1/2
 !
 router ospf 1
  router-id 33.33.33.33
+```
 
-🔌 ASW1 — Access Switch 1 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)
+</details>
+
+<details style="cursor: pointer; margin-bottom: 10px;">
+<summary style="font-weight: bold; color: #38bdf8;">🔌 ASW1 — Access Switch 1 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
+
+```ios
 hostname ASW1
 spanning-tree mode pvst
 !
@@ -391,8 +410,14 @@ interface range GigabitEthernet1/0 - 1
  switchport nonegotiate
  channel-protocol lacp
  channel-group 1 mode active
+```
 
-🔌 ASW2 — Access Switch 2 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)
+</details>
+
+<details style="cursor: pointer; margin-bottom: 10px;">
+<summary style="font-weight: bold; color: #38bdf8;">🔌 ASW2 — Access Switch 2 (LACP Po1, VLANs 20/30, PortFast & BPDU Guard)</summary>
+
+```ios
 hostname ASW2
 spanning-tree mode pvst
 !
@@ -429,8 +454,14 @@ interface GigabitEthernet0/3
  switchport nonegotiate
  spanning-tree portfast edge
  spanning-tree bpduguard enable
+```
 
-🔌 ASW11 — Area 10 Access Switch (VLAN 10, PortFast & BPDU Guard)
+</details>
+
+<details style="cursor: pointer; margin-bottom: 10px;">
+<summary style="font-weight: bold; color: #38bdf8;">🔌 ASW11 — Area 10 Access Switch (VLAN 10, PortFast & BPDU Guard)</summary>
+
+```ios
 hostname ASW11
 spanning-tree mode pvst
 !
@@ -449,8 +480,10 @@ interface GigabitEthernet0/3
  switchport trunk allowed vlan 10
  switchport mode trunk
  switchport nonegotiate
+```
 
 </details>
+
 
 🔍 Key Milestones & Troubleshooting Wins
 • Area 10 & Serial P2P Verification: Verified EVE-NG hypervisor clocking on Serial1/3, confirmed POINT_TO_POINT vs. BROADCAST OSPF network types, and standardized clean static Router IDs (1.1.1.1–33.33.33.33) across all routers.
