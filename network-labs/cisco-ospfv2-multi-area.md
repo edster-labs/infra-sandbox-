@@ -498,6 +498,18 @@ interface GigabitEthernet0/3
 * Access Layer Topology Simplification: Removed redundant diagonal router uplinks (Gi0/3), relying on single 802.1Q trunk uplinks per router (R2 → ASW1 and R3 → ASW2) bridged cleanly by the Po1 LACP inter-switch trunk.
 * End-to-End Connectivity & DHCP Relay: Verified full DORA DHCP leases and cross-area ICMP reachability between Users_LAN10 (172.25.10.11/23), Managers_LAN20 (172.25.12.12/24), and Servers_LAN30 (172.25.13.13/25).
 
+## 📝Note:
+In order to achieve full mesh between R2/R3 and ASW1/ASW2 without causing IP subnet overlaps or Spanning Tree loops one way is to use so called Multi-Chassis EtherChannel (MEC) technologies—specifically StackWise Virtual or Virtual Switching System (VSS) on Catalyst switches, or vPC (Virtual Port Channel) on Nexus switches.
+
+### How It Works in Enterprise Hardware
+* The Core Concept: Normally, a router cannot bundle two links into a single Layer 3 Port-Channel if those links go to two different physical switches.
+* The Solution: Technologies like VSS, StackWise Virtual, or vPC merge ASW1 and ASW2 at the control plane so they act as a single logical switch to connected devices.
+* The Result: R2 can bundle its links to ASW1 and ASW2 into a single Port-Channel1 (with .20 and .30 subinterfaces sitting on Po1), and R3 can do the exact same thing with its own Port-Channel1. This creates a true active-active full mesh with zero wasted IP addresses and zero STP blocked ports.
+
+### Why this Lab Doesn't Support It
+* Virtual images in EVE-NG like vIOS / IOL do not support VSS, StackWise Virtual, or vPC (those require specialized hardware ASICs or NX-OS/Catalyst 9000v images).
+* That is why using a single uplink per router (R2 → ASW1 and R3 → ASW2) bridged by LACP EtherChannel (Po1) between the switches was the cleanest workaround for an EVE-NG vIOS lab!
+
 
 ## 🚀 Planned Lab Expansion (Phase 2)
 * Dual-Process OSPF Redistribution: Introduce a secondary OSPF process (router ospf 2) on the boundary edge to simulate multi-domain route redistribution and administrative distance tuning.
