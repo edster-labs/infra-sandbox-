@@ -160,6 +160,7 @@ interface GigabitEthernet0/0.20
  standby 20 ip 172.25.12.3
  standby 20 priority 110
  standby 20 preempt
+ standby 20 authentication md5 key-string $3cr3T
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/0.30
@@ -171,6 +172,7 @@ interface GigabitEthernet0/0.30
  standby version 2
  standby 30 ip 172.25.13.3
  standby 30 preempt
+ standby 30 authentication md5 key-string $3cr3T
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/1
@@ -190,6 +192,14 @@ router ospf 1
  auto-cost reference-bandwidth 100000
  passive-interface GigabitEthernet0/0.20
  passive-interface GigabitEthernet0/0.30
+```
+```text
+R2-dhcp-relay#show standby br
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Gi0/0.20    20   110 P Active  local           172.25.12.2     172.25.12.3
+Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 ```
 
 </details>
@@ -215,6 +225,7 @@ interface GigabitEthernet0/0.20
  standby version 2
  standby 20 ip 172.25.12.3
  standby 20 preempt
+ standby 20 authentication md5 key-string $3cr3T
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/0.30
@@ -227,6 +238,7 @@ interface GigabitEthernet0/0.30
  standby 30 ip 172.25.13.3
  standby 30 priority 110
  standby 30 preempt
+ standby 30 authentication md5 key-string $3cr3T
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/1
@@ -246,6 +258,14 @@ router ospf 1
  auto-cost reference-bandwidth 100000
  passive-interface GigabitEthernet0/0.20
  passive-interface GigabitEthernet0/0.30
+```
+```text
+R3-dhcp-relay#show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Gi0/0.20    20   100 P Standby 172.25.12.1     local           172.25.12.3
+Gi0/0.30    30   110 P Active  local           172.25.13.1     172.25.13.3
 ```
 
 </details>
