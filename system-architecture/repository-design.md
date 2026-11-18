@@ -1,4 +1,4 @@
-# Architectural Blueprint: 
+# Architectural Blueprint
 
 ## 1. Core Mission, Identity & Voice
 
