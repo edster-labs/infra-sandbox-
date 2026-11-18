@@ -213,7 +213,7 @@ Gi0/0.20    20   110 P Active  local           172.25.12.2     172.25.12.3
 Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 ```
 
-### Enhanced Object Tracking:
+### $\color{#F59E0B}{\textbf{Enhanced Object Tracking configuration:}}$
 
 ```text
 R2-dhcp-relay(config)#track 1 interface gigabitEthernet 0/1 line-protocol
@@ -223,7 +223,7 @@ R2-dhcp-relay(config)#track 2 interface gig0/2 line-protocol
 R2-dhcp-relay(config-track)#exit
 ```
 
-### Creating the track list:
+#### Creating the track list:
 
 ```text
 R2-dhcp-relay(config)#track 10 list boolean and
@@ -234,7 +234,7 @@ R2-dhcp-relay(config-track)#object 2
 R2-dhcp-relay(config-track)#exit
 ```
 
-### Entering the inteface submenu to Bind Track List 10 to the HSRP Groups:
+#### Entering the inteface submenu to Bind Track List 10 to the HSRP Groups:
 
 ```text
 R2-dhcp-relay(config)#interface gigabitEthernet 0/0.20
@@ -246,7 +246,7 @@ R2-dhcp-relay(config-subif)#standby 20 track 10 ?
 R2-dhcp-relay(config-subif)#standby 20 track 10 decrement 20
 ```
 
-### And likewise for the second sub-interface:
+#### And likewise for the second sub-interface:
 ```text
 R2-dhcp-relay(config-subif)#int gi0/0.30
 R2-dhcp-relay(config-subif)#standby 30 track 10 decrement 20
@@ -286,6 +286,22 @@ GigabitEthernet0/0.30 - Group 30 (version 2)
   Standby router is local
   Priority 100 (default 100)
   Group name is "hsrp-Gi0/0.30-30" (default)
+```
+
+#### Verification:
+
+```text
+R2-dhcp-relay#show track 10
+Track 10
+  List boolean and
+  Boolean AND is Up
+    2 changes, last change 00:33:39
+    object 1 Up
+    object 2 Up
+  Tracked by:
+    HSRP GigabitEthernet0/0.20 20
+    HSRP GigabitEthernet0/0.30 30
+R2-dhcp-relay#
 ```
 
 </details>
@@ -409,7 +425,7 @@ track 10 list boolean and
  standby 30 track 10 decrement 20
 ```
 
-### Verification:
+#### Verification:
 
 ```text
 R3-dhcp-relay#show track 10
