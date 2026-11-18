@@ -132,6 +132,7 @@ interface GigabitEthernet0/2
 !
 router ospf 1
  router-id 1.1.1.1
+ auto-cost reference-bandwidth 100000
  default-information originate
 ```
 
@@ -186,6 +187,7 @@ interface GigabitEthernet0/2
 !
 router ospf 1
  router-id 2.2.2.2
+ auto-cost reference-bandwidth 100000
  passive-interface GigabitEthernet0/0.20
  passive-interface GigabitEthernet0/0.30
 ```
@@ -241,6 +243,9 @@ interface GigabitEthernet0/2
 !
 router ospf 1
  router-id 3.3.3.3
+ auto-cost reference-bandwidth 100000
+ passive-interface GigabitEthernet0/0.20
+ passive-interface GigabitEthernet0/0.30
 ```
 
 </details>
@@ -297,6 +302,7 @@ interface GigabitEthernet0/3
 !
 router ospf 1
  router-id 11.11.11.11
+ auto-cost reference-bandwidth 100000
 ```
 
 </details>
@@ -327,6 +333,7 @@ interface Serial1/3
 !
 router ospf 1
  router-id 22.22.22.22
+ auto-cost reference-bandwidth 100000
  default-information originate metric 10
 ```
 
@@ -365,6 +372,9 @@ interface Serial1/2
 !
 router ospf 1
  router-id 33.33.33.33
+ auto-cost reference-bandwidth 100000
+ passive-interface Ethernet0/0.10
+
 ```
 
 </details>
