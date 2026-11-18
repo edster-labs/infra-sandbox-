@@ -193,6 +193,7 @@ router ospf 1
  passive-interface GigabitEthernet0/0.20
  passive-interface GigabitEthernet0/0.30
 ```
+
 ```text
 R2-dhcp-relay#show standby br
                      P indicates configured to preempt.
@@ -259,6 +260,7 @@ router ospf 1
  passive-interface GigabitEthernet0/0.20
  passive-interface GigabitEthernet0/0.30
 ```
+
 ```text
 R3-dhcp-relay#show standby brief
                      P indicates configured to preempt.
