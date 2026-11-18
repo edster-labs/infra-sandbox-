@@ -203,6 +203,39 @@ Gi0/0.20    20   110 P Active  local           172.25.12.2     172.25.12.3
 Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 ```
 
+```ios
+R2-dhcp-relay#show standby
+GigabitEthernet0/0.20 - Group 20 (version 2)
+  State is Active
+    2 state changes, last state change 01:06:19
+  Virtual IP address is 172.25.12.3
+  Active virtual MAC address is 0000.0c9f.f014
+    Local virtual MAC address is 0000.0c9f.f014 (v2 default)
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 2.320 secs
+  Authentication MD5, key-string
+  Preemption enabled
+  Active router is local
+  Standby router is 172.25.12.2, priority 100 (expires in 10.256 sec)
+  Priority 110 (configured 110)
+  Group name is "hsrp-Gi0/0.20-20" (default)
+GigabitEthernet0/0.30 - Group 30 (version 2)
+  State is Standby
+    25 state changes, last state change 00:01:22
+  Virtual IP address is 172.25.13.3
+  Active virtual MAC address is 0000.0c9f.f01e
+    Local virtual MAC address is 0000.0c9f.f01e (v2 default)
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 1.120 secs
+  Authentication MD5, key-string
+  Preemption enabled
+  Active router is 172.25.13.2, priority 110 (expires in 8.016 sec)
+    MAC address is 5000.0003.0000
+  Standby router is local
+  Priority 100 (default 100)
+  Group name is "hsrp-Gi0/0.30-30" (default)
+```
+
 </details>
 
 <details markdown="1" style="cursor: pointer; margin-bottom: 10px;">
@@ -268,6 +301,40 @@ R3-dhcp-relay#show standby brief
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Gi0/0.20    20   100 P Standby 172.25.12.1     local           172.25.12.3
 Gi0/0.30    30   110 P Active  local           172.25.13.1     172.25.13.3
+```
+---
+
+```ios
+R3-dhcp-relay#show standby
+GigabitEthernet0/0.20 - Group 20 (version 2)
+  State is Standby
+    4 state changes, last state change 00:10:01
+  Virtual IP address is 172.25.12.3
+  Active virtual MAC address is 0000.0c9f.f014
+    Local virtual MAC address is 0000.0c9f.f014 (v2 default)
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 1.536 secs
+  Authentication MD5, key-string
+  Preemption enabled
+  Active router is 172.25.12.1, priority 110 (expires in 3.120 sec)
+    MAC address is 5000.0002.0000
+  Standby router is local
+  Priority 100 (default 100)
+  Group name is "hsrp-Gi0/0.20-20" (default)
+GigabitEthernet0/0.30 - Group 30 (version 2)
+  State is Active
+    1 state change, last state change 00:21:01
+  Virtual IP address is 172.25.13.3
+  Active virtual MAC address is 0000.0c9f.f01e
+    Local virtual MAC address is 0000.0c9f.f01e (v2 default)
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 2.288 secs
+  Authentication MD5, key-string
+  Preemption enabled
+  Active router is local
+  Standby router is 172.25.13.1, priority 100 (expires in 10.576 sec)
+  Priority 110 (configured 110)
+  Group name is "hsrp-Gi0/0.30-30" (default)
 ```
 
 </details>
