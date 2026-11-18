@@ -253,7 +253,7 @@ R2-dhcp-relay(config-subif)#standby 30 track 10 decrement 20
 R2-dhcp-relay(config-subif)#
 ```
 
-#### <span style="color: #38BDF8;">Configuring the same as above on the other router!</span> 
+#### <span style="color: #38BDF8;">Configuring the same as above on R3-dhcp-relay!</span> 
 
 ```text
 R2-dhcp-relay#show standby
