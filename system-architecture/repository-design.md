@@ -4,7 +4,7 @@
 
 * Repository: edster-labs/infra-sandbox- | Live Portal: https://github.io
 * Purpose: Centralized personal engineering sandbox and laboratory notebook tracking network topologies, active deployments, cross-layer OSI threat mitigations, hypervisor optimizations, and cryptographic reference ledgers.
-* Voice & Style: Written in grounded, practical first-person ("My..."), avoiding corporate fluff while framing active lab directories as an evolving work-in-progress. Everything remains in English (the global enterprise IT standard), except the technical tree header which retains 📂 Site Tree (Root Adresár).
+* Voice & Style: Written in grounded, practical first-person, avoiding buzz words, corporate or academic language when possible, while framing active lab directories as an evolving work-in-progress. Everything remains in English (the global enterprise IT standard).
 
 ## 🏗️ 2. Repository Directory Structure & Role Map
 
