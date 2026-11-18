@@ -40,7 +40,7 @@
 	* Interactive Links & Summaries: #38bdf8 (cyan accent)
 * Dark Reader Extension Protection (_includes/head-custom.html):
 	* Contains `<meta name="darkreader-lock">`.
-	* jekyll-theme-primer automatically injects _includes/head-custom.html into <head> on every page, preventing browser extensions like Dark Reader from double-inverting #0f172a into washed-out grey (#202227). (Never put <meta> tags inside .md files).
+	* jekyll-theme-primer automatically injects _includes/head-custom.html into <head> on every page, preventing browser extensions like Dark Reader from double-inverting #0f172a into washed-out grey (#202227). (Never put `<meta>` tags inside .md files).
 * Readability & Print Rules (assets/css/style.css):
 	* Intro banners use `<section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">` (or .brief-container) to prevent ultra-wide line stretching on desktop monitors.
 	* @media print inverts the dark slate UI to #FFFFFF white background with #1d70b8 corporate blueprint blue links when printing (Ctrl + P).
@@ -48,7 +48,7 @@
 ## 🧩 5. Strict Jekyll / Kramdown Markdown & HTML Rules
 
 GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is strict. Every new or edited .md file must follow these exact rules:
-1. **# H1 on Line 1:**: Every lab/guide must start on Line 1 with # Title so build_indices.py indexes it accurately.
+1. **# H1 on Line 1:** Every lab/guide must start on Line 1 with # Title so build_indices.py indexes it accurately.
 2. Collapsible Device Configs (`<details>`):
 	* Always include markdown="1" on the opening `<details>` tag (`<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">`) so Kramdown compiles fenced code blocks (```ios) inside HTML tags instead of rendering literal backticks.
 	* Always leave 1 empty blank line after `</summary> before opening a code fence, and 1 empty blank line after the closing code fence before </details>`.
