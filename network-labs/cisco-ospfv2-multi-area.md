@@ -215,6 +215,8 @@ Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 
 ### <span style="color: #F59E0B;">Enhanced Object Tracking configuration:</span>
 
+### <span style="color: #38BDF8;">Enhanced Object Tracking configuration:</span>
+
 ```text
 R2-dhcp-relay(config)#track 1 interface gigabitEthernet 0/1 line-protocol
 R2-dhcp-relay(config-track)#exit
