@@ -28,9 +28,9 @@ This lab documents the design, Variable Length Subnet Masking (VLSM) allocation,
 ## 📊 Verified VLSM Addressing Plan (`172.25.10.0/17` Block)
 
 Starting from the `172.25.10.0/17` (`255.255.128.0`) address block, subnets were allocated from largest host requirement to smallest:
-* **Users (`500` usable hosts):** Borrowed 9 host bits ($2^9 - 2 = 510$ usable IPs) → `/23`
-* **Managers (`200` usable hosts):** Borrowed 8 host bits ($2^8 - 2 = 254$ usable IPs) → `/24`
-* **Servers (`100` usable hosts):** Borrowed 7 host bits ($2^7 - 2 = 126$ usable IPs) → `/25`
+* **Users (`500` usable hosts):** Borrowed 9 host bits (2<sup>9</sup> - 2 = 510 usable IPs) → `/23`
+* **Managers (`200` usable hosts):** Borrowed 8 host bits (2<sup>8</sup> - 2 = 254 usable IPs) → `/24`
+* **Servers (`100` usable hosts):** Borrowed 7 host bits (2<sup>7</sup> - 2 = 126 usable IPs) → `/25`
 * **Backbone Transit & P2P Links:** Allocated `/29` subnets for multi-access broadcast segments and `/30` subnets for point-to-point links.
 
 | Segment / Link | OSPF Area | Subnet / CIDR | Subnet Mask | Usable Host Range | Broadcast IP | Device & Gateway Assignments |
@@ -234,7 +234,7 @@ R2-dhcp-relay(config-track)#object 2
 R2-dhcp-relay(config-track)#exit
 ```
 
-#### <span style="color: #38BDF8;">Entering the inteface submenu to Bind Track List 10 to the HSRP Groups:</span>
+#### <span style="color: #38BDF8;">Entering the interface submenu to Bind Track List 10 to the HSRP Groups:</span>
 
 ```text
 R2-dhcp-relay(config)#interface gigabitEthernet 0/0.20
@@ -712,18 +712,18 @@ In order to achieve full mesh between R2/R3 and ASW1/ASW2 without causing IP sub
 * Virtual images in EVE-NG like vIOS / IOL do not support VSS, StackWise Virtual, or vPC (those require specialized hardware ASICs or NX-OS/Catalyst 9000v images).
 * That is why using a single uplink per router (R2 → ASW1 and R3 → ASW2) bridged by LACP EtherChannel (Po1) between the switches was the cleanest workaround for an EVE-NG vIOS lab!
 
-### 🧠 Case Study: HSRP Object Tracking Design & Failure Analysis
+## 🧠 Case Study: HSRP Object Tracking Design & Failure Analysis
 
-#### How does HSRP behave during an ISP outage?
+### How does HSRP behave during an ISP outage?
 
 While tracking the OSPF default route (ip route 0.0.0.0 0.0.0.0 reachability via IP SLA or route tracking) is often considered a clean single check, it is counterproductive in this topology:
 * Single-ISP Outage: OSPF automatically converges and reroutes traffic to the surviving WAN exit (R1 or R22), so forcing an HSRP gateway failover is unnecessary.
 * Dual-ISP Outage: Both R2 and R3 lose 0.0.0.0/0 simultaneously. Triggering a priority decrement on both routers would cause pointless HSRP state churn without restoring internet reachability.
 
-#### What happens if a downlink (Gi0/0) to an access switch fails?
+### What happens if a downlink (Gi0/0) to an access switch fails?
 Because HSRP hello packets traverse the Gi0/0 trunk subinterfaces, a downlink failure isolates that router from the HSRP broadcast domain. The standby router naturally takes over once the 10-second hold timer expires, while the isolated router transitions to active on its dead segment (split-brain) regardless of its priority. Configuring object tracking on downlinks adds complexity without solving the failure mode.
 
-#### The Winning Design for This Topology
+### The Winning Design for This Topology
 Decrement HSRP priority by 20 (dropping active priority from 110 to 90, below the standby's 100) only when both core uplinks (Gi0/1 and Gi0/2) fail simultaneously using a boolean AND track list (track 10). This prevents traffic black-holing if a router loses all core connectivity while tolerating a single-uplink failure without triggering a gateway failover. (Full configuration and verification outputs are documented in the R2 and R3 sections above.)
 
 ## 🚀 Planned Lab Expansion (Phase 2)
