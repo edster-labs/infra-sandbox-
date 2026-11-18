@@ -1,5 +1,5 @@
-# Architectural Blueprint: edster-labs/infra-sandbox-
- 
+# Architectural Blueprint: 
+
 ## 1. Core Mission, Identity & Voice
 
 * Repository: edster-labs/infra-sandbox- | Live Portal: https://github.io
