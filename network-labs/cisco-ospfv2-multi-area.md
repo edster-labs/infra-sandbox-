@@ -215,6 +215,7 @@ Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 
 ### $\color{#F59E0B}{\textbf{Enhanced Object Tracking configuration:}}$
 ### $\color{#58A6FF}{\textbf{Enhanced Object Tracking:}}$
+### $\color{#38BDF8}{\textbf{Enhanced Object Tracking configuration:}}$
 
 
 ```text
