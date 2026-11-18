@@ -1,4 +1,4 @@
-#Architectural Blueprint: edster-labs/infra-sandbox-
+# Architectural Blueprint: edster-labs/infra-sandbox-
  
 ## 1. Core Mission, Identity & Voice
 
@@ -54,7 +54,7 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
 	* Always leave 1 empty blank line after </summary> before opening a code fence, and 1 empty blank line after the closing code fence before </details>.
 	* Every <details> block must have its own matching </details> closing tag before the next block starts.
 3. Images & Assets:
-	* Prefer verified GitHub attachment URLs (<img width="..." height="..." alt="..." src="https://github.com..." />) or verified repo paths under assets/images/—never use unverified relative paths.
+	* Prefer verified GitHub attachment URLs or verified repo paths under assets/images/—never use unverified relative paths.
 4. Chat Transfer Rule:
 	* When generating or editing .md files containing triple backticks (```), avoid wrapping the entire file inside outer triple backticks in chat responses (or provide a backtick-free Python script / targeted diff) so inner code fences never break copy-paste formatting.
 
