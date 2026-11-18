@@ -114,7 +114,7 @@
 <ul style="list-style-type: none; padding-left: 20px; margin-top: 4px;">
 <li style="margin-bottom: 4px; font-size: 17px;">├── <a href="./system-architecture/ci-cd-ui-ux-frameworks.md" style="font-weight: 600; font-size: 17px;">ci-cd-ui-ux-frameworks.md</a> <span style="color: #cbd5e1; font-size: 17px;">... (🔄 Real-World Case Study: Applying CI/CD and UI/UX to This Sandbox)</span></li>
 <li style="margin-bottom: 4px; font-size: 17px;">├── <a href="./system-architecture/pipeline-architecture.md" style="font-weight: 600; font-size: 17px;">pipeline-architecture.md</a> <span style="color: #cbd5e1; font-size: 17px;">... (🛠️ Autonomous Documentation Engine & CI/CD Pipeline Architecture)</span></li>
-<li style="margin-bottom: 4px; font-size: 17px;">├── <a href="./system-architecture/repository-design.md" style="font-weight: 600; font-size: 17px;">repository-design.md</a> <span style="color: #cbd5e1; font-size: 17px;">... (Repository Design)</span></li>
+<li style="margin-bottom: 4px; font-size: 17px;">├── <a href="./system-architecture/repository-design.md" style="font-weight: 600; font-size: 17px;">repository-design.md</a> <span style="color: #cbd5e1; font-size: 17px;">... (Architectural Blueprint: edster-labs/infra-sandbox-)</span></li>
 </ul>
 </details>
 
