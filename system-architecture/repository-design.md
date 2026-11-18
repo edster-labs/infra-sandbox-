@@ -48,7 +48,7 @@
 ## 🧩 5. Strict Jekyll / Kramdown Markdown & HTML Rules
 
 GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is strict. Every new or edited .md file must follow these exact rules:
-1. **# H1 on Line 1:** Every lab/guide must start on Line 1 with # Title so build_indices.py indexes it accurately.
+1. **# H1 on Line 1**: Every lab/guide must start on Line 1 with # Title so build_indices.py indexes it accurately.
 2. Collapsible Device Configs (`<details>`):
 	* Always include markdown="1" on the opening `<details>` tag (`<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">`) so Kramdown compiles fenced code blocks (```ios) inside HTML tags instead of rendering literal backticks.
 	* Always leave 1 empty blank line after `</summary> before opening a code fence, and 1 empty blank line after the closing code fence before </details>`.
