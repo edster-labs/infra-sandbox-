@@ -58,13 +58,5 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
 4. Chat Transfer Rule:
 	* When generating or editing .md files containing triple backticks (```), avoid wrapping the entire file inside outer triple backticks in chat responses (or provide a backtick-free Python script / targeted diff) so inner code fences never break copy-paste formatting.
 
-## 🚀 6. Current Status & Next Planned Milestones
 
-* Completed:
-	* network-labs/cisco-ospfv2-multi-area.md published and live (Area 0/Area 10, ABR R11, Dual-ISP Type-5 LSA failover, HSRP VIPs, LACP Po1, centralized DHCP relay, Netplan bond0 active-backup, VLSM table, and 9 collapsible IOS config blocks).
-	* build_indices.py indentation fixed and CI/CD workflow (update-toc.yml) verified green.
-	* _includes/head-custom.html deployed site-wide with <meta name="darkreader-lock">.
-* Pending / Next Up:
-	* Apply <section style="max-width: 720px !important;"> readability wrapper to root README.md / index.md intro banner and align system-architecture/README.md banner tone.
-	* Phase 2 Lab Expansion: Add dual-process OSPF redistribution (router ospf 2) on the boundary edge to cisco-ospfv2-multi-area.md (or as a dedicated follow-up case study).
   
