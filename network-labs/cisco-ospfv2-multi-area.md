@@ -145,13 +145,22 @@ router ospf 1
  ```ios
 hostname R2-dhcp-relay
 !
+redundancy
+!
+track 1 interface GigabitEthernet0/1 line-protocol
+!
+track 2 interface GigabitEthernet0/2 line-protocol
+!
+track 10 list boolean and
+ object 1
+ object 2
+!
 interface GigabitEthernet0/0
  description Trunk Uplink to ASW1
  no ip address
  no shutdown
 !
 interface GigabitEthernet0/0.20
- description Managers_LAN20 Gateway (HSRP Active)
  encapsulation dot1Q 20
  ip address 172.25.12.1 255.255.255.0
  ip helper-address 172.25.13.140
@@ -161,10 +170,10 @@ interface GigabitEthernet0/0.20
  standby 20 priority 110
  standby 20 preempt
  standby 20 authentication md5 key-string $3cr3T
+ standby 20 track 10 decrement 20
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/0.30
- description Servers_LAN30 Gateway (HSRP Standby)
  encapsulation dot1Q 30
  ip address 172.25.13.1 255.255.255.128
  ip helper-address 172.25.13.140
@@ -173,6 +182,7 @@ interface GigabitEthernet0/0.30
  standby 30 ip 172.25.13.3
  standby 30 preempt
  standby 30 authentication md5 key-string $3cr3T
+ standby 30 track 10 decrement 20
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/1
@@ -203,7 +213,41 @@ Gi0/0.20    20   110 P Active  local           172.25.12.2     172.25.12.3
 Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 ```
 
-```ios
+```text
+Enhanced Object Tracking:
+
+R2-dhcp-relay(config)#track 1 interface gigabitEthernet 0/1 line-protocol
+R2-dhcp-relay(config-track)#exit
+
+R2-dhcp-relay(config)#track 2 interface gig0/2 line-protocol
+R2-dhcp-relay(config-track)#exit
+
+Creating the track list:
+R2-dhcp-relay(config)#track 10 list boolean and
+R2-dhcp-relay(config-track)#object ?
+  <1-1000>  Tracked object number
+
+R2-dhcp-relay(config-track)#object 2
+R2-dhcp-relay(config-track)#exit
+
+Entering the inteface submenu to Bind Track List 10 to the HSRP Groups:
+R2-dhcp-relay(config)#interface gigabitEthernet 0/0.20
+R2-dhcp-relay(config-subif)#standby 20 track 10 ?
+  decrement  Priority decrement
+  shutdown   Shutdown group
+  <cr>       <cr>
+
+R2-dhcp-relay(config-subif)#standby 20 track 10 decrement 20
+
+And likewise for the second sub-interface:
+R2-dhcp-relay(config-subif)#int gi0/0.30
+R2-dhcp-relay(config-subif)#standby 30 track 10 decrement 20
+R2-dhcp-relay(config-subif)#
+
+Configuring the same on the other router! 
+```
+
+```text
 R2-dhcp-relay#show standby
 GigabitEthernet0/0.20 - Group 20 (version 2)
   State is Active
@@ -245,13 +289,22 @@ GigabitEthernet0/0.30 - Group 30 (version 2)
  ```ios
 hostname R3-dhcp-relay
 !
+redundancy
+!
+track 1 interface GigabitEthernet0/1 line-protocol
+!
+track 2 interface GigabitEthernet0/2 line-protocol
+!
+track 10 list boolean and
+ object 1
+ object 2
+!
 interface GigabitEthernet0/0
  description Trunk Uplink to ASW2
  no ip address
  no shutdown
 !
 interface GigabitEthernet0/0.20
- description Managers_LAN20 Gateway (HSRP Standby)
  encapsulation dot1Q 20
  ip address 172.25.12.2 255.255.255.0
  ip helper-address 172.25.13.140
@@ -260,10 +313,10 @@ interface GigabitEthernet0/0.20
  standby 20 ip 172.25.12.3
  standby 20 preempt
  standby 20 authentication md5 key-string $3cr3T
+ standby 20 track 10 decrement 20
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/0.30
- description Servers_LAN30 Gateway (HSRP Active)
  encapsulation dot1Q 30
  ip address 172.25.13.2 255.255.255.128
  ip helper-address 172.25.13.140
@@ -273,6 +326,7 @@ interface GigabitEthernet0/0.30
  standby 30 priority 110
  standby 30 preempt
  standby 30 authentication md5 key-string $3cr3T
+ standby 30 track 10 decrement 20
  ip ospf 1 area 0
 !
 interface GigabitEthernet0/1
@@ -335,6 +389,17 @@ GigabitEthernet0/0.30 - Group 30 (version 2)
   Standby router is 172.25.13.1, priority 100 (expires in 10.576 sec)
   Priority 110 (configured 110)
   Group name is "hsrp-Gi0/0.30-30" (default)
+```
+
+```text
+R3-dhcp-relay#show run | sec track
+track 1 interface GigabitEthernet0/1 line-protocol
+track 2 interface GigabitEthernet0/2 line-protocol
+track 10 list boolean and
+ object 1
+ object 2
+ standby 20 track 10 decrement 20
+ standby 30 track 10 decrement 20
 ```
 
 </details>
