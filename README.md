@@ -19,7 +19,7 @@
 </div>
 
 <!-- tree -->
-## 🌐 Architektúra repozitára / Technical Site Tree
+## 🌐 Technical Site Tree
 
 <div class="site-tree-container" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; line-height: 1.6; font-size: 20px; color: #e2e8f0;">
   <span style="margin: 0; font-weight: bold; font-size: 20px; display: block; color: #ffffff;">📂 Site Tree (Root Adresár)</span>
