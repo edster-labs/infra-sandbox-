@@ -213,8 +213,6 @@ Gi0/0.20    20   110 P Active  local           172.25.12.2     172.25.12.3
 Gi0/0.30    30   100 P Standby 172.25.13.2     local           172.25.13.3
 ```
 
-### <span style="color: #F59E0B;">Enhanced Object Tracking configuration:</span>
-
 ### <span style="color: #38BDF8;">Enhanced Object Tracking configuration:</span>
 
 ```text
@@ -225,7 +223,7 @@ R2-dhcp-relay(config)#track 2 interface gig0/2 line-protocol
 R2-dhcp-relay(config-track)#exit
 ```
 
-#### Creating the track list:
+#### <span style="color: #38BDF8;">Creating the track list:</span>
 
 ```text
 R2-dhcp-relay(config)#track 10 list boolean and
@@ -236,7 +234,7 @@ R2-dhcp-relay(config-track)#object 2
 R2-dhcp-relay(config-track)#exit
 ```
 
-#### Entering the inteface submenu to Bind Track List 10 to the HSRP Groups:
+#### <span style="color: #38BDF8;">Entering the inteface submenu to Bind Track List 10 to the HSRP Groups:</span>
 
 ```text
 R2-dhcp-relay(config)#interface gigabitEthernet 0/0.20
@@ -248,14 +246,14 @@ R2-dhcp-relay(config-subif)#standby 20 track 10 ?
 R2-dhcp-relay(config-subif)#standby 20 track 10 decrement 20
 ```
 
-#### And likewise for the second sub-interface:
+#### <span style="color: #38BDF8;">And likewise for the second sub-interface:</span>
 ```text
 R2-dhcp-relay(config-subif)#int gi0/0.30
 R2-dhcp-relay(config-subif)#standby 30 track 10 decrement 20
 R2-dhcp-relay(config-subif)#
 ```
 
-#### Configuring the same as above on the other router! 
+#### <span style="color: #38BDF8;">Configuring the same as above on the other router!</span> 
 
 ```text
 R2-dhcp-relay#show standby
@@ -290,7 +288,7 @@ GigabitEthernet0/0.30 - Group 30 (version 2)
   Group name is "hsrp-Gi0/0.30-30" (default)
 ```
 
-#### Verification:
+#### <span style="color: #38BDF8;">Verification:</span>
 
 ```text
 R2-dhcp-relay#show track 10
@@ -427,7 +425,7 @@ track 10 list boolean and
  standby 30 track 10 decrement 20
 ```
 
-#### Verification:
+#### <span style="color: #38BDF8;">Verification:</span>
 
 ```text
 R3-dhcp-relay#show track 10
@@ -702,7 +700,7 @@ interface GigabitEthernet0/3
 * Access Layer Topology Simplification: Removed redundant diagonal router uplinks (Gi0/3), relying on single 802.1Q trunk uplinks per router (R2 → ASW1 and R3 → ASW2) bridged cleanly by the Po1 LACP inter-switch trunk.
 * End-to-End Connectivity & DHCP Relay: Verified full DORA DHCP leases and cross-area ICMP reachability between Users_LAN10 (172.25.10.11/23), Managers_LAN20 (172.25.12.12/24), and Servers_LAN30 (172.25.13.13/25).
 
-## 📝Note:
+## 📝Notes:
 In order to achieve full mesh between R2/R3 and ASW1/ASW2 without causing IP subnet overlaps or Spanning Tree loops one way is to use so called <BR> Multi-Chassis EtherChannel (MEC) technologies—specifically StackWise Virtual or Virtual Switching System (VSS) on Catalyst switches, or vPC (Virtual Port Channel) on Nexus switches.
 
 ### How It Works in Enterprise Hardware
@@ -714,6 +712,19 @@ In order to achieve full mesh between R2/R3 and ASW1/ASW2 without causing IP sub
 * Virtual images in EVE-NG like vIOS / IOL do not support VSS, StackWise Virtual, or vPC (those require specialized hardware ASICs or NX-OS/Catalyst 9000v images).
 * That is why using a single uplink per router (R2 → ASW1 and R3 → ASW2) bridged by LACP EtherChannel (Po1) between the switches was the cleanest workaround for an EVE-NG vIOS lab!
 
+### 🧠 Case Study: HSRP Object Tracking Design & Failure Analysis
+
+#### How does HSRP behave during an ISP outage?
+
+While tracking the OSPF default route (ip route 0.0.0.0 0.0.0.0 reachability via IP SLA or route tracking) is often considered a clean single check, it is counterproductive in this topology:
+* Single-ISP Outage: OSPF automatically converges and reroutes traffic to the surviving WAN exit (R1 or R22), so forcing an HSRP gateway failover is unnecessary.
+* Dual-ISP Outage: Both R2 and R3 lose 0.0.0.0/0 simultaneously. Triggering a priority decrement on both routers would cause pointless HSRP state churn without restoring internet reachability.
+
+#### What happens if a downlink (Gi0/0) to an access switch fails?
+Because HSRP hello packets traverse the Gi0/0 trunk subinterfaces, a downlink failure isolates that router from the HSRP broadcast domain. The standby router naturally takes over once the 10-second hold timer expires, while the isolated router transitions to active on its dead segment (split-brain) regardless of its priority. Configuring object tracking on downlinks adds complexity without solving the failure mode.
+
+#### The Winning Design for This Topology
+Decrement HSRP priority by 20 (dropping active priority from 110 to 90, below the standby's 100) only when both core uplinks (Gi0/1 and Gi0/2) fail simultaneously using a boolean AND track list (track 10). This prevents traffic black-holing if a router loses all core connectivity while tolerating a single-uplink failure without triggering a gateway failover. (Full configuration and verification outputs are documented in the R2 and R3 sections above.)
 
 ## 🚀 Planned Lab Expansion (Phase 2)
 * Dual-Process OSPF Redistribution: Introduce a secondary OSPF process (router ospf 2) on the boundary edge to simulate multi-domain route redistribution and administrative distance tuning.
