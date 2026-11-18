@@ -8,7 +8,7 @@
 
 ## 🏗️ 2. Repository Directory Structure & Role Map
 
-* index.md / README.md (Root): Entry portal containing the introductory mission banner, quick repository directory links, and the master interactive Site Tree (<!-- tree -->).
+* index.md / README.md (Root): Entry portal containing the introductory mission banner, quick repository directory links, and the master interactive Site Tree (`<!-- tree -->`).
 * network-labs/ (Core Heart of Repo): Practical L2/L3 network topologies, routing protocols, switching redundancy, and full-stack case studies (e.g., cisco-ospfv2-single-area.md, cisco-ospfv2-multi-area.md, cisco-eigrp-routing-lab.md), plus interactive visualizers.
 * eve-ng-guides/ (Static Troubleshooting Vault): Operational runbooks for EVE-NG emulation, QEMU master image baking, Cisco IOL/IOSv provisioning, and Linux kernel bridge tuning. (Omit "work in progress" disclaimers here).
 * cheat-sheets/: Operational logbook of command snippets and baselines for isolated Linux DHCP/routing nodes, Netplan, and Windows Firewall PowerShell rules.
@@ -23,11 +23,11 @@
 * Trigger (update-toc.yml): Automatically runs whenever .md files are pushed to main (or via manual workflow_dispatch).
 * How build_indices.py Works:
 	1. Scans target directories (cheat-sheets, eve-ng-guides, network-labs, sec-notebook, system-architecture).
-	2. Extracts the first # H1 title from Line 1 of every .md file. (Critical: Never place images or HTML tags above Line 1 # H1 in lab files).
-	3. Updates local folder README.md indexes between **<!-- toc -->** and **<!-- endtoc -->**. (Critical: Do not put **<!-- toc -->** markers inside individual case study files).
-	4. Rebuilds the global interactive <details> accordion tree inside the root README.md / index.md between **<!-- tree -->** and **<!-- endtree -->**.
+	2. Extracts the first # H1 title from Line 1 of every .md file. (Critical: Never place images or HTML tags above Line 1 **# H1** in lab files).
+	3. Updates local folder README.md indexes between `<!-- toc -->` and `<!-- endtoc -->`. (Critical: Do not put `<!-- toc -->` markers inside individual case study files).
+	4. Rebuilds the global interactive <details> accordion tree inside the root README.md / index.md between `<!-- tree -->` and `<!-- endtree -->`.
 * Tree Rendering Rules:
-	* Folders render collapsed by default (no open boolean attribute on <details>).
+	* Folders render collapsed by default (no open boolean attribute on `<details>`).
 	* HTML strings inside build_indices.py use zero leading spaces at the left margin with \n\n breaks around block elements so Jekyll compiles clean HTML rather than escaping indented lines into grey code blocks.
 	* Monospace typography (ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace) is enforced at 20px (root) and 17px (file links).
 
@@ -39,20 +39,20 @@
 	* Primary Body Text: #cbd5e1 / #e2e8f0
 	* Interactive Links & Summaries: #38bdf8 (cyan accent)
 * Dark Reader Extension Protection (_includes/head-custom.html):
-	* Contains <meta name="darkreader-lock">.
+	* Contains `<meta name="darkreader-lock">`.
 	* jekyll-theme-primer automatically injects _includes/head-custom.html into <head> on every page, preventing browser extensions like Dark Reader from double-inverting #0f172a into washed-out grey (#202227). (Never put <meta> tags inside .md files).
 * Readability & Print Rules (assets/css/style.css):
-	* Intro banners use **<section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">** (or .brief-container) to prevent ultra-wide line stretching on desktop monitors.
+	* Intro banners use `<section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">` (or .brief-container) to prevent ultra-wide line stretching on desktop monitors.
 	* @media print inverts the dark slate UI to #FFFFFF white background with #1d70b8 corporate blueprint blue links when printing (Ctrl + P).
 
 ## 🧩 5. Strict Jekyll / Kramdown Markdown & HTML Rules
 
 GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is strict. Every new or edited .md file must follow these exact rules:
 1. **# H1 on Line 1:**: Every lab/guide must start on Line 1 with # Title so build_indices.py indexes it accurately.
-2. Collapsible Device Configs (<details>):
-	* Always include markdown="1" on the opening <details> tag **(<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">)** so Kramdown compiles fenced code blocks (```ios) inside HTML tags instead of rendering literal backticks.
-	* Always leave 1 empty blank line after </summary> before opening a code fence, and 1 empty blank line after the closing code fence before </details>.
-	* Every <details> block must have its own matching </details> closing tag before the next block starts.
+2. Collapsible Device Configs (`<details>`):
+	* Always include markdown="1" on the opening <details> tag (`<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">`) so Kramdown compiles fenced code blocks (```ios) inside HTML tags instead of rendering literal backticks.
+	* Always leave 1 empty blank line after `</summary> before opening a code fence, and 1 empty blank line after the closing code fence before </details>`.
+	* Every `<details> block must have its own matching </details>` closing tag before the next block starts.
 3. Images & Assets:
 	* Prefer verified GitHub attachment URLs or verified repo paths under assets/images/—never use unverified relative paths.
 4. Chat Transfer Rule:
