@@ -6,9 +6,7 @@ Welcome to the systems architecture handbook. This directory documents the autom
 
 <!-- toc -->
 ## 📁 Automatically Indexed Modules
-
 * 📄 **[🔄 Real-World Case Study: Applying CI/CD and UI/UX to This Sandbox](./ci-cd-ui-ux-frameworks.md)**
 * 📄 **[🛠️ Autonomous Documentation Engine & CI/CD Pipeline Architecture](./pipeline-architecture.md)**
 * 📄 **[🧭 Architectural Blueprint](./repository-design.md)**
-  
 <!-- endtoc -->
