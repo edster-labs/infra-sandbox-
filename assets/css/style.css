@@ -332,9 +332,19 @@ pre code {
 /* ========================================================================
     Keep prose and lists at a comfortable reading measure on wide monitors
    ======================================================================== */
+
 .markdown-body > p,
 .markdown-body > ul,
 .markdown-body > ol {
+  max-width: 780px;
+}
+
+/* ================================================================================
+    Cap standalone code blocks to match reading width without breaking wide configs
+   ================================================================================ */
+
+.markdown-body > div.highlighter-rouge,
+.markdown-body > pre {
   max-width: 780px;
 }
 
