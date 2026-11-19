@@ -60,6 +60,7 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
     * .markdown-body > p, ul, ol is capped at max-width: 780px in assets/css/style.css, to keep prose and lists at a comfortable reading measure on wide monitors.
 
  <div style="max-width: 420px; margin: 16px auto;">
+	 
 ```css
 .markdown-body > p,
 .markdown-body > ul,
@@ -67,6 +68,7 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
   max-width: 780px;
 }
 ```
+
 </div>
 
 5. Colored Text & Headings:
