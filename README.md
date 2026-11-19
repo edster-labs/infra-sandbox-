@@ -14,7 +14,7 @@
     <li style="margin-bottom: 6px;">🏃 <strong>EVE-NG Guides:</strong> <a href="./eve-ng-guides/">Go to Deployment Documentation</a></li>
     <li style="margin-bottom: 6px;">💻 <strong>Network Labs:</strong> <a href="./network-labs/">Go to Lab Topologies</a></li>
     <li style="margin-bottom: 6px;">🛡️ <strong>Security Notebook:</strong> <a href="./sec-notebook/">Go to Security Matrix</a></li>
-    <li style="margin-bottom: 6px;">🧭 <strong>Site Design:</strong> <a href="./system-architecture/repository-design.html">Go to System Architecture</a></li>
+    <li style="margin-bottom: 6px;">🧭 <strong>Site Design:</strong> [Go to System Architecture](./system-architecture/repository-design.md)</li> 
   </ul>
 </div>
 
