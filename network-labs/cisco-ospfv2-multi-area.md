@@ -1,4 +1,4 @@
-# Case Study: OSPFv2 Multi-Area Enterprise Topology & High-Availability Core
+# Case Study: Multi-Area OSPFv2, HSRP Redundancy & Dual-ISP Failover
 
 <section style="max-width: 720px !important; margin: 16px 0 28px 0 !important;">
 
