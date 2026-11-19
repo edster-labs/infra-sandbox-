@@ -1,6 +1,6 @@
-/* ==========================================================================
+/* ============================================================
    🌌 GLOBAL DARK THEME & ACCESSIBILITY ARCHITECTURE OVERRIDES
-   ========================================================================== */
+   ============================================================ */
 
 /* 1. Global Document Root Styles: Flip the primary background and body text */
 
@@ -45,9 +45,9 @@ a:hover, a:active {
     text-decoration: underline !important;
 }
 
-/* ==========================================================================
+/* ==========================================================
    📱 MOBILE REFRESH: GLOBAL TOP THEME NAVBAR BUTTON CONTROLS
-   ========================================================================== */
+   =========================================================== */
 
 /* Target the theme's native auto-generated top link banner */
 header, .site-header, #project_title, .project-name {
@@ -67,9 +67,9 @@ header a:hover {
     color: #38bdf8 !important;
 }
 
-/* ==========================================================================
+/* ================================================================
    📊 PREMIUM UNIFIED FLUID DATA MATRIX (DESKTOP & MOBILE PERFECT)
-   ========================================================================== */
+   ================================================================ */
 
 table {
     width: 100% !important;
@@ -153,9 +153,9 @@ table th:first-child, table td:first-child{
     }
 }
 
-/* ==========================================================================
+/* ==============================================================
    🖼 RESPONSIVE IMAGE ARCHITECTURE: TOPOLOGY DRAWING CONSTRAINTS
-   ========================================================================== */
+   ============================================================== */
 
 /* Keep images responsive on desktop while maintaining native aspect ratio */
 img {
@@ -175,9 +175,9 @@ img {
     }
 }
 
-/* ==========================================================================
+/* ========================================================
    📱 UX BREATHING ROOM: MOBILE LIST & SCROLL TARGET TUNING
-   ========================================================================== */
+   ======================================================== */
 
 li {
     margin-bottom: 12px !important;
@@ -196,9 +196,9 @@ li a {
 }
 
 
-/* ==========================================================================
+/* ===================================================================
     🖨 HIGH-LEGIBILITY BLUE & WHITE INVERSION PRINT MODULE [DISABLED]
-   ========================================================================== */
+   =================================================================== */
 
 /* 
 @media print {
@@ -257,9 +257,9 @@ li a {
 }
 */
 
-/* ==========================================================================
+/* ==================================================
    Specifically bump up the file/site tree font size
-   ========================================================================== */
+   ================================================== */
 
 /* This forces all preformatted text blocks to scale up, ignoring theme defaults */
 div.markdown-body pre, 
@@ -329,10 +329,18 @@ pre code {
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
 }
 
+/* ========================================================================
+    Keep prose and lists at a comfortable reading measure on wide monitors
+   ======================================================================== */
+.markdown-body > p,
+.markdown-body > ul,
+.markdown-body > ol {
+  max-width: 780px;
+}
 
-/* ==========================================
+/* =====================================================
    FORCE PRINTER AND PDF GRAPHICS TO BULK UP [DISABLED]
-   ========================================== */
+   ===================================================== */
 /*
 @media print {
     .markdown-body pre,
@@ -360,9 +368,9 @@ pre code {
 }
 */
 
-/* ==========================================================================
+/* ============================================
    🌐 SITE TREE INTERACTIVE COMPONENT STYLING
-   ========================================================================== */
+   ============================================ */
 
 /* Maintain the custom cursor and padding spacing for the folder block rows */
 .site-tree-container details {
@@ -391,9 +399,9 @@ pre code {
     line-height: 1.6 !important;
     display: block !important;
 }
-/* ==========================================================================
+/* ===================================================
    📖 READABILITY MODULE: ENGINEERING BRIEF LAYOUTS
-   ========================================================================== */
+   =================================================== */
 
 .brief-container {
     max-width: 720px !important;       /* Optimal line length prevents horizontal eye straining */
