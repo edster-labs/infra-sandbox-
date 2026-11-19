@@ -68,10 +68,8 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
 ```
 
 5. Colored Text & Headings:
-   * GitHub Pages (Kramdown) does not load MathJax/KaTeX by default, so LaTeX color syntax `($\color{...}$)` renders as raw text. <br>
-   Always use inline HTML `<span>` tags instead (e.g., ### `<span style="color: #F59E0B;">Subheading</span>`).
-It will show as:
-### <span style="color: #F59E0B;">Subheading</span>
+   * GitHub Pages (Kramdown) does not load MathJax/KaTeX by default, so LaTeX color syntax `($\color{...}$)` renders as raw text. Always use inline HTML `<span>` tags instead (e.g., ### `<span style="color: #F59E0B;">Subheading</span>`). It will show as:
+     ### <span style="color: #F59E0B;">Subheading</span>
  
   
   
