@@ -25,7 +25,7 @@
 	1. Scans target directories (cheat-sheets, eve-ng-guides, network-labs, sec-notebook, system-architecture).
 	2. Extracts the first # H1 title from Line 1 of every .md file. (Critical: Never place images or HTML tags above Line 1 **# H1** in lab files).
 	3. Updates local folder README.md indexes between `<!-- toc -->` and `<!-- endtoc -->`. (Critical: Do not put `<!-- toc -->` markers inside individual case study files).
-	4. Rebuilds the global interactive <details> accordion tree inside the root README.md / index.md between `<!-- tree -->` and `<!-- endtree -->`.
+	4. Rebuilds the global interactive <details> accordion tree inside the root README.md / index.md between `<!-- tree -->` and `<!-- endtree -->` .
 * Tree Rendering Rules:
 	* Folders render collapsed by default (no open boolean attribute on `<details>`).
 	* HTML strings inside build_indices.py use zero leading spaces at the left margin with \n\n breaks around block elements so Jekyll compiles clean HTML rather than escaping indented lines into grey code blocks.
@@ -51,17 +51,16 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
 1. **# H1 on Line 1**: Every lab/guide must start on Line 1 with # Title so build_indices.py indexes it accurately.
 2. Collapsible Device Configs (`<details>`):
 	* Always include markdown="1" on the opening `<details>` tag (`<details markdown="1" style="cursor: pointer; margin-bottom: 10px;">`) so Kramdown compiles fenced code blocks (```ios) inside HTML tags instead of rendering literal backticks.
-	* Always leave 1 empty blank line after `</summary> before opening a code fence, and 1 empty blank line after the closing code fence before </details>`.
-	* Every `<details> block must have its own matching </details>` closing tag before the next block starts.
+	* Always leave 1 empty blank line after `</summary>` before opening a code fence, and 1 empty blank line after the closing code fence before `</details>` .
+	* Every `<details>` block must have its own matching `</details>` closing tag before the next block starts.
 3. Images & Assets:
 	* Prefer verified GitHub attachment URLs or verified repo paths under assets/images/—never use unverified relative paths.
 4. Chat Transfer Rule:
 	* When generating or editing .md files containing triple backticks (```), avoid wrapping the entire file inside outer triple backticks in chat responses (or provide a backtick-free Python script / targeted diff) so inner code fences never break copy-paste formatting.
     * .markdown-body > p, ul, ol is capped at max-width: 780px in assets/css/style.css, to keep prose and lists at a comfortable reading measure on wide monitors.
 5. Colored Text & Headings:
-   * GitHub Pages (Kramdown) does not load MathJax/KaTeX by default, so LaTeX color syntax `($\color{...}$)` renders as raw text. Always use inline HTML `<span>` tags instead (e.g., `### <span style="color: #F59E0B;">Subheading</span>`).
+   * GitHub Pages (Kramdown) does not load MathJax/KaTeX by default, so LaTeX color syntax `($\color{...}$)` renders as raw text. Always use inline HTML `<span>` tags instead (e.g., ### <span style="color: #F59E0B;">Subheading</span>).
   
-     ---
-
+   
 
   
