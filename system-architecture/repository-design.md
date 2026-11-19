@@ -58,14 +58,6 @@ GitHub's preview parser is lenient, whereas GitHub Pages' Kramdown parser is str
 4. Chat Transfer Rule:
 	* When generating or editing .md files containing triple backticks (```), avoid wrapping the entire file inside outer triple backticks in chat responses (or provide a backtick-free Python script / targeted diff) so inner code fences never break copy-paste formatting.
     * .markdown-body > p, ul, ol is capped at max-width: 780px in assets/css/style.css, to keep prose and lists at a comfortable reading measure on wide monitors.
-```text
-.markdown-body > p,
-.markdown-body > ul,
-.markdown-body > ol {
-  max-width: 780px;
-}
-```
-
 5. Colored Text & Headings:
    * GitHub Pages (Kramdown) does not load MathJax/KaTeX by default, so LaTeX color syntax `($\color{...}$)` renders as raw text. Always use inline HTML `<span>` tags instead (e.g., `### <span style="color: #F59E0B;">Subheading</span>`).
   
