@@ -348,6 +348,13 @@ pre code {
   max-width: 780px;
 }
 
+/* ================================================================================
+     Allow paragraphs containing screenshots/diagrams to expand to full width 
+   =============================================================================== */
+.markdown-body > p:has(img) {
+  max-width: none;
+}
+
 /* =====================================================
    FORCE PRINTER AND PDF GRAPHICS TO BULK UP [DISABLED]
    ===================================================== */
